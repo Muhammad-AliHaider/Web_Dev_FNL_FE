@@ -11,12 +11,14 @@ import {
   MDBInput
 }
 from 'mdb-react-ui-kit';
+
 import { Link } from "react-router-dom";
 import {Button} from '@material-ui/core';
 import Radio from "../../components/RadioButton/RadioButtonGender";
 import RadioR from "../../components/RadioButton/RadioButtonRole";
 import '../SignUp/SignUp.css';
 import ImageUpload from '../../components/ImageUpload/ImageUpload'
+import {getUrl} from '../../components/ImageUpload/ImageUpload'
 
 function S() {
   return (
@@ -39,6 +41,7 @@ function S() {
 
               <h5 className="fw-normal my-4 pb-3" style={{letterSpacing: '1px'}}>Create A New Account</h5>
               <div id="" style={{overflowY: 'scroll', height: '660px'}}>
+
 
                 <ImageUpload></ImageUpload>
                 <MDBInput wrapperClass='mb-4' label='Username' id='formControlLg' type='text' size="lg"/>
