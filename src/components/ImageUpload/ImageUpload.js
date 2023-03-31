@@ -5,7 +5,7 @@ import ImageIcon from "../ImageIcon/ImageIcon";
 
 var dr = 'https://firebasestorage.googleapis.com/v0/b/forget-normal-life.appspot.com/o/default-avatar.png?alt=media&token=92a92dbe-097e-463e-a96b-ff6d814a0b28'
 
-function App() {
+function ImageUpload({ onProfilePicChange }) {
   const [progress, setProgress] = useState(0);
   const [downloadURL, setDownloadURL] = useState(dr);
 
@@ -16,8 +16,10 @@ function App() {
   };
 
   const uploadFiles = (file) => {
-    //
-    if (!file) return;
+    if (!file) {
+      console.log(file)
+      return;
+    }
     const storageRef = ref(storage, `files/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -34,13 +36,14 @@ function App() {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           console.log("File available at", url);
           setDownloadURL(url);
+          onProfilePicChange(url); // pass the image URL to the parent component
         });
       }
     );
   };
 
   return (
-    <div className="App">
+    <div className="ImageUpload">
       <form onSubmit={formHandler}>
         <ImageIcon props={downloadURL} />
         <p wrapperClass='mb-4' id='formControlLg' size="lg"> Upload Profile Picture </p>
@@ -53,4 +56,4 @@ function App() {
   );
 }
 
-export default App;
+export default ImageUpload;
