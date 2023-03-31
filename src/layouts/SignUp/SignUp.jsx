@@ -37,9 +37,33 @@ function S() {
   const [securityCode, setSecurityCode] = useState("");
   const [Role, setRole] = useState("");
   const [ProfilePic, setProfilePic] = useState("");
+  const [error, setError] = useState("");
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+
+    if (!UserName || !Name || !Email || !Password || !Gender || !Age || !cardNumber || !expirationDate || !securityCode || !Role ) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(Email)) {
+      setError("Invalid email address format.");
+      return;
+    }
+
+    if (!/^[0-9]{3,4}$/.test(securityCode)) {
+      setError("Invalid security code format.");
+      return;
+    }
+
+    if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expirationDate)) {
+      setError("Invalid expiration date format.");
+      return;
+    }
+
+
+
     // call API with the input valuesY
     fetch('http://127.0.0.1:3000/auth/signup', {
       method: 'POST',
@@ -108,19 +132,21 @@ function S() {
 
 
                 <ImageUpload onProfilePicChange={handleProfilePicChange} />
-                <MDBInput wrapperClass='mb-4' label='Username' id='formControlLg' type='text' size="lg" value={UserName} onChange={(e) => setUserName(e.target.value)}/>
-                <MDBInput wrapperClass='mb-4' label='Name' id='formControlLg' type='text' size="lg" value={Name} onChange={(e) => setName(e.target.value)}/>
-                <MDBInput wrapperClass='mb-4' label='Email address' id='formControlLg' type='email' size="lg" value={Email} onChange={(e) => setEmail(e.target.value)}/>
-                <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg" value={Password} onChange={(e) => setPassword(e.target.value)}/>
+                <MDBInput wrapperClass='mb-4' label='Username*' id='formControlLg' type='text' size="lg" value={UserName} onChange={(e) => setUserName(e.target.value)}/>
+                <MDBInput wrapperClass='mb-4' label='Name*' id='formControlLg' type='text' size="lg" value={Name} onChange={(e) => setName(e.target.value)}/>
+                <MDBInput wrapperClass='mb-4' label='Email address*' id='formControlLg' type='email' size="lg" value={Email} onChange={(e) => setEmail(e.target.value)}/>
+                <MDBInput wrapperClass='mb-4' label='Password*' id='formControlLg' type='password' size="lg" value={Password} onChange={(e) => setPassword(e.target.value)}/>
                 <Radio onChange={handleGenderChange} />
-                <MDBInput wrapperClass='mb-4' label='Age' id='formControlLg' type='text' size="lg" value={Age} onChange={(e) => setAge(e.target.value)}/>
+                <MDBInput wrapperClass='mb-4' label='Age*' id='formControlLg' type='text' size="lg" value={Age} onChange={(e) => setAge(e.target.value)}/>
                 <MDBInput wrapperClass='mb-4' label='Bio' id='formControlLg' type='text' size="lg"value={BIO} onChange={(e) => setBio(e.target.value)}/>
-                <MDBInput wrapperClass='mb-4' label='Card Number' id='formControlLg' type='text' size="lg" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)}/>
-                <MDBInput wrapperClass='mb-4' label='Expiration Date' id='formControlLg' type='text' size="lg" value={expirationDate} onChange={(e) => setExpirationDate(e.target.value)}/>
-                <MDBInput wrapperClass='mb-4' label='Security Code' id='formControlLg' type='text' size="lg" value={securityCode} onChange={(e) => setSecurityCode(e.target.value)}/>
+                <MDBInput wrapperClass='mb-4' label='Card Number*' id='formControlLg' type='text' size="lg" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)}/>
+                <MDBInput wrapperClass='mb-4' label='Expiration Date*' id='formControlLg' type='text' size="lg" value={expirationDate} onChange={(e) => setExpirationDate(e.target.value)}/>
+                <MDBInput wrapperClass='mb-4' label='Security Code*' id='formControlLg' type='text' size="lg" value={securityCode} onChange={(e) => setSecurityCode(e.target.value)}/>
                 <RadioR  onChange={handleRoleChange}></RadioR>
 
+                {error && <p style={{ color: 'red' }}>{error}</p>}
                 <Link to="/signin"><Button type='submit' color='dark' variant="contained" style={{margin:'8px 0'}} fullWidth onClick={handleFormSubmit}>SignUp</Button></Link>
+                
              </div>
             </MDBCardBody>
           </MDBCol>

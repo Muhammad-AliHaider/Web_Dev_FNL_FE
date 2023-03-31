@@ -9,7 +9,7 @@ export default function Radio({ onChange }) {
   return (
     <div style={{ marginBottom: '40px' }}>
       <p wrapperClass='mb-4' id='formControlLg' size='lg'>
-        Gender
+        Gender*
       </p>
       <MDBRadio
         name='inlineRadio'
