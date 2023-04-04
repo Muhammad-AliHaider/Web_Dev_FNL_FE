@@ -20,6 +20,9 @@ import Icons from "views/Icons.js";
 import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
 import UserProfile from "views/UserProfile.js";
+import Courses_Offered from "views/Course_Offered.js";
+import Course from "views/Courses.js";
+
 
 var routes = [
   {
@@ -44,6 +47,22 @@ var routes = [
     layout: "/student"
   },
   {
+    path: "/Course_Offered",
+    name: "Course Offered",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Courses_Offered,
+    layout: "/student"
+  },
+  {
+    path: "/Course",
+    name: "Course",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Course,
+    layout: "/student"
+  },
+  {
     path: "/user-profile",
     name: "User Profile",
     icon: "tim-icons icon-single-02",
@@ -57,6 +76,7 @@ var routes = [
     component: TableList,
     layout: "/student"
   },
+
   {
     path: "/tables",
     name: "BILLING INFO",

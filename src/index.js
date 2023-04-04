@@ -20,8 +20,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import StudentLayout from "layouts/Student/Student.js";
-import SignInLayout from 'layouts/SignIn/SignIn.jsx';
-import SignUpLayout from 'layouts/SignUp/SignUp.jsx';
+import SignInLayout from 'layouts/SignIn_Haider/SignIn.jsx';
+import SignUpLayout from 'layouts/SignUp_Haider/SignUp.jsx';
 
 
 
@@ -30,6 +30,7 @@ import "assets/scss/black-dashboard-react.scss";
 import "assets/demo/demo.css";
 import "assets/css/nucleo-icons.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+
 
 import ThemeContextWrapper from "./components/ThemeWrapper/ThemeWrapper";
 import BackgroundColorWrapper from "./components/BackgroundColorWrapper/BackgroundColorWrapper";
@@ -44,6 +45,7 @@ root.render(
           <Route path="/student" render={(props) => <StudentLayout {...props} />} />
           <Route path="/signin" render={(props) => <SignInLayout {...props} />} />
           <Route path="/signup" render={(props) => <SignUpLayout {...props} />} />
+          {/* <Route path="/Courses" render={(props)=>  <Courses {...props}/>} /> */}
           <Redirect from="/" to="/signin" />
         </Switch>
       </BrowserRouter>

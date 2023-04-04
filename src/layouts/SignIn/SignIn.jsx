@@ -22,7 +22,10 @@ function S() {
       return;
     }
 
+    
     try {
+
+
       const response = await fetch('http://127.0.0.1:3000/auth/signin', {
         method: 'POST',
         headers: {
@@ -30,7 +33,9 @@ function S() {
         },
         body: JSON.stringify({ UserName, Password })
       });
+      
 
+      
       const data = await response.json();
       if (response.ok) {
         document.cookie = `token=${data.token}`;
