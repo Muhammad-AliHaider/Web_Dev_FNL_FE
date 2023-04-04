@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChangeEvent,useState } from 'react';
+import { useState } from 'react';
 import logo from '../../assets/logo.png';
 import {
   MDBContainer,
@@ -8,7 +8,6 @@ import {
   MDBInput,
   MDBRow,
   MDBCol,
-  MDBCheckbox,
 }
 from 'mdb-react-ui-kit';
 
@@ -27,6 +26,7 @@ function App() {
   const [name , setName] = useState('');
   const [gender, setGender] = useState('');
   const [Bio, setBio] = useState('');
+  
   
   function handleButtonClick(event) {
     event.preventDefault();
@@ -48,7 +48,7 @@ function App() {
       return;
     }
 
-    fetch("http://localhost:5000/auth/signup", {
+    fetch("http://localhost:3000/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +81,7 @@ function App() {
 
     
   }
-
+  
 
   return (
     <MDBContainer fluid  className='my-5'>
@@ -89,7 +89,7 @@ function App() {
       <MDBRow className='g-0 align-items-center'>
         <MDBCol col='6'>
 
-          <MDBCard className='my-5 cascading-right' style={{background: 'hsla(0, 0%, 100%, 0.55)',  backdropFilter: 'blur(30px)'}}>
+          <MDBCard className='my-5 cascading-right' >
             <MDBCardBody className='p-5 text-center'>
 
               <h2 className="fw-bold mb-5">Sign up now</h2>
@@ -120,11 +120,11 @@ function App() {
                       aria-labelledby="demo-row-radio-buttons-group-label"
                       name="row-radio-buttons-group"
                     >
-                      <FormControlLabel value="female" control={<Radio value={"Female"} onChange={(e) => setGender(e.target.value)}  />} label="Female" />
-                      <FormControlLabel value="male" control={<Radio value={"Male"} onChange={(e) => setGender(e.target.value)}/>} label="Male" />
-                      <FormControlLabel value="male" control={<Radio value={"Other"} onChange={(e) => setGender(e.target.value)}/>} label="Other" />
+                      <FormControlLabel value="female" control={<Radio color = "secondary" value={"Female"} onChange={(e) => setGender(e.target.value)}  />} label="Female" />
+                      <FormControlLabel value="male" control={<Radio color = "secondary" value={"Male"} onChange={(e) => setGender(e.target.value)}/>} label="Male" />
+                      <FormControlLabel value="male" control={<Radio color = "secondary" value={"Other"} onChange={(e) => setGender(e.target.value)}/>} label="Other" />
                     </RadioGroup>
-                    <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
+                    <FormLabel color = "secondary" id="demo-row-radio-buttons-group-label">Gender</FormLabel>
                 </FormControl>
               </MDBCol>
               </MDBRow>
@@ -138,15 +138,15 @@ function App() {
                       aria-labelledby="demo-row-radio-buttons-group-label"
                       name="row-radio-buttons-group"
                     >
-                      <FormControlLabel value="Student" control={<Radio value={1} onChange={(e) => setRole(e.target.value)}  />} label="Student" />
-                      <FormControlLabel value="Teacher" control={<Radio value={2} onChange={(e) => setRole(e.target.value)}/>} label="Teacher" />
+                      <FormControlLabel value="Student" control={<Radio color = "secondary" value={1} onChange={(e) => setRole(e.target.value)}  />} label="Student" />
+                      <FormControlLabel value="Teacher" control={<Radio  color = "secondary" value={2} onChange={(e) => setRole(e.target.value)}/>} label="Teacher" />
+
+                      
                     </RadioGroup>
-                    <FormLabel id="demo-row-radio-buttons-group-label">Role*</FormLabel>
+                    <FormLabel color = "secondary" id="demo-row-radio-buttons-group-label">Role*</FormLabel>
                 </FormControl>
 
-              <div className='d-flex justify-content-center mb-4'>
-                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
-              </div>
+                
 
               <p>{(()=>{
                 if(error){
@@ -154,7 +154,7 @@ function App() {
                 }
               })()}</p>
 
-              <Button variant='contained' className='w-100 mb-4' onClick={handleButtonClick}>Sign Up</Button>
+              <Button variant='text' style = {{color : "purple"  , outlineColor : "purple" } } className='w-100 mb-4' onClick={handleButtonClick}>Sign Up</Button>
 
 
             </MDBCardBody>

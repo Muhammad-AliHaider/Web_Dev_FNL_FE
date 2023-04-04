@@ -3,7 +3,6 @@ import { Button } from '@material-ui/core';
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import logo from '../../assets/logo.png';
 import axios from 'axios';
 
 function S() {
@@ -55,7 +54,7 @@ function S() {
       <MDBCard>
         <MDBRow className="g-0">
           <MDBCol md="6">
-            <MDBCardImage src={logo} className="rounded-start w-100" />
+            <MDBCardImage src="https://i.ibb.co/n7sjvJ9/programming-languages-shutterstock-1680857539.png" className="rounded-start w-100" />
           </MDBCol>
           <MDBCol md="6">
             <MDBCardBody className='d-flex flex-column'>
