@@ -1,16 +1,14 @@
 import React from 'react';
 import { ChangeEvent,useState } from 'react';
+import logo from '../../assets/logo.png';
 import {
-  MDBBtn,
   MDBContainer,
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBIcon,
   MDBRow,
   MDBCol,
   MDBCheckbox,
-  MDBRadio
 }
 from 'mdb-react-ui-kit';
 
@@ -35,7 +33,7 @@ function App() {
 
     setError('');
 
-    if(!email || !password || !userName || !name || !age ){
+    if(!email || !password || !userName || !name || !age  || !role){
       setError('Please fill in all required fields.');
       return;
     }
@@ -50,7 +48,36 @@ function App() {
       return;
     }
 
-    console.log("Gender : " , gender)
+    fetch("http://localhost:5000/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          UserName: userName,
+          Password: password,
+          Email: email,
+          Name: name,
+          Age: age,
+          Gender: gender,
+          Bio: Bio,
+          Role: role
+        })
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if(data.error){
+          setError(data.error);
+        }
+        else{
+          console.log("User registered successfully");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      }
+    );
 
     
   }
@@ -95,11 +122,27 @@ function App() {
                     >
                       <FormControlLabel value="female" control={<Radio value={"Female"} onChange={(e) => setGender(e.target.value)}  />} label="Female" />
                       <FormControlLabel value="male" control={<Radio value={"Male"} onChange={(e) => setGender(e.target.value)}/>} label="Male" />
+                      <FormControlLabel value="male" control={<Radio value={"Other"} onChange={(e) => setGender(e.target.value)}/>} label="Other" />
                     </RadioGroup>
                     <FormLabel id="demo-row-radio-buttons-group-label">Gender</FormLabel>
                 </FormControl>
               </MDBCol>
               </MDBRow>
+
+              <MDBInput   label='Bio' value={Bio} onChange={(e)=> setBio(e.target.value)  } id='form7' type='text'/>
+
+              <FormControl>
+                    
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-row-radio-buttons-group-label"
+                      name="row-radio-buttons-group"
+                    >
+                      <FormControlLabel value="Student" control={<Radio value={1} onChange={(e) => setRole(e.target.value)}  />} label="Student" />
+                      <FormControlLabel value="Teacher" control={<Radio value={2} onChange={(e) => setRole(e.target.value)}/>} label="Teacher" />
+                    </RadioGroup>
+                    <FormLabel id="demo-row-radio-buttons-group-label">Role*</FormLabel>
+                </FormControl>
 
               <div className='d-flex justify-content-center mb-4'>
                 <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
@@ -119,8 +162,8 @@ function App() {
         </MDBCol>
 
         <MDBCol col='6'>
-          <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" class="w-100 rounded-4 shadow-4"
-            alt="" fluid/>
+          <img src={logo} class="w-100 rounded-4 shadow-4"
+            alt="FNL" fluid/>
         </MDBCol>
 
       </MDBRow>
