@@ -32,9 +32,6 @@ function S() {
   const [Gender, setGender] = useState("");
   const [Age, setAge] = useState("");
   const [BIO, setBio] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [expirationDate, setExpirationDate] = useState("");
-  const [securityCode, setSecurityCode] = useState("");
   const [Role, setRole] = useState("");
   const [ProfilePic, setProfilePic] = useState("");
   const [error, setError] = useState("");
@@ -42,7 +39,7 @@ function S() {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    if (!UserName || !Name || !Email || !Password || !Gender || !Age || !cardNumber || !expirationDate || !securityCode || !Role ) {
+    if (!UserName || !Name || !Email || !Password || !Gender || !Age || !Role ) {
       setError("Please fill in all required fields.");
       return;
     }
@@ -52,15 +49,6 @@ function S() {
       return;
     }
 
-    if (!/^[0-9]{3,4}$/.test(securityCode)) {
-      setError("Invalid security code format.");
-      return;
-    }
-
-    if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expirationDate)) {
-      setError("Invalid expiration date format.");
-      return;
-    }
 
 
 
@@ -75,9 +63,6 @@ function S() {
         Gender,
         Age,
         BIO,
-        cardNumber,
-        expirationDate,
-        securityCode,
         Role,
         ProfilePic
       }),
@@ -131,7 +116,7 @@ function S() {
               <div id="" style={{overflowY: 'scroll', height: '660px'}}>
 
 
-                <ImageUpload onProfilePicChange={handleProfilePicChange} />
+                <ImageUpload onProfilePicChange={handleProfilePicChange} defaultPicUrl={'https://firebasestorage.googleapis.com/v0/b/forget-normal-life.appspot.com/o/default-avatar.png?alt=media&token=92a92dbe-097e-463e-a96b-ff6d814a0b28'}/>
                 <MDBInput wrapperClass='mb-4' label='Username*' id='formControlLg' type='text' size="lg" value={UserName} onChange={(e) => setUserName(e.target.value)}/>
                 <MDBInput wrapperClass='mb-4' label='Name*' id='formControlLg' type='text' size="lg" value={Name} onChange={(e) => setName(e.target.value)}/>
                 <MDBInput wrapperClass='mb-4' label='Email address*' id='formControlLg' type='email' size="lg" value={Email} onChange={(e) => setEmail(e.target.value)}/>
@@ -139,9 +124,6 @@ function S() {
                 <Radio onChange={handleGenderChange} />
                 <MDBInput wrapperClass='mb-4' label='Age*' id='formControlLg' type='text' size="lg" value={Age} onChange={(e) => setAge(e.target.value)}/>
                 <MDBInput wrapperClass='mb-4' label='Bio' id='formControlLg' type='text' size="lg"value={BIO} onChange={(e) => setBio(e.target.value)}/>
-                <MDBInput wrapperClass='mb-4' label='Card Number*' id='formControlLg' type='text' size="lg" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)}/>
-                <MDBInput wrapperClass='mb-4' label='Expiration Date*' id='formControlLg' type='text' size="lg" value={expirationDate} onChange={(e) => setExpirationDate(e.target.value)}/>
-                <MDBInput wrapperClass='mb-4' label='Security Code*' id='formControlLg' type='text' size="lg" value={securityCode} onChange={(e) => setSecurityCode(e.target.value)}/>
                 <RadioR  onChange={handleRoleChange}></RadioR>
 
                 {error && <p style={{ color: 'red' }}>{error}</p>}

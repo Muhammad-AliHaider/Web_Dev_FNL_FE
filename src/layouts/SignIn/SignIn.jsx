@@ -3,7 +3,6 @@ import { Button } from '@material-ui/core';
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 
 function S() {
   const [UserName, setUserName] = useState('');
@@ -33,7 +32,7 @@ function S() {
 
       const data = await response.json();
       if (response.ok) {
-        document.cookie = `token=${data.token}`;
+        localStorage.setItem('authToken', data.data.token);
         history.push('/student/dashboard');
       } else {
         setError('Invalid username or password');

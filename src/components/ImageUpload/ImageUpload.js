@@ -3,11 +3,11 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../contexts/Firebase";
 import ImageIcon from "../ImageIcon/ImageIcon";
 
-var dr = 'https://firebasestorage.googleapis.com/v0/b/forget-normal-life.appspot.com/o/default-avatar.png?alt=media&token=92a92dbe-097e-463e-a96b-ff6d814a0b28'
 
-function ImageUpload({ onProfilePicChange }) {
+
+function ImageUpload({ onProfilePicChange, defaultPicUrl }) {
   const [progress, setProgress] = useState(0);
-  const [downloadURL, setDownloadURL] = useState(dr);
+  const [downloadURL, setDownloadURL] = useState(defaultPicUrl);
 
   const formHandler = (e) => {
     e.preventDefault();

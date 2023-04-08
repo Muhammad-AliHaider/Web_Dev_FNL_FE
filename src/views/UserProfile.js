@@ -15,7 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import ImageUpload from "../components/ImageUpload/ImageUpload";
+
 
 // reactstrap components
 import {
@@ -33,9 +36,80 @@ import {
 } from "reactstrap";
 
 function UserProfile() {
+
+  const [userData, setUserData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [ProfilePic, setProfilePic] = useState("");
+
+  useEffect(() => {
+    
+    
+    // Retrieve token from local storage
+    const token = localStorage.getItem('authToken');
+
+    // Set default Authorization header for all Axios requests
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:3000/student/profile/get");
+        setUserData(response.data);
+        setProfilePic(response.data.data.ProfilePic)
+        setIsLoading(false);
+        
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log("userData: ", userData);
+
+
+  const handleSave = async () => {
+    try {
+      // Collect the updated data from the input fields
+      console.log("hi")
+      const updatedData = {
+        UserName: document.getElementById("username").value,
+        Name: document.getElementById("name").value,
+        Email: document.getElementById("email").value,
+        Gender: document.getElementById("gender").value,
+        Password: document.getElementById("password").value,
+        BIO: document.getElementById("bio").value,
+        Age: document.getElementById("age").value,
+        CreditCard: {
+          cardNumber: document.getElementById("cardNumber").value,
+          expirationDate: document.getElementById("expirationDate").value,
+          securityCode: document.getElementById("securityCode").value,
+        },
+        Role: userData.data.Role,
+        ProfilePic: ProfilePic
+      };
+
+      // Send the updated data to the API
+      console.log(updatedData)
+      const response = await axios.patch("http://127.0.0.1:3000/student/profile/update", updatedData);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleProfilePicChange = (url) => {
+    setProfilePic(url);
+  };
+
+  
   return (
     <>
       <div className="content">
+        {isLoading ? (
+        <div>Loading...</div>
+        ) : (
         <Row>
           <Col md="8">
             <Card>
@@ -49,8 +123,9 @@ function UserProfile() {
                       <FormGroup>
                         <label>Username</label>
                         <Input
-                          defaultValue="michael23"
-                          placeholder="Username"
+                          id="username"
+                          defaultValue={userData.data.UserName}
+                          placeholder={userData.data.UserName}
                           type="text"
                         />
                       </FormGroup>
@@ -59,8 +134,9 @@ function UserProfile() {
                       <FormGroup>
                         <label>Name</label>
                         <Input
-                          defaultValue="Michael"
-                          placeholder="michael"
+                          id="name"
+                          defaultValue={userData.data.Name}
+                          placeholder={userData.data.Name}
                           type="text"
                         />
                       </FormGroup>
@@ -70,7 +146,7 @@ function UserProfile() {
                         <label htmlFor="exampleInputEmail1">
                           Email address
                         </label>
-                        <Input placeholder="mike@email.com" type="email" />
+                        <Input id="email" placeholder={userData.data.Email} type="email" />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -79,8 +155,9 @@ function UserProfile() {
                       <FormGroup>
                         <label>Gender</label>
                         <Input
-                          defaultValue="Female"
-                          placeholder="Female"
+                          id="gender"
+                          defaultValue={userData.data.Gender}
+                          placeholder={userData.data.Gender}
                           type="text"
                         />
                       </FormGroup>
@@ -89,8 +166,9 @@ function UserProfile() {
                       <FormGroup>
                         <label>Password</label>
                         <Input
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
+                          id="password"
+                          defaultValue={userData.data.Password}
+                          placeholder={userData.data.Password}
                           type="password"
                         />
                       </FormGroup>
@@ -101,8 +179,9 @@ function UserProfile() {
                       <FormGroup>
                         <label>BIO</label>
                         <Input
-                          defaultValue="HI I AM DUMB"
-                          placeholder="HI I AM DUMB"
+                          id="bio"
+                          defaultValue={userData.data.BIO}
+                          placeholder={userData.data.BIO}
                           type="text"
                         />
                       </FormGroup>
@@ -113,8 +192,9 @@ function UserProfile() {
                       <FormGroup>
                         <label>Age</label>
                         <Input
-                          defaultValue="20"
-                          placeholder="20"
+                          id="age"
+                          defaultValue={userData.data.Age}
+                          placeholder={userData.data.Age}
                           type="text"
                         />
                       </FormGroup>
@@ -123,16 +203,17 @@ function UserProfile() {
                       <FormGroup>
                         <label>CardNumber</label>
                         <Input
-                          defaultValue="123"
-                          placeholder="123XX"
-                          type="number"
+                          id="cardNumber"
+                          defaultValue={userData.data.CreditCard.cardNumber}
+                          placeholder={userData.data.CreditCard.cardNumber}
+                          type="text"
                         />
                       </FormGroup>
                     </Col>
                     <Col className="pl-md-1" md="4">
                       <FormGroup>
                         <label>Expiration Date</label>
-                        <Input placeholder="12/04" type="number" />
+                        <Input id="expirationDate" placeholder={userData.data.CreditCard.expirationDate}type="text" />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -141,8 +222,9 @@ function UserProfile() {
                       <FormGroup>
                         <label>Security Code</label>
                         <Input
-                          defaultValue="123"
-                          placeholder="123"
+                          id="securityCode"
+                          defaultValue={userData.data.CreditCard.securityCode}
+                          placeholder={userData.data.CreditCard.securityCode}
                           type="password"
                         />
                       </FormGroup>
@@ -151,9 +233,10 @@ function UserProfile() {
                       <FormGroup>
                         <label>Role (Disabled)</label>
                         <Input
+                          id="role"
                           disabled
-                          defaultValue="Student"
-                          placeholder="Student"
+                          defaultValue={userData.data.Role}
+                          placeholder={userData.data.Role}
                           type="text"
                         />
                       </FormGroup>
@@ -162,7 +245,7 @@ function UserProfile() {
                 </Form>
               </CardBody>
               <CardFooter>
-                <Button className="btn-fill" color="primary" type="submit">
+                <Button  onClick={handleSave} className="btn-fill" color="primary" >
                   Save
                 </Button>
               </CardFooter>
@@ -178,19 +261,12 @@ function UserProfile() {
                   <div className="block block-three" />
                   <div className="block block-four" />
                   <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                    <img
-                      alt="..."
-                      className="avatar"
-                      src={require("assets/img/emilyz.jpg")}
-                    />
-                    <h5 className="title">Mike Andrew</h5>
+                    <ImageUpload onProfilePicChange={handleProfilePicChange} defaultPicUrl={ProfilePic}/>
+                    <h5 className="title">{userData.data.Name}</h5>
                   </a>
-                  <p className="description">Ceo/Co-Founder</p>
                 </div>
                 <div className="card-description">
-                  Do not be scared of the truth because we need to restart the
-                  human foundation in truth And I love you like Kanye loves
-                  Kanye I love Rick Owens’ bed design but the back is...
+                  {userData.data.BIO}
                 </div>
               </CardBody>
               <CardFooter>
@@ -209,6 +285,7 @@ function UserProfile() {
             </Card>
           </Col>
         </Row>
+       )}
       </div>
     </>
   );

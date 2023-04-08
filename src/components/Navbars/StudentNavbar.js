@@ -18,6 +18,8 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import { useHistory } from 'react-router-dom';
+import axios from "axios";
 
 // reactstrap components
 import {
@@ -43,6 +45,7 @@ function StudentNavbar(props) {
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   const [modalSearch, setmodalSearch] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
+  const history = useHistory();
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
     // Specify how to clean up after this effect:
@@ -71,6 +74,38 @@ function StudentNavbar(props) {
   const toggleModalSearch = () => {
     setmodalSearch(!modalSearch);
   };
+
+  const handleDeactivateAccount = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
+
+    // Set default Authorization header for all Axios requests
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      // Collect the updated data from the input fields
+      console.log("hi")
+      const response = await axios.delete("http://127.0.0.1:3000/student/profile/delete");
+      console.log(response.data);
+      localStorage.removeItem('authToken');
+      history.push('/signin')
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSignout = async () => {
+    const token = localStorage.getItem('authToken');
+
+    // Set default Authorization header for all Axios requests
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    try {
+      await axios.get("http://127.0.0.1:3000/auth/signout");
+      localStorage.removeItem('authToken');
+      history.push('/signin');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Navbar className={classNames("navbar-absolute", color)} expand="lg">
@@ -165,7 +200,10 @@ function StudentNavbar(props) {
                   </NavLink>
                   <DropdownItem divider tag="li" />
                   <NavLink tag="li">
-                    <DropdownItem className="nav-item">Log out</DropdownItem>
+                    <DropdownItem onClick={handleSignout} className="nav-item">Log out</DropdownItem>
+                  </NavLink>
+                  <NavLink tag="li">
+                    <DropdownItem onClick={handleDeactivateAccount} className="nav-item">Deactivate Account</DropdownItem>
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>
