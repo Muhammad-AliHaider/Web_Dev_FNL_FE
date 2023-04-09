@@ -79,6 +79,8 @@ function App() {
       }
     );
 
+    window.location.href = "/auth/signin";
+
     
   }
   
@@ -138,8 +140,8 @@ function App() {
                       aria-labelledby="demo-row-radio-buttons-group-label"
                       name="row-radio-buttons-group"
                     >
-                      <FormControlLabel value="Student" control={<Radio color = "secondary" value={1} onChange={(e) => setRole(e.target.value)}  />} label="Student" />
-                      <FormControlLabel value="Teacher" control={<Radio  color = "secondary" value={2} onChange={(e) => setRole(e.target.value)}/>} label="Teacher" />
+                      <FormControlLabel value="Student" control={<Radio color = "secondary" value={"3"} onChange={(e) => setRole(e.target.value)}  />} label="Student" />
+                      <FormControlLabel value="Teacher" control={<Radio  color = "secondary" value={"2"} onChange={(e) => setRole(e.target.value)}/>} label="Teacher" />
 
                       
                     </RadioGroup>
@@ -154,9 +156,7 @@ function App() {
                 }
               })()}</p>
 
-              <Button variant='text' style = {{color : "purple"  , outlineColor : "purple" } } className='w-100 mb-4' onClick={handleButtonClick}>Sign Up</Button>
-
-
+              <Button variant='text' style = {{color : "#A31ACD"  , outlineColor : "purple" } } className='w-100 mb-4' onClick={handleButtonClick}>Sign Up</Button>
             </MDBCardBody>
           </MDBCard>
         </MDBCol>

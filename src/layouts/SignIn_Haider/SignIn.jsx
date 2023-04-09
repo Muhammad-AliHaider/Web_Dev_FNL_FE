@@ -2,15 +2,12 @@ import React from 'react';
 import { useState } from 'react';
 import logo from '../../assets/logo.png';
 import {
-  MDBBtn,
-  MDBIcon,
   MDBCard,
   MDBCardBody,
   MDBCardImage,
   MDBRow,
   MDBCol,
   MDBInput,
-  MDBCheckbox
 }
 from 'mdb-react-ui-kit';
 import { Container } from 'reactstrap';
@@ -38,11 +35,6 @@ function App() {
       setError('Please fill in all fields.');
       return;
     }
-
-    // if(!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/.test(password)){
-    //   setError('Password must be at least 8 characters long and must contain at least one letter and one number.');
-    //   return;
-    // }
     console.log(userName);
     console.log(password);
 
@@ -50,6 +42,7 @@ function App() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        
         },
         body: JSON.stringify({
           UserName: userName,
@@ -64,11 +57,11 @@ function App() {
           setError(res.error);
         }
         else{
-          localStorage.setItem("token", res.token);
-          localStorage.setItem("user", JSON.stringify(res.user));
-          if(res.data.user.Role === "3")
+          window.localStorage.setItem("token", res.data.token);
+          window.localStorage.setItem("user", JSON.stringify(res.data.user));
+          if(res.data.user.Role === "1")
           history.push("/admin/dashboard");
-          else if(res.data.user.Role === "1")
+          else if(res.data.user.Role === "3")
           history.push("/student/dashboard");
           else if(res.data.user.Role === "2")
           history.push("/teacher/dashboard");
@@ -113,7 +106,7 @@ function App() {
                 })()}
               </p>
 
-              <Button variant='text' style = {{color : "purple"  , outlineColor : "purple" } } className = "mb-4 w-100"  onClick={handleButtonClick} >Sign in</Button>
+              <Button variant='text' style = {{color : "#A31ACD"  , outlineColor : "purple" } } className = "mb-4 w-100"  onClick={handleButtonClick} >Sign in</Button>
 
             </MDBCardBody>
 
