@@ -30,7 +30,7 @@ var routes = [
     layout: "/student"
   },
   {
-    path: "/icons",
+    path: "/enrollin",
     name: "ENROLL IN",
     icon: "tim-icons icon-atom",
     component: Icons,
@@ -51,14 +51,14 @@ var routes = [
     layout: "/student"
   },
   {
-    path: "/tables",
+    path: "/enrolledcourse",
     name: "ENROLLED COURSES",
     icon: "tim-icons icon-puzzle-10",
     component: TableList,
     layout: "/student"
   },
   {
-    path: "/tables",
+    path: "/billinginfo",
     name: "BILLING INFO",
     icon: "tim-icons icon-money-coins",
     component: TableList,
