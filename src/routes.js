@@ -23,6 +23,7 @@ import UserProfile from "views/UserProfile.js";
 import Courses_Offered from "views/Course_Offered.js";
 import Course from "views/Courses.js";
 import Video from "views/Video_player.js";
+import Video_uploader from "views/Video_uploader.js";
 
 
 var routes = [
@@ -69,6 +70,14 @@ var routes = [
     rtlName: "إخطارات",
     icon: "tim-icons icon-book-55",
     component: Video,
+    layout: "/student"
+  },
+  {
+    path: "/video_upload",
+    name: "Video_upload",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Video_uploader,
     layout: "/student"
   },
   {

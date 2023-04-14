@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../contexts/Firebase";
-import ImageIcon from "../ImageIcon/ImageIcon";
+import {Button} from '@mui/material';
+import { MDBInput,MDBCardImage, MDBCol,MDBRow } from "mdb-react-ui-kit";
+import { Col, Row } from "reactstrap";
 
 var dr = 'https://firebasestorage.googleapis.com/v0/b/forget-normal-life.appspot.com/o/default-avatar.png?alt=media&token=92a92dbe-097e-463e-a96b-ff6d814a0b28'
 
-function ImageUpload({ onProfilePicChange }) {
+export function ImageUpload({ onProfilePicChange }) {
   const [progress, setProgress] = useState(0);
   const [downloadURL, setDownloadURL] = useState(dr);
 
@@ -35,6 +37,7 @@ function ImageUpload({ onProfilePicChange }) {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           console.log("File available at", url);
+          window.sessionStorage.setItem("ThumbnailURL",url);
           setDownloadURL(url);
           onProfilePicChange(url); // pass the image URL to the parent component
         });
@@ -45,10 +48,20 @@ function ImageUpload({ onProfilePicChange }) {
   return (
     <div className="ImageUpload">
       <form onSubmit={formHandler}>
-        <ImageIcon props={downloadURL} />
-        <p wrapperClass='mb-4' id='formControlLg' size="lg"> Upload Profile Picture </p>
-        <input type="file" className="input" />
-        <button type="submit">Upload</button>
+      <p wrapperClass='mb-4' id='formControlLg' size="lg"> Upload Profile Picture </p>
+      <MDBRow className='g-0 d-flex align-items-center' >
+        <MDBCol md='2'>
+          <MDBCardImage src={downloadURL} alt='image' className='rounded-t-5 rounded-tr-lg-0' fluid />
+        </MDBCol>
+        <MDBCol md='8'>
+            <MDBInput type="file" className="input" />
+        </MDBCol>
+        <MDBCol>
+          <Button type="submit" style={{color : "#A31ACD"}}>Upload</Button>
+        </MDBCol>
+      </MDBRow>
+
+
       </form>
       <p wrapperClass='mb-4' id='formControlLg' size="lg"> Uploading done {progress}% </p>
       <hr />

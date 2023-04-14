@@ -7,10 +7,10 @@ import {MDBCardText} from 'mdb-react-ui-kit';
 
 
 // reactstrap components
-import {Card,CardHeader,CardBody, CardTitle, CardText} from "reactstrap";
+import {Card,CardHeader,CardBody, CardTitle, CardText,Row , Col} from "reactstrap";
 import { CourseDescription,TeacherDetails } from "components/Basic_Templates/Course_description_components";
 import { getCourseData } from "../APIs/userAPIs.jsx";
-// import { Button } from "@mui/material";
+import { Button } from "@mui/material";
 import "./styleSheet.css"
 
 import { Tabs } from 'antd';
@@ -36,6 +36,10 @@ export function Courses () {
     getData();
 
   },[]);
+
+  function Add_Vid(){
+    window.location.href = "/student/video_upload";
+  }
 
 
   let Vid_arr = [];
@@ -78,6 +82,12 @@ export function Courses () {
       label: <MDBCardText>Session </MDBCardText>,
       children: 
         <>
+          <Col>
+            <Row style={{justifyContent : "flex-end"}}>
+                <Button variant="text" className="Button" onClick={Add_Vid}  style={{justifySelf : "flex-end"}}>ADD +</Button>
+                <Button variant="text" className="Button" style={{justifySelf : "flex-end"}}>Delete -</Button>
+            </Row>
+          </Col>
           {Vid_arr}
           {/* <VideoCard title = {"ABC"} image = {logo}/> */}
         </>
