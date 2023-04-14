@@ -1,8 +1,7 @@
 import React from "react";
 import {VideoCard} from '../components/Basic_Templates/Course_Session_Components.jsx';
-import logo from '../assets/logo.png';
 import { useState } from "react";
-import {setState, useEffect} from "react";
+import { useEffect} from "react";
 
 import {MDBCardText} from 'mdb-react-ui-kit';
 
@@ -38,21 +37,13 @@ export function Courses () {
 
   },[]);
 
-  const [SessionData , setSessionData] = useState([]);
-  const [CourseMaterialData, setCourseMaterialData] = useState([]);
-
-  // if(CourseData){
-  //   // setDescriptionData(CourseData.Description);
-  //   setSessionData(CourseData.VideoID);
-  //   setCourseMaterialData(CourseData.MaterialID);
-  // }
 
   let Vid_arr = [];
   let Mat_arr = [];
 
   if(CourseData){
     for(let i = 0 ; i < CourseData.VideoID.length ; i++){
-      Vid_arr.push(<VideoCard title = {CourseData.VideoID[i].Name} image = {CourseData.VideoID[i].Thumbnail}  />)
+      Vid_arr.push(<VideoCard title = {CourseData.VideoID[i].Name} image = {CourseData.VideoID[i].Thumbnail}  url = {CourseData.VideoID[i].URL} _id = {CourseData.VideoID[i]._id} Quiz_ID = {CourseData.VideoID[i].QuizID}/>)
     }
     for(let i = 0 ; i < CourseData.MaterialID.length ; i++){
       Mat_arr.push(<VideoCard title = {CourseData.MaterialID[i].Name} image = {CourseData.MaterialID[i].Thumbnail}  />)

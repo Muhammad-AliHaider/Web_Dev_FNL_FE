@@ -22,6 +22,7 @@ import TableList from "views/TableList.js";
 import UserProfile from "views/UserProfile.js";
 import Courses_Offered from "views/Course_Offered.js";
 import Course from "views/Courses.js";
+import Video from "views/Video_player.js";
 
 
 var routes = [
@@ -60,6 +61,14 @@ var routes = [
     rtlName: "إخطارات",
     icon: "tim-icons icon-book-55",
     component: Course,
+    layout: "/student"
+  },
+  {
+    path: "/video",
+    name: "Video",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Video,
     layout: "/student"
   },
   {

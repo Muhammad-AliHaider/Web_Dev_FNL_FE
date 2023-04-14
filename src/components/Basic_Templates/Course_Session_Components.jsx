@@ -2,11 +2,19 @@
 
 import {MDBCard,MDBRow,MDBCol,MDBCardImage,MDBCardTitle} from 'mdb-react-ui-kit';
 import {Button} from '@mui/material';
-import logo from '../../assets/logo.png';
 
 
 
 export function VideoCard(props){
+
+  function handleChange(){
+    console.log("play");
+    window.sessionStorage.setItem('VideoID', props._id);
+    window.sessionStorage.setItem('VideoURL', props.url);
+    window.sessionStorage.setItem('QuizID', props.Quiz_ID);
+    window.location.href = '/student/video'
+  }
+
   return(
   <MDBCard  style = {{border: '1px solid '}} >
     <MDBRow className='g-0 d-flex align-items-center' >
@@ -17,7 +25,7 @@ export function VideoCard(props){
             <MDBCardTitle tag="h5">{props.title}</MDBCardTitle>
         </MDBCol>
       <MDBCol>
-        <Button variant="text" style = {{color : "#c44b99", justifyContent : "flex-end" }}>Play</Button>
+        <Button variant="text" style = {{color : "#c44b99", justifyContent : "flex-end" }} onClick ={handleChange}>Play</Button>
       </MDBCol>
     </MDBRow>
   </MDBCard>);
