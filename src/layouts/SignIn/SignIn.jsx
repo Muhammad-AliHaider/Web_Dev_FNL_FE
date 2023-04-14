@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
+import jwtDecode from "jwt-decode";
 import { useHistory } from 'react-router-dom';
 
 function S() {
@@ -33,7 +34,18 @@ function S() {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem('authToken', data.data.token);
-        history.push('/student/dashboard');
+        const decodedToken = jwtDecode(data.data.token);
+        const role = decodedToken.role;
+        if(role==1){
+        history.push('/admin/dashboard');
+        }
+        else if(role==2){
+          console.log(role)
+          history.push('/teacher/dashboard');
+        }
+        else{
+          history.push('/student/dashboard');
+        }
       } else {
         setError('Invalid username or password');
       }

@@ -52,9 +52,6 @@ import {
 
 function Dashboard(props) {
   const [bigChartData, setbigChartData] = React.useState("data1");
-  const setBgChartData = (name) => {
-    setbigChartData(name);
-  };
   return (
     <>
       <div className="content">

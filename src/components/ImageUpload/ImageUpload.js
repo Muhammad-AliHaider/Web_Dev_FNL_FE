@@ -4,7 +4,6 @@ import { storage } from "../../contexts/Firebase";
 import ImageIcon from "../ImageIcon/ImageIcon";
 
 
-
 function ImageUpload({ onProfilePicChange, defaultPicUrl }) {
   const [progress, setProgress] = useState(0);
   const [downloadURL, setDownloadURL] = useState(defaultPicUrl);

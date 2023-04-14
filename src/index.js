@@ -20,6 +20,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import StudentLayout from "layouts/Student/Student.js";
+import TeacherLayout from "layouts/Teacher/Teacher.js";
+import AdminLayout from "layouts/Admin/Admin.js";
 import SignInLayout from 'layouts/SignIn/SignIn.jsx';
 import SignUpLayout from 'layouts/SignUp/SignUp.jsx';
 
@@ -42,6 +44,8 @@ root.render(
       <BrowserRouter>
         <Switch>
           <Route path="/student" render={(props) => <StudentLayout {...props} />} />
+          <Route path="/teacher" render={(props) => <TeacherLayout {...props} />} />
+          <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
           <Route path="/signin" render={(props) => <SignInLayout {...props} />} />
           <Route path="/signup" render={(props) => <SignUpLayout {...props} />} />
           <Redirect from="/" to="/signin" />
