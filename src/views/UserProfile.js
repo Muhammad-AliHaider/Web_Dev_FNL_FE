@@ -34,25 +34,44 @@ import {
   Row,
   Col
 } from "reactstrap";
+import { useHistory } from 'react-router-dom';
+import { error } from "jquery";
+
 
 function UserProfile() {
 
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [ProfilePic, setProfilePic] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     
     
     // Retrieve token from local storage
     const token = localStorage.getItem('authToken');
+    const rtoken = localStorage.getItem('refToken');
 
-    // Set default Authorization header for all Axios requests
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    axios.interceptors.request.use(config => {
+      config.headers['Authorization'] = `Bearer ${token}`;
+      console.log('Rtoken',rtoken)
+      config.headers['Refresh-Token'] = rtoken;
+      return config;
+    });
     
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:3000/student/profile/get");
+        const response = await axios.get("http://127.0.0.1:3000/student/profile/get").catch(error=> {
+          if(error.response.data.auth == false){
+            history.push('/signin')
+          }
+          else{
+            console.log(error)
+          }
+        });
+        
+        console.log('Aaa',response.headers['access']);
+        localStorage.setItem('authToken',response.headers['access'])
         setUserData(response.data);
         setProfilePic(response.data.data.ProfilePic)
         setIsLoading(false);

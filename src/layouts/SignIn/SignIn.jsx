@@ -34,6 +34,7 @@ function S() {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem('authToken', data.data.token);
+        localStorage.setItem('refToken', data.data.rtoken);
         const decodedToken = jwtDecode(data.data.token);
         const role = decodedToken.role;
         if(role==1){
