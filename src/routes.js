@@ -20,6 +20,11 @@ import Icons from "views/Icons.js";
 import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
 import UserProfile from "views/UserProfile.js";
+import Courses_Offered from "views/Course_Offered.js";
+import Course from "views/Courses.js";
+import Video from "views/Video_player.js";
+import Video_uploader from "views/Video_uploader.js";
+
 
 var routes = [
   {
@@ -44,6 +49,38 @@ var routes = [
     layout: "/student"
   },
   {
+    path: "/Course_Offered",
+    name: "Course Offered",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Courses_Offered,
+    layout: "/student"
+  },
+  {
+    path: "/Course",
+    name: "Course",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Course,
+    layout: "/student"
+  },
+  {
+    path: "/video",
+    name: "Video",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Video,
+    layout: "/student"
+  },
+  {
+    path: "/video_upload",
+    name: "Video_upload",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Video_uploader,
+    layout: "/student"
+  },
+  {
     path: "/user-profile",
     name: "User Profile",
     icon: "tim-icons icon-single-02",
@@ -57,6 +94,7 @@ var routes = [
     component: TableList,
     layout: "/student"
   },
+
   {
     path: "/tables",
     name: "BILLING INFO",
