@@ -81,7 +81,7 @@ function Student(props) {
   };
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/student") {
+      if (prop.layout === "/student" ) {
         return (
           <StudentRoute
             path={prop.layout + prop.path}
@@ -102,13 +102,25 @@ function Student(props) {
     }
     return "Brand";
   };
+
+  const filterRoutes = (routes) => {
+    var filtered_routes = [] ;
+    // console.log("ahhhhhh");
+    for (let i  = 0 ; i < routes.length ; i++) {
+      if (routes[i].name !== "Course" && routes[i].name !== "Video" && routes[i].name !== "Video_upload"){
+        console.log(routes[i].name);
+        filtered_routes.push(routes[i]);
+      }
+    }
+    return filtered_routes;
+  }
   return (
     <BackgroundColorContext.Consumer>
       {({ color, changeColor }) => (
         <React.Fragment>
           <div className="wrapper">
             <Sidebar
-              routes={StudentRoutes}
+              routes={filterRoutes(StudentRoutes)}
               logo={{
                 outterLink: "https://www.creative-tim.com/",
                 text: "NFL",
@@ -126,10 +138,7 @@ function Student(props) {
                 {getRoutes(StudentRoutes)}
                 <Redirect from="*" to="/student/dashboard" />
               </Switch>
-              {
-                // we don't want the Footer to be rendered on map page
-                location.pathname === "/student/maps" ? null : <Footer fluid />
-              }
+              
             </div>
           </div>
           <FixedPlugin bgColor={color} handleBgClick={changeColor} />

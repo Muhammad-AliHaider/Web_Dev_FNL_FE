@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../contexts/Firebase";
-import ImageIcon from "../ImageIcon/ImageIcon";
+import {Button} from '@mui/material';
+import { MDBInput,MDBCardImage, MDBCol,MDBRow } from "mdb-react-ui-kit";
+import { Col, Row } from "reactstrap";
 
 
 function ImageUpload({ onProfilePicChange, defaultPicUrl }) {
@@ -34,6 +36,7 @@ function ImageUpload({ onProfilePicChange, defaultPicUrl }) {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           console.log("File available at", url);
+          window.sessionStorage.setItem("ThumbnailURL",url);
           setDownloadURL(url);
           onProfilePicChange(url); // pass the image URL to the parent component
         });
@@ -44,10 +47,20 @@ function ImageUpload({ onProfilePicChange, defaultPicUrl }) {
   return (
     <div className="ImageUpload">
       <form onSubmit={formHandler}>
-        <ImageIcon props={downloadURL} />
-        <p wrapperClass='mb-4' id='formControlLg' size="lg"> Upload Profile Picture </p>
-        <input type="file" className="input" />
-        <button type="submit">Upload</button>
+      <p wrapperClass='mb-4' id='formControlLg' size="lg"> Upload Profile Picture </p>
+      <MDBRow className='g-0 d-flex align-items-center' >
+        <MDBCol md='2'>
+          <MDBCardImage src={downloadURL} alt='image' className='rounded-t-5 rounded-tr-lg-0' fluid />
+        </MDBCol>
+        <MDBCol md='8'>
+            <MDBInput type="file" className="input" />
+        </MDBCol>
+        <MDBCol>
+          <Button type="submit" style={{color : "#A31ACD"}}>Upload</Button>
+        </MDBCol>
+      </MDBRow>
+
+
       </form>
       <p wrapperClass='mb-4' id='formControlLg' size="lg"> Uploading done {progress}% </p>
       <hr />
