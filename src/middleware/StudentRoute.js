@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 
 const StudentRoute = ({ component: Component, ...rest }) => {
-  const token = localStorage.getItem('authToken');
+  const token = localStorage.getItem('token');
   var isAllowed = false;
   if(token!=null){
     const decodedToken = jwtDecode(token);

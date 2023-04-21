@@ -3,12 +3,12 @@ import { Route, Redirect } from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 
 const AdminRoute = ({ component: Component, ...rest }) => {
-  const token = localStorage.getItem('authToken');
+  const token = localStorage.getItem('token');
   var isAllowed = false;
   if(token!=null){
     const decodedToken = jwtDecode(token);
     const role = decodedToken.role;
-    const isAdmin = role == 1
+    const isAdmin = role === 1
     isAllowed = isAdmin && (token!=null)
   }
   

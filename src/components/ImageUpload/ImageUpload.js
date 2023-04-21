@@ -6,7 +6,7 @@ import { MDBInput,MDBCardImage, MDBCol,MDBRow } from "mdb-react-ui-kit";
 import { Col, Row } from "reactstrap";
 
 
-function ImageUpload({ onProfilePicChange, defaultPicUrl }) {
+export function ImageUpload({ onProfilePicChange, defaultPicUrl }) {
   const [progress, setProgress] = useState(0);
   const [downloadURL, setDownloadURL] = useState(defaultPicUrl);
 
