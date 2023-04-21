@@ -5,11 +5,10 @@ import {Button} from '@mui/material';
 import { MDBInput,MDBCardImage, MDBCol,MDBRow } from "mdb-react-ui-kit";
 import { Col, Row } from "reactstrap";
 
-var dr = 'https://firebasestorage.googleapis.com/v0/b/forget-normal-life.appspot.com/o/default-avatar.png?alt=media&token=92a92dbe-097e-463e-a96b-ff6d814a0b28'
 
-export function ImageUpload({ onProfilePicChange }) {
+export function ImageUpload({ onProfilePicChange, defaultPicUrl }) {
   const [progress, setProgress] = useState(0);
-  const [downloadURL, setDownloadURL] = useState(dr);
+  const [downloadURL, setDownloadURL] = useState(defaultPicUrl);
 
   const formHandler = (e) => {
     e.preventDefault();
