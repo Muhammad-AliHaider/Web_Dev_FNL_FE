@@ -9,6 +9,7 @@ import {MDBCardText} from 'mdb-react-ui-kit';
 // reactstrap components
 import {Card,CardHeader,CardBody, CardTitle, CardText,Row , Col} from "reactstrap";
 import { CourseDescription,TeacherDetails } from "components/Basic_Templates/Course_description_components";
+import {Checkbox, List } from "antd";
 import { getCourseData } from "../APIs/userAPIs.jsx";
 import { Button } from "@mui/material";
 import "./styleSheet.css"
@@ -19,6 +20,12 @@ import { Tabs } from 'antd';
 export function Courses () {
 
   const [CourseData, setCourseData] = useState();
+  const [isDelete, setIsDelete] = useState(true);
+  const [checked, setChecked] = useState([]);
+  const [indeterminate, setIndeterminate] = useState(false);
+  const [checkAll, setCheckAll] = useState(false);
+
+  
 
   useEffect(() =>{
 
@@ -35,7 +42,17 @@ export function Courses () {
 
     getData();
 
+
   },[]);
+
+
+  useEffect(()=>{
+    console.log(isDelete)
+  },[isDelete])
+
+  const HandleDeleteOnClick = () =>{
+    setIsDelete((prev)=>!prev);
+  }
 
   function Add_Vid(){
     window.location.href = "/student/video_upload";
@@ -44,10 +61,11 @@ export function Courses () {
 
   let Vid_arr = [];
   let Mat_arr = [];
+  
 
   if(CourseData){
     for(let i = 0 ; i < CourseData.VideoID.length ; i++){
-      Vid_arr.push(<VideoCard title = {CourseData.VideoID[i].Name} image = {CourseData.VideoID[i].Thumbnail}  url = {CourseData.VideoID[i].URL} _id = {CourseData.VideoID[i]._id} Quiz_ID = {CourseData.VideoID[i].QuizID}/>)
+      Vid_arr.push(<VideoCard title = {CourseData.VideoID[i].Name} image = {CourseData.VideoID[i].Thumbnail}  url = {CourseData.VideoID[i].URL} _id = {CourseData.VideoID[i]._id} Quiz_ID = {CourseData.VideoID[i].QuizID} bool = {isDelete}/>)
     }
     for(let i = 0 ; i < CourseData.MaterialID.length ; i++){
       Mat_arr.push(<VideoCard title = {CourseData.MaterialID[i].Name} image = {CourseData.MaterialID[i].Thumbnail}  />)
@@ -82,13 +100,48 @@ export function Courses () {
       label: <MDBCardText>Session </MDBCardText>,
       children: 
         <>
-          <Col>
-            <Row style={{justifyContent : "flex-end"}}>
-                <Button variant="text" className="Button" onClick={Add_Vid}  style={{justifySelf : "flex-end"}}>ADD +</Button>
-                <Button variant="text" className="Button" style={{justifySelf : "flex-end"}}>Delete -</Button>
-            </Row>
-          </Col>
-          {Vid_arr}
+                {isDelete?<>
+                  <Col>
+                    <Row style={{justifyContent : "flex-end"}}>
+                      <Button variant="text" className="Button" onClick={Add_Vid}  style={{justifySelf : "flex-end"}}>ADD +</Button>
+                      <Button variant="text" className="Button" onClick={HandleDeleteOnClick} style={{justifySelf : "flex-end"}}>Delete -</Button>
+                    </Row>
+                  </Col>
+                  </>
+                :<>
+                    <Col>
+                    <Row style={{justifyContent : "flex-end"}}>
+                      <Button variant="text" className="Button" onClick={Add_Vid}  style={{justifySelf : "flex-end"}}>cancel</Button>
+                      <Button variant="text" className="Button" onClick={HandleDeleteOnClick} style={{justifySelf : "flex-end"}}>confirm</Button>
+                    </Row>
+                  </Col>
+                  </>}
+            
+          {isDelete?
+          Vid_arr:
+          <>
+            <Checkbox.Group
+              style={{ width: "100%" }}
+              value={checked}
+              onChange={(checkedValues) => {
+                setChecked(checkedValues);
+              }}
+            >
+              <List
+                itemLayout="horizontal"
+                dataSource={Vid_arr}
+                renderItem={(item) => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Checkbox value={item.title} />}
+                    />
+                    {item}
+                  </List.Item>
+                )}
+              />
+            </Checkbox.Group>
+          </>
+          }
           {/* <VideoCard title = {"ABC"} image = {logo}/> */}
         </>
     },
