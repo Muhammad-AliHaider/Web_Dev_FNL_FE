@@ -112,7 +112,9 @@
     mask-image: radial-gradient(white 0%, white 30%, transparent 80%, transparent);
 
   }
+  /* The navbar */
   .mycontainer {
+    z-index: 1;
     position: absolute;
     margin: 20px;
     width: 100%;
@@ -121,6 +123,7 @@
     margin-left: -250px;
   }
   .mycontainer2 {
+    z-index: 1;
     position: absolute;
     margin: 20px;
     width: auto;
@@ -129,7 +132,6 @@
     margin-left: 250px;
   }
   
-  /* The navbar */
   .topnav {
     overflow: hidden;
     background-color: #333;
@@ -149,6 +151,8 @@
     background-color: #ddd;
     color: black;
   }
+
+  /* NavBar ended */
   
   .circle-container {
     position: absolute;

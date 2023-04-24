@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, notification, Space } from 'antd';
 import { Link } from "react-router-dom";
 import './LandingPage.css';
+import LandingNavbar from "../../components/Navbars/LandingNavbar.js"
 import Music from '../../assets/music/storm-clouds-purpple-cat.wav';
 import { useEffect,useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -36,17 +37,17 @@ function getRandomCircleStyle() {
   };
 }
 
-function play(){
-  console.log("is playing")
-  new Audio(Music).play()
-}
+// function play(){
+//   console.log("is playing")
+//   new Audio(Music).play()
+// }
 
 function LandingPage() {
   const [api, contextHolder] = notification.useNotification();
   const location = useLocation();
 
   useEffect(()=>{
-    openNotification()
+    // openNotification()
   },[])
   useEffect(() => {
     console.log('Location changed', location);
@@ -75,7 +76,8 @@ function LandingPage() {
     <div className="containers" style={{ height: '100vh' }}>
        {contextHolder}
       <div className="background">
-        <div class="mycontainer">
+        <LandingNavbar link1="#contact" link1Name="Demo" link2="/about" link2Name="About" />
+        {/* <div class="mycontainer">
 
           <div class="topnav">
           <Link to={"/signin"}>Login</Link>
@@ -87,7 +89,7 @@ function LandingPage() {
             <a href="#contact">Demo</a>
           <Link to={"/about"}>About</Link>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="circle-container">
         {circles.map((style, index) => (

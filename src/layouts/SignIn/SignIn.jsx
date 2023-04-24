@@ -3,7 +3,9 @@ import { Button } from '@material-ui/core';
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBInput } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import LandingNavbar from "../../components/Navbars/LandingNavbar.js"
 import axios from 'axios';
+
 
 function S() {
   const [UserName, setUserName] = useState('');
@@ -45,6 +47,9 @@ function S() {
   };
 
   return (
+    <>
+    
+    <LandingNavbar link1="/" link1Name="Home" link2="/about" link2Name="About" />
     <MDBContainer className="my-5">
       <MDBCard>
         <MDBRow className="g-0">
@@ -73,6 +78,7 @@ function S() {
         </MDBRow>
       </MDBCard>
     </MDBContainer>
+    </>
   );
 }
 
