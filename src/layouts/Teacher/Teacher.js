@@ -26,15 +26,16 @@ import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
-import {StudentRoutes} from "routes.js";
+import {TeacherRoutes} from "routes.js";
 
 import logo from "assets/img/react-logo.png";
 import { BackgroundColorContext } from "contexts/BackgroundColorContext";
-import StudentRoute from "../../middleware/StudentRoute";
+import TeacherRoute from "../../middleware/TeacherRoute";
 
 var ps;
 
-function Student(props) {
+function Teacher(props) {
+  console.log("Win")
   const location = useLocation();
   const mainPanelRef = React.useRef(null);
   const [sidebarOpened, setsidebarOpened] = React.useState(
@@ -81,9 +82,9 @@ function Student(props) {
   };
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/student" ) {
+      if (prop.layout === "/teacher") {
         return (
-          <StudentRoute
+          <TeacherRoute
             path={prop.layout + prop.path}
             component={prop.component}
             key={key}
@@ -95,32 +96,20 @@ function Student(props) {
     });
   };
   const getBrandText = (path) => {
-    for (let i = 0; i < StudentRoutes.length; i++) {
-      if (location.pathname.indexOf(StudentRoutes[i].layout + StudentRoutes[i].path) !== -1) {
-        return StudentRoutes[i].name;
+    for (let i = 0; i < TeacherRoutes.length; i++) {
+      if (location.pathname.indexOf(TeacherRoutes[i].layout + TeacherRoutes[i].path) !== -1) {
+        return TeacherRoutes[i].name;
       }
     }
     return "Brand";
   };
-
-  const filterRoutes = (routes) => {
-    var filtered_routes = [] ;
-    // console.log("ahhhhhh");
-    for (let i  = 0 ; i < routes.length ; i++) {
-      if (routes[i].name !== "Course" && routes[i].name !== "Video" && routes[i].name !== "Video_upload"){
-        console.log(routes[i].name);
-        filtered_routes.push(routes[i]);
-      }
-    }
-    return filtered_routes;
-  }
   return (
     <BackgroundColorContext.Consumer>
       {({ color, changeColor }) => (
         <React.Fragment>
           <div className="wrapper">
             <Sidebar
-              routes={filterRoutes(StudentRoutes)}
+              routes={TeacherRoutes}
               logo={{
                 outterLink: "https://www.creative-tim.com/",
                 text: "NFL",
@@ -135,10 +124,13 @@ function Student(props) {
                 sidebarOpened={sidebarOpened}
               />
               <Switch>
-                {getRoutes(StudentRoutes)}
-                <Redirect from="*" to="/student/dashboard" />
+                {getRoutes(TeacherRoutes)}
+                <Redirect from="*" to="/teacher/dashboard" />
               </Switch>
-              
+              {
+                // we don't want the Footer to be rendered on map page
+                location.pathname === "/teacher/maps" ? null : <Footer fluid />
+              }
             </div>
           </div>
           <FixedPlugin bgColor={color} handleBgClick={changeColor} />
@@ -148,4 +140,4 @@ function Student(props) {
   );
 }
 
-export default Student;
+export default Teacher;
