@@ -24,6 +24,7 @@ import Courses_Offered from "views/Course_Offered.js";
 import Course from "views/Courses.js";
 import Video from "views/Video_player.js";
 import Video_uploader from "views/Video_uploader.js";
+import CreditCardForm from "views/CreditCardForm.js";
 
 
 export var StudentRoutes = [
@@ -99,7 +100,7 @@ export var StudentRoutes = [
     path: "/billinginfo",
     name: "BILLING INFO",
     icon: "tim-icons icon-money-coins",
-    component: TableList,
+    component: CreditCardForm,
     layout: "/student"
   },
 ];
@@ -144,7 +145,7 @@ export var AdminRoutes = [
     path: "/billinginfo",
     name: "BILLING INFO",
     icon: "tim-icons icon-money-coins",
-    component: TableList,
+    component: CreditCardForm,
     layout: "/admin"
   },
 ];

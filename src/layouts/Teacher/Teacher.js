@@ -112,7 +112,7 @@ function Teacher(props) {
               routes={TeacherRoutes}
               logo={{
                 outterLink: "https://www.creative-tim.com/",
-                text: "NFL",
+                text: "FNL",
                 imgSrc: logo
               }}
               toggleSidebar={toggleSidebar}

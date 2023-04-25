@@ -54,7 +54,7 @@ function LandingPage() {
           <Link to={"/"}>Home</Link>
           </div>
         </div>
-        <div class="wrapper">
+        <div class="wrapperss">
 		<ul class="ticker-list">
 		  <li><h1> Mission </h1>
 At FNL, our mission is to provide accessible, high-quality education to learners worldwide. We believe that everyone should have the opportunity to learn and grow, regardless of their background or circumstances. Our platform connects learners with expert instructors and top universities, allowing them to gain the knowledge and skills they need to succeed in today's rapidly changing world.</li>
