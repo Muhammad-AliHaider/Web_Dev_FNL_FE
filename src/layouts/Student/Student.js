@@ -48,6 +48,7 @@ function Student(props) {
         suppressScrollX: true
       });
       let tables = document.querySelectorAll(".table-responsive");
+      console.log(tables);
       for (let i = 0; i < tables.length; i++) {
         ps = new PerfectScrollbar(tables[i]);
       }
