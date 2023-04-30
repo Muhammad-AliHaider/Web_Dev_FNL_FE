@@ -19,7 +19,8 @@ import {Button} from '@material-ui/core';
 import Radio from "../../components/RadioButton/RadioButtonGender";
 import RadioR from "../../components/RadioButton/RadioButtonRole";
 import '../SignUp/SignUp.css';
-import ImageUpload from '../../components/ImageUpload/ImageUpload'
+import ImageUpload from '../../components/ImageUpload/ImageUpload';
+import LandingNavbar from "../../components/Navbars/LandingNavbar.js"
 
 
 function S() {
@@ -95,6 +96,8 @@ function S() {
   };
 
   return (
+    <>
+    <LandingNavbar link1="/" link1Name="Home" link2="/about" link2Name="About" />
     <MDBContainer  className="my-5 "  >
 
       <MDBCard >
@@ -137,6 +140,7 @@ function S() {
       </MDBCard>
 
     </MDBContainer>
+    </>
   );
 }
 

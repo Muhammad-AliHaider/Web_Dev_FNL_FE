@@ -4,6 +4,8 @@ import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCo
 import { Link } from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import { useHistory } from 'react-router-dom';
+import LandingNavbar from "../../components/Navbars/LandingNavbar.js"
+
 
 function S() {
   const [UserName, setUserName] = useState('');
@@ -66,6 +68,9 @@ function S() {
   };
 
   return (
+    <>
+    
+    <LandingNavbar link1="/" link1Name="Home" link2="/about" link2Name="About" />
     <MDBContainer className="my-5">
       <MDBCard>
         <MDBRow className="g-0">
@@ -94,6 +99,7 @@ function S() {
         </MDBRow>
       </MDBCard>
     </MDBContainer>
+    </>
   );
 }
 

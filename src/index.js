@@ -24,6 +24,9 @@ import TeacherLayout from "layouts/Teacher/Teacher.js";
 import AdminLayout from "layouts/Admin/Admin.js";
 import SignInLayout from 'layouts/SignIn/SignIn.jsx';
 import SignUpLayout from 'layouts/SignUp/SignUp.jsx';
+import LandingPage from 'layouts/LandingPage/LandingPage.jsx';
+import About from 'layouts/About/About.jsx';
+
 // import SignInLayout from 'layouts/SignIn_Haider/SignIn.jsx';
 // import SignUpLayout from 'layouts/SignUp_Haider/SignUp.jsx';
 
@@ -46,6 +49,7 @@ root.render(
     <BackgroundColorWrapper>
       <BrowserRouter>
         <Switch>
+
           <Route path="/teacher" render={(props) => <TeacherLayout {...props} />} />
           <Route path="/student" render={(props) => <StudentLayout {...props} />} />
           
@@ -53,7 +57,8 @@ root.render(
           <Route path="/signin" render={(props) => <SignInLayout {...props} />} />
           <Route path="/signup" render={(props) => <SignUpLayout {...props} />} />
           {/* <Route path="/Courses" render={(props)=>  <Courses {...props}/>} /> */}
-          <Redirect from="/" to="/signin" />
+          <Route path="/about" render={(props) => <About {...props} />} />
+          <Route path="/" render={(props) => <LandingPage {...props} />} />
         </Switch>
       </BrowserRouter>
     </BackgroundColorWrapper>
