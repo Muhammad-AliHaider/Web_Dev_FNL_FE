@@ -2,17 +2,51 @@
 
 import {MDBCard,MDBRow,MDBCol,MDBCardImage,MDBCardTitle} from 'mdb-react-ui-kit';
 import {Button} from '@mui/material';
+import { IoPlayCircle, IoPencil } from "react-icons/io5";
+import React from "react";
+import jwtDecode from 'jwt-decode';
 
+import "./styleSheet.css"
+// jwtDecode
 
 
 export function VideoCard(props){
 
-  function handleChange(){
+  function handlePlay(){
     console.log("play");
     window.sessionStorage.setItem('VideoID', props._id);
     window.sessionStorage.setItem('VideoURL', props.url);
     window.sessionStorage.setItem('QuizID', props.Quiz_ID);
-    window.location.href = '/student/video'
+    let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+
+
+    if(role == "2"){
+    window.location.href = '/teacher/video'
+    }
+    else if(role == "1"){
+      window.location.href = '/admin/video'
+      }
+    else{
+      window.location.href = '/student/video'
+      }
+  }
+
+  function handleEdit(){
+
+    window.sessionStorage.setItem('Video', JSON.stringify(props));
+    let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    if(role == "2"){
+    window.location.href = '/teacher/video_editor'
+    }
+    else if(role == "1"){
+      // window.location.href = '/admin/edit_video'
+      }
   }
 
   return(
@@ -25,11 +59,22 @@ export function VideoCard(props){
             <MDBCardTitle tag="h5">{props.title}</MDBCardTitle>
         </MDBCol>
       <MDBCol>
-        <Button variant="text" style = {{color : "#c44b99", justifyContent : "flex-end" }} onClick ={handleChange}>Play</Button>
+        <MDBRow>
+        <IoPlayCircle color= '#c44b99' size=  {37} onClick ={handlePlay}/>
+        {/* <Button variant="text" style = {{color : "#c44b99", justifyContent : "flex-end" }} onClick ={handleChange}>Play</Button> */}
+        </MDBRow>
+      </MDBCol>
+      <MDBCol>
+        <IoPencil color='#c44b99'  size=  {25} onClick = {handleEdit}/>
       </MDBCol>
     </MDBRow>
   </MDBCard>);
 }
+
+
+ 
+
+ 
 
 
 // export function Video_renderer(){

@@ -1,7 +1,8 @@
 import React from "react";
 import {  Col} from "reactstrap";
-import {Button} from "@mui/material"
-import "./styleSheet.css"
+import {Button} from "@mui/material";
+import "./styleSheet.css";
+import jwtDecode from 'jwt-decode';
 //import {Link} from "react-router-dom" ;
 
 
@@ -13,7 +14,18 @@ export const CourseOfferedCardTemplate = (props) => {
     function handleButtonClick(){
         // console.log(id);
         window.sessionStorage.setItem("CourseID", id);
-        window.location.href = "/student/course";
+        let token = window.localStorage.getItem("authtoken");
+
+        const decodedToken = jwtDecode(token);
+        const role = decodedToken.role;
+        if(role == "2"){
+        window.location.href = "/teacher/course";}
+        else if(role == "1"){
+            window.location.href = "/admin/course";
+            }
+        else{
+            window.location.href = "/student/course";
+            }
     
     }
     return (

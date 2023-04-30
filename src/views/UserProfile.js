@@ -49,29 +49,30 @@ function UserProfile() {
     
     
     // Retrieve token from local storage
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem('authtoken');
     const rtoken = localStorage.getItem('refToken');
 
     axios.interceptors.request.use(config => {
-      config.headers['Authorization'] = `Bearer ${token}`;
-      console.log('Rtoken',rtoken)
+      config.headers['Authorization'] = token;
+      console.log('Reftoken',rtoken)
       config.headers['Refresh-Token'] = rtoken;
       return config;
     });
     
+    console.log("data yeh tak")
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:3000/student/profile/get").catch(error=> {
+        const response = await axios.get("http://127.0.0.1:3000/teacher/profile/get").catch(error=> {
           if(error.response.data.auth == false){
-            history.push('/signin')
+            // history.push('/signin')
           }
           else{
             console.log(error)
           }
         });
         
-        console.log('Aaa',response.headers['access']);
-        localStorage.setItem('authToken',response.headers['access'])
+        console.log('Aaa',response["Headers"]);
+        localStorage.setItem('authToken',response["Headers"])
         setUserData(response.data);
         setProfilePic(response.data.data.ProfilePic)
         setIsLoading(false);

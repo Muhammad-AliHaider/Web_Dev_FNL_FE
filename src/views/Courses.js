@@ -11,6 +11,7 @@ import {Card,CardHeader,CardBody, CardTitle, CardText,Row , Col} from "reactstra
 import { CourseDescription,TeacherDetails } from "components/Basic_Templates/Course_description_components";
 import {Checkbox, List } from "antd";
 import { getCourseData } from "../APIs/userAPIs.jsx";
+import { remove_video_from_course, delete_Video } from "../APIs/TeacherAPI.jsx";
 import { Button } from "@mui/material";
 import "./styleSheet.css"
 
@@ -22,8 +23,8 @@ export function Courses () {
   const [CourseData, setCourseData] = useState();
   const [isDelete, setIsDelete] = useState(true);
   const [checked, setChecked] = useState([]);
-  const [indeterminate, setIndeterminate] = useState(false);
-  const [checkAll, setCheckAll] = useState(false);
+  const [toShowChecked, setToShowChecked] = useState([]);
+  // const [indeterminate, setIndeterminate] = useState(false);
 
   
 
@@ -45,17 +46,39 @@ export function Courses () {
 
   },[]);
 
-
-  useEffect(()=>{
-    console.log(isDelete)
-  },[isDelete])
-
   const HandleDeleteOnClick = () =>{
+    setChecked([]);
+    setToShowChecked([]);
     setIsDelete((prev)=>!prev);
   }
 
+  const HandleCheckbox = (props1, props2) =>{
+    if(checked.includes(props1)){
+      setChecked(checked.filter((item)=>item!==props1))
+      setToShowChecked(toShowChecked.filter((item)=>item!==props2))
+    }
+    else{
+      setChecked([...checked,props1])
+      setToShowChecked([...toShowChecked,props2])
+    }
+  }
+
+  const HandleConfirmDelete = () =>{
+    
+    async function Delete(){
+      
+      await remove_video_from_course(checked)
+      await delete_Video(checked);
+    }
+
+    Delete();
+    setIsDelete((prev)=>!prev);
+
+    
+  }
+
   function Add_Vid(){
-    window.location.href = "/student/video_upload";
+    window.location.href = "/teacher/video_upload";
   }
 
 
@@ -91,7 +114,6 @@ export function Courses () {
                       return (<p>Loading!</p>)
                     }
                   })()}
-                  {/* <TeacherDetails title={"Teacher Details"} name = {"Teacher Name"} email = {"Teacher Email"} desc = {"iufnwiunfuiwnfiweifnweinfwiefnweiufnwiufn"} /> */}
                   
                   </>),
     },
@@ -100,6 +122,7 @@ export function Courses () {
       label: <MDBCardText>Session </MDBCardText>,
       children: 
         <>
+                  
                 {isDelete?<>
                   <Col>
                     <Row style={{justifyContent : "flex-end"}}>
@@ -111,38 +134,37 @@ export function Courses () {
                 :<>
                     <Col>
                     <Row style={{justifyContent : "flex-end"}}>
-                      <Button variant="text" className="Button" onClick={Add_Vid}  style={{justifySelf : "flex-end"}}>cancel</Button>
-                      <Button variant="text" className="Button" onClick={HandleDeleteOnClick} style={{justifySelf : "flex-end"}}>confirm</Button>
+                      <Button variant="text" className="Button" onClick={HandleDeleteOnClick}  style={{justifySelf : "flex-end"}}>cancel</Button>
+                      <Button variant="text" className="Button" onClick={HandleConfirmDelete} style={{justifySelf : "flex-end"}}>confirm</Button>
                     </Row>
                   </Col>
                   </>}
             
-          {isDelete?
-          Vid_arr:
-          <>
-            <Checkbox.Group
-              style={{ width: "100%" }}
-              value={checked}
-              onChange={(checkedValues) => {
-                setChecked(checkedValues);
-              }}
-            >
-              <List
-                itemLayout="horizontal"
-                dataSource={Vid_arr}
-                renderItem={(item) => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Checkbox value={item.title} />}
-                    />
-                    {item}
-                  </List.Item>
-                )}
-              />
-            </Checkbox.Group>
-          </>
-          }
-          {/* <VideoCard title = {"ABC"} image = {logo}/> */}
+                {isDelete?
+                  Vid_arr:
+                  <>
+                  <div style={{ marginTop: 20 }}>
+                    <p>Selected: {toShowChecked.join(', ')} </p> 
+                  </div>
+
+                  <List
+
+                    dataSource={Vid_arr}
+                    renderItem={item => (
+                      <List.Item>
+                         <List.Item.Meta
+                        //  onChange={HandleCheckbox(item.props)}
+                        avatar = {<Checkbox onChange={() => {HandleCheckbox(item.props._id,item.props.title)}}/>}
+                        />
+                        {item}
+                      </List.Item>
+                    )}
+                  />
+                  
+                  </>
+                }
+      
+            
         </>
     },
     {
@@ -164,7 +186,6 @@ export function Courses () {
                 }
             })()
             }
-            {/* <CardTitle tag  ="h3">ABC</CardTitle> */}
           </CardHeader>
           <CardBody>
             <Tabs centered defaultActiveKey="1" items={items} onChange={onChange} ></Tabs>
