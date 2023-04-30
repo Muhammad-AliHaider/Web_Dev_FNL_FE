@@ -24,6 +24,7 @@ import Courses_Offered from "views/Course_Offered.js";
 import Course from "views/Courses.js";
 import Video from "views/Video_player.js";
 import Video_uploader from "views/Video_uploader.js";
+import Video_Editor from "views/Video_Editor.js";
 
 
 export var StudentRoutes = [
@@ -169,6 +170,48 @@ export var TeacherRoutes = [
     name: "Notifications",
     icon: "tim-icons icon-bell-55",
     component: Notifications,
+    layout: "/teacher"
+  },
+  
+  {
+    path: "/Course_Offered",
+    name: "Course Offered",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Courses_Offered,
+    layout: "/teacher"
+  },
+  {
+    path: "/Course",
+    name: "Course",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Course,
+    layout: "/teacher"
+  },
+  {
+    path: "/video",
+    name: "Video",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Video,
+    layout: "/teacher"
+  },
+  {
+    path: "/video_upload",
+    name: "Video_upload",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Video_uploader,
+    layout: "/teacher"
+  },
+  // 
+  {
+    path: "/video_editor",
+    name: "video_editor",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Video_Editor,
     layout: "/teacher"
   },
   {

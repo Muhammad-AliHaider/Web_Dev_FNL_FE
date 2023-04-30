@@ -78,7 +78,7 @@ export function Courses () {
   }
 
   function Add_Vid(){
-    window.location.href = "/student/video_upload";
+    window.location.href = "/teacher/video_upload";
   }
 
 

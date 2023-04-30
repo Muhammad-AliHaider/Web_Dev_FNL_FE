@@ -46,8 +46,9 @@ root.render(
     <BackgroundColorWrapper>
       <BrowserRouter>
         <Switch>
-          <Route path="/student" render={(props) => <StudentLayout {...props} />} />
           <Route path="/teacher" render={(props) => <TeacherLayout {...props} />} />
+          <Route path="/student" render={(props) => <StudentLayout {...props} />} />
+          
           <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
           <Route path="/signin" render={(props) => <SignInLayout {...props} />} />
           <Route path="/signup" render={(props) => <SignUpLayout {...props} />} />
