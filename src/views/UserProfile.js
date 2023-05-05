@@ -70,7 +70,8 @@ function UserProfile() {
           }
         });
         
-        console.log('Aaa',response.headers['access']);
+
+        console.log(response)
         localStorage.setItem('authToken',response.headers['access'])
         setUserData(response.data);
         setProfilePic(response.data.data.ProfilePic)
