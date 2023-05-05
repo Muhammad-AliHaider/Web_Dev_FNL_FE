@@ -71,8 +71,9 @@ function UserProfile() {
           }
         });
         
-        console.log('Aaa',response["Headers"]);
-        localStorage.setItem('authToken',response["Headers"])
+
+        console.log(response)
+        localStorage.setItem('authToken',response.headers['access'])
         setUserData(response.data);
         setProfilePic(response.data.data.ProfilePic)
         setIsLoading(false);
