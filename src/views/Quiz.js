@@ -4,6 +4,7 @@ import { MDBCard } from 'mdb-react-ui-kit';
 import { Button } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import jwtDecode from "jwt-decode";
 
 export function Quiz (){
 
@@ -46,8 +47,19 @@ export function Quiz (){
         }
         alert("Your Score is "+Score);
         // }
+        let token = window.localStorage.getItem("authtoken");
 
+        const decodedToken = jwtDecode(token);
+        const role = decodedToken.role;
+
+        if(role == 2)
         window.location.href = "/teacher/course";
+
+        else if(role == 1)
+        window.location.href = "/admin/course";
+
+        else
+        window.location.href = "/student/course";
     }
 
 

@@ -36,6 +36,7 @@ export function Courses () {
       data = await getCourseData();
       console.log(data);
 
+
       if(data)
       setCourseData(data);
       else
