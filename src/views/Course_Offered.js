@@ -29,17 +29,23 @@ function Courses_Offered() {
     const [Courses, setCourses] = useState();
 
     useEffect(  () => {
-        async function getCourses(){
-            const data = await getAllCourses();
 
-            // const data = await Course_Offered_By_Teacher();
+        async function getCourses(){
+            let data  = [];
+            if (role === "3")
+            data = await getAllCourses();
+            else
+            data = await Course_Offered_By_Teacher();
             // console.log("useEffect -> getAllCourses-> data");
-            console.log(data);
+            console.log(data["teacher"]["CourseOffered"]);
         
-        if(data)
-        setCourses(data);
+        if(data["teacher"]["CourseOffered"]){
+        setCourses(data["teacher"]["CourseOffered"]);
+        }
         else
-        setCourses();
+        {
+            setCourses();
+        }
         } 
         getCourses();
         
@@ -90,7 +96,7 @@ function Courses_Offered() {
                         }
                          
                         if(Courses){
-                            console.log(Courses );
+                            // console.log(Courses );
                         let x = [[]];
                         for(let i = 0 ; i <= parseInt(Courses.length / 4);i++){
                             for(let j = 0 ; j < 4;j++){

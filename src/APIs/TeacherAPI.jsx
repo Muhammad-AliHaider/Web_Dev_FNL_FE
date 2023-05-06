@@ -749,3 +749,8 @@ export async function Course_Offered_By_Teacher(){
   );
   return response;
 }
+
+export async function Create_Courses(){
+  
+}
+

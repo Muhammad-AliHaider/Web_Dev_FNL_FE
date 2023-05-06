@@ -37,6 +37,7 @@ export function Courses () {
       console.log(data);
 
 
+
       if(data)
       setCourseData(data);
       else
