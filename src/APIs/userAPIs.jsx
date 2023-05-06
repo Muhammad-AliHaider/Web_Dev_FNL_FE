@@ -31,7 +31,7 @@ export async function getAllCourses(){
       url = x.toString() + "/admin/get_Course"
     }
     else{
-      url = x.toString() + "/student/course/get"
+      url = x.toString() + "/student/get_Course"
     }
 
     const response = await fetch(url, {
@@ -84,7 +84,7 @@ export async function getCourseData(){
         url = x.toString() + "/admin/get_Course"+ "?_id=" + window.sessionStorage.getItem('CourseID');
       }
     else{
-      url = x.toString() + "/student/course/get"+ "?_id=" + window.sessionStorage.getItem('CourseID');
+      url = x.toString() + "/student/get_Course"+ "?_id=" + window.sessionStorage.getItem('CourseID');
     }
     console.log(url);
 

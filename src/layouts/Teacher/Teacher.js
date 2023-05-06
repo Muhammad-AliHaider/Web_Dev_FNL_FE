@@ -104,8 +104,9 @@ function Teacher(props) {
   };
   const filterRoutes = (routes) => {
     var filtered_routes = [] ;
+    // console.log("ahhhhhh");
     for (let i  = 0 ; i < routes.length ; i++) {
-      if (routes[i].name !== "Course" && routes[i].name !== "Video" && routes[i].name !== "Video_upload" && routes[i].name !== "video_editor" && routes[i].name !== "Quiz"  ){
+      if (routes[i].name !== "Course" && routes[i].name !== "Video" && routes[i].name !== "Video_upload" && routes[i].name !== "video_editor"){
         console.log(routes[i].name);
         filtered_routes.push(routes[i]);
       }
@@ -141,7 +142,6 @@ function Teacher(props) {
                 sidebarOpened={sidebarOpened}
               />
               <Switch>
-              
                 {getRoutes(TeacherRoutes)}
                 <Redirect from="*" to="/teacher/dashboard" />
               </Switch>
