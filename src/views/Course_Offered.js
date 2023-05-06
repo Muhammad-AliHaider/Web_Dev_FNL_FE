@@ -36,10 +36,10 @@ function Courses_Offered() {
             // console.log("useEffect -> getAllCourses-> data");
             console.log(data);
         
-        // if(data)
-        // setCourses(data);
-        // else
-        // setCourses();
+        if(data)
+        setCourses(data);
+        else
+        setCourses();
         } 
         getCourses();
         
