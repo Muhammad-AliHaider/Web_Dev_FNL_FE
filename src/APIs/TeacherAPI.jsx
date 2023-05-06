@@ -204,12 +204,6 @@ export async function remove_video_from_course(props){
     }
   );
 
-//   if(response.ok){
-//     continue;
-//   }
-//   else{
-//     break;
-//   }
 }
 
 }
