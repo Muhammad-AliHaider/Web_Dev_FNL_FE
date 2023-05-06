@@ -204,6 +204,18 @@ export async function remove_video_from_course(props){
     }
   );
 
+//   if(response.ok){
+//     continue;
+//   }
+//   else{
+//     break;
+//   }
+//   if(response.ok){
+//     continue;
+//   }
+//   else{
+//     break;
+//   }
 }
 
 }
@@ -574,6 +586,9 @@ export async function  get_quiz_by_id(_id){
   else if(role == "1"){
     url = x.toString() + "/admin/get_quiz?_id=" + _id
   }
+  else{
+    url = x.toString() + "/student/quiz/get?_id=" + _id
+  }
 
   const response = await fetch(url, {
       method: "GET",
@@ -684,7 +699,7 @@ export async function remove_quiz_from_video(){
     })
     .then( async (res) =>{
       //console.log( await res.json() )
-      console.log("HUha YEHA TAK")
+      // console.log("HUha YEHA TAK")
     return await res.json()})
     .then((res) => {
       // console.log((res));
@@ -705,4 +720,44 @@ export async function remove_quiz_from_video(){
   return response;
 
 
+}
+
+export async function Course_Offered_By_Teacher(){
+
+  let x = getBaseURL();
+
+  let token = window.localStorage.getItem("authtoken");
+
+  const decodedToken = jwtDecode(token);
+  const role = decodedToken.role;
+  let url;
+  if(role == "2"){
+  url = x.toString() + "/teacher/profile/get"
+  }
+
+  else if(role == "1"){
+    url = x.toString() + "/admin/profile/get"
+  }
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+      'refresh-token': window.localStorage.getItem("refToken")
+      },
+    }
+    ).then( async (res) =>{
+      //console.log( await res.json() )
+    return await res.json()})
+    .then((res) => {
+      if(res.error){
+        return res.error;
+      }
+      else{
+        return res.data;
+      }
+    }
+  );
+  return response;
 }
