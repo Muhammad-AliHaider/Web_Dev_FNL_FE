@@ -5,6 +5,8 @@ import { CourseOfferedCardTemplate } from "components/Basic_Templates/Course_Off
 import {Button} from "@mui/material";
 import "../components/Basic_Templates/styleSheet.css";
 import { getAllCourses } from "../APIs/userAPIs.jsx";
+import {Course_Offered_By_Teacher} from "../APIs/TeacherAPI.jsx"
+import jwtDecode from "jwt-decode";
 
 
 
@@ -16,19 +18,34 @@ import { getAllCourses } from "../APIs/userAPIs.jsx";
 
 function Courses_Offered() {
 
+    
+
+    let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+
 
     const [Courses, setCourses] = useState();
 
     useEffect(  () => {
+
         async function getCourses(){
-            const data = await getAllCourses();
+            let data  = [];
+            if (role === "3")
+            data = await getAllCourses();
+            else
+            data = await Course_Offered_By_Teacher();
             // console.log("useEffect -> getAllCourses-> data");
-            // console.log(data);
+            console.log(data["teacher"]["CourseOffered"]);
         
-        if(data)
-        setCourses(data);
+        if(data["teacher"]["CourseOffered"]){
+        setCourses(data["teacher"]["CourseOffered"]);
+        }
         else
-        setCourses();
+        {
+            setCourses();
+        }
         } 
         getCourses();
         
@@ -44,10 +61,12 @@ function Courses_Offered() {
                 <h3 className="title">Courses Offered</h3>
                 </Col>
                 <Col>
+                {role !== "3"?
                 <Row style={{justifyContent : "flex-end"}}>
                 <Button variant="text" className="Button"  style={{justifySelf : "flex-end"}}>ADD +</Button>
                 <Button variant="text" className="Button" style={{justifySelf : "flex-end"}}>Delete -</Button>
-                </Row>
+                </Row>:<></>
+                }
                 </Col>
             </CardHeader>
             <CardBody>
@@ -77,7 +96,7 @@ function Courses_Offered() {
                         }
                          
                         if(Courses){
-                            console.log(Courses );
+                            // console.log(Courses );
                         let x = [[]];
                         for(let i = 0 ; i <= parseInt(Courses.length / 4);i++){
                             for(let j = 0 ; j < 4;j++){
@@ -95,19 +114,6 @@ function Courses_Offered() {
                         
                     })()
                 }
-                {/* <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"} /> */}
-            {/* <Row>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"} />
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            </Row>
-            <Row>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            </Row> */}
 
             </CardBody>
         </Card>
