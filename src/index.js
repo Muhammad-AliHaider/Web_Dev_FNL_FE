@@ -50,7 +50,7 @@ root.render(
       <BrowserRouter>
         <Switch>
 
-          <Route path="/teacher" render={(props) => <TeacherLayout {...props} />} />
+          <Route path="/teacher" render={(props) => <TeacherLayout />} />
           <Route path="/student" render={(props) => <StudentLayout {...props} />} />
           
           <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
