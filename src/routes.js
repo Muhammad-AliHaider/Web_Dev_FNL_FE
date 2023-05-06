@@ -86,6 +86,14 @@ export var StudentRoutes = [
     layout: "/student"
   },
   {
+    path : "/quiz",
+    name : "Quiz",
+    rtlName: "إخطارات",
+    icon: "tim-icons icon-book-55",
+    component: Quiz,
+    layout: "/student"
+  },
+  {
     path: "/user-profile",
     name: "User Profile",
     icon: "tim-icons icon-single-02",
@@ -163,10 +171,10 @@ export var TeacherRoutes = [
     layout: "/teacher"
   },
   {
-    path: "/enrollin",
+    path: "/Course_Offered",
     name: "Courses Offered",
     icon: "tim-icons icon-atom",
-    component: Icons,
+    component: Courses_Offered,
     layout: "/teacher"
   },
   {
@@ -177,14 +185,14 @@ export var TeacherRoutes = [
     layout: "/teacher"
   },
   
-  {
-    path: "/Course_Offered",
-    name: "Course Offered",
-    rtlName: "إخطارات",
-    icon: "tim-icons icon-book-55",
-    component: Courses_Offered,
-    layout: "/teacher"
-  },
+  // {
+  //   path: "/Course_Offered",
+  //   name: "Course Offered",
+  //   rtlName: "إخطارات",
+  //   icon: "tim-icons icon-book-55",
+  //   component: Courses_Offered,
+  //   layout: "/teacher"
+  // },
   {
     path: "/Course",
     name: "Course",

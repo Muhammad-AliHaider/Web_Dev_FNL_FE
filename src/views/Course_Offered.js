@@ -5,6 +5,8 @@ import { CourseOfferedCardTemplate } from "components/Basic_Templates/Course_Off
 import {Button} from "@mui/material";
 import "../components/Basic_Templates/styleSheet.css";
 import { getAllCourses } from "../APIs/userAPIs.jsx";
+import {Course_Offered_By_Teacher} from "../APIs/TeacherAPI.jsx"
+import jwtDecode from "jwt-decode";
 
 
 
@@ -16,19 +18,28 @@ import { getAllCourses } from "../APIs/userAPIs.jsx";
 
 function Courses_Offered() {
 
+    
+
+    let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+
 
     const [Courses, setCourses] = useState();
 
     useEffect(  () => {
         async function getCourses(){
             const data = await getAllCourses();
+
+            // const data = await Course_Offered_By_Teacher();
             // console.log("useEffect -> getAllCourses-> data");
-            // console.log(data);
+            console.log(data);
         
-        if(data)
-        setCourses(data);
-        else
-        setCourses();
+        // if(data)
+        // setCourses(data);
+        // else
+        // setCourses();
         } 
         getCourses();
         
@@ -44,10 +55,12 @@ function Courses_Offered() {
                 <h3 className="title">Courses Offered</h3>
                 </Col>
                 <Col>
+                {role !== "3"?
                 <Row style={{justifyContent : "flex-end"}}>
                 <Button variant="text" className="Button"  style={{justifySelf : "flex-end"}}>ADD +</Button>
                 <Button variant="text" className="Button" style={{justifySelf : "flex-end"}}>Delete -</Button>
-                </Row>
+                </Row>:<></>
+                }
                 </Col>
             </CardHeader>
             <CardBody>

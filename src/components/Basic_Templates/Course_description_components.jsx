@@ -3,6 +3,13 @@ import { Card , CardBody,CardHeader, CardTitle,CardText, Col} from "reactstrap";
 import {Button} from "@mui/material"
 import "./styleSheet.css"
 import {Link} from "react-router-dom" ;
+import jwtDecode from "jwt-decode";
+
+let token = window.localStorage.getItem("authtoken");
+
+const decodedToken = jwtDecode(token);
+const role = decodedToken.role;
+
 
 export const CourseDescription = (props) => {
     return (
@@ -14,7 +21,8 @@ export const CourseDescription = (props) => {
         <div className="Description">
         {props.desc}
         </div>
-        <Button variant="text" className="Button"  >Edit_Details</Button>  
+        {role != "3"?
+        <Button variant="text" className="Button"  >Edit_Details</Button>  :<></>}
         </Card>
     </>
     );
@@ -41,7 +49,8 @@ export const TeacherDetails = (props) => {
             Email : {props.email}
         </div>
 
-        <Button variant="text" className="Button"  >Edit_Details</Button>
+        {role != "3"?
+        <Button variant="text" className="Button"  >Edit_Details</Button>  :<></>}
     </Card>
     </>
     );
