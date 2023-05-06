@@ -2,6 +2,7 @@ import React from "react";
 import {VideoCard} from '../components/Basic_Templates/Course_Session_Components.jsx';
 import { useState } from "react";
 import { useEffect} from "react";
+import jwtDecode from "jwt-decode";
 
 import {MDBCardText} from 'mdb-react-ui-kit';
 
@@ -124,24 +125,63 @@ export function Courses () {
       children: 
         <>
                   
-                {isDelete?<>
-                  <Col>
-                    <Row style={{justifyContent : "flex-end"}}>
-                      <Button variant="text" className="Button" onClick={Add_Vid}  style={{justifySelf : "flex-end"}}>ADD +</Button>
-                      <Button variant="text" className="Button" onClick={HandleDeleteOnClick} style={{justifySelf : "flex-end"}}>Delete -</Button>
-                    </Row>
-                  </Col>
-                  </>
-                :<>
+                {(() =>{
+                  let token = window.localStorage.getItem("authtoken");
+
+                  const decodedToken = jwtDecode(token);
+                  const role = decodedToken.role;
+                  
+                  if (role == "3"){
+
+                    return (Vid_arr);
+                  }
+                  else{
+                  
+                    if(isDelete)
+                    return(<>
                     <Col>
-                    <Row style={{justifyContent : "flex-end"}}>
-                      <Button variant="text" className="Button" onClick={HandleDeleteOnClick}  style={{justifySelf : "flex-end"}}>cancel</Button>
-                      <Button variant="text" className="Button" onClick={HandleConfirmDelete} style={{justifySelf : "flex-end"}}>confirm</Button>
-                    </Row>
-                  </Col>
-                  </>}
+                      <Row style={{justifyContent : "flex-end"}}>
+                        <Button variant="text" className="Button" onClick={Add_Vid}  style={{justifySelf : "flex-end"}}>ADD +</Button>
+                        <Button variant="text" className="Button" onClick={HandleDeleteOnClick} style={{justifySelf : "flex-end"}}>Delete -</Button>
+                      </Row>
+                    </Col>
+                     {Vid_arr}
+                    </>);
+                    else
+                    return(<>
+                      <Col>
+                      <Row style={{justifyContent : "flex-end"}}>
+                        <Button variant="text" className="Button" onClick={HandleDeleteOnClick}  style={{justifySelf : "flex-end"}}>cancel</Button>
+                        <Button variant="text" className="Button" onClick={HandleConfirmDelete} style={{justifySelf : "flex-end"}}>confirm</Button>
+                      </Row>
+                    </Col>
+
+                    <div style={{ marginTop: 20 }}>
+                      <p>Selected: {toShowChecked.join(', ')} </p> 
+                    </div>
+
+                    <List
+
+                      dataSource={Vid_arr}
+                      renderItem={item => (
+                        <List.Item>
+                          <List.Item.Meta
+                          //  onChange={HandleCheckbox(item.props)}
+                          avatar = {<Checkbox onChange={() => {HandleCheckbox(item.props._id,item.props.title)}}/>}
+                          />
+                          {item}
+                        </List.Item>
+                      )}
+                    />
+                    
+                    </>);
+                    
+                  
+                  }
+                  }
+                  )()}
             
-                {isDelete?
+                {/* {isDelete?
                   Vid_arr:
                   <>
                   <div style={{ marginTop: 20 }}>
@@ -163,7 +203,7 @@ export function Courses () {
                   />
                   
                   </>
-                }
+                } */}
       
             
         </>

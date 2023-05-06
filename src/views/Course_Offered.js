@@ -36,10 +36,10 @@ function Courses_Offered() {
             // console.log("useEffect -> getAllCourses-> data");
             console.log(data);
         
-        // if(data)
-        // setCourses(data);
-        // else
-        // setCourses();
+        if(data)
+        setCourses(data);
+        else
+        setCourses();
         } 
         getCourses();
         
@@ -108,19 +108,6 @@ function Courses_Offered() {
                         
                     })()
                 }
-                {/* <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"} /> */}
-            {/* <Row>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"} />
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            </Row>
-            <Row>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            </Row> */}
 
             </CardBody>
         </Card>
