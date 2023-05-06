@@ -750,7 +750,125 @@ export async function Course_Offered_By_Teacher(){
   return response;
 }
 
-export async function Create_Courses(){
+export async function Create_Courses(Name, Description , Thumbnail, Teacher,Topic ,Language ){
+
+  // Teacher: req.body.Teacher.toUpperCase() ,
+  // Topic: req.body.Topic.toUpperCase(),
+  // Language: req.body.Language.toUpperCase(), 
+  // Name: req.body.Name.toUpperCase(), 
+  // Description: req.body.Description, 
+  // Thumbnail: req.body.Thumbnail
+
+  let x = getBaseURL();
+
+  let token = window.localStorage.getItem("authtoken");
+
+  const decodedToken = jwtDecode(token);
+  const role = decodedToken.role;
+  let url;
+  if(role == "2"){
+  url = x.toString() + "/teacher/create_Course"
+  }
+
+  else if(role == "1"){
+    url = x.toString() + "/admin/create_Course"
+  }
+  
+  // console.log(Question,Options,Answer);
+
+  const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+        'refresh-token': window.localStorage.getItem("refToken")
+        },
+        body : JSON.stringify({
+          Teacher: Teacher,
+          Topic: Topic,
+          Language: Language,
+          Name: Name,
+          Description: Description,
+          Thumbnail: Thumbnail
+        })
+      }).then( async (res) =>{
+        //console.log( await res.json() )
+      return await res.json()})
+      .then((res) => {
+        // console.log((res));
+        if(res.error){
+          return res.error;
+        }
+        else{
+          return res.data;
+        }
+      }
+    );
+    // console.log(response);
+    return response;
+  
+  
+}
+
+export async function add_Course_to_teacher(ID,courseID){
+
+  let x = getBaseURL();
+
+  let token = window.localStorage.getItem("authtoken");
+
+  const decodedToken = jwtDecode(token);
+  const role = decodedToken.role;
+  let url;
+  if(role == "2"){
+  url = x.toString() + "/teacher/add_courses"
+  }
+
+  else if(role == "1"){
+    url = x.toString() + "/admin/add_courses"
+  }
+
+
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+      'refresh-token': window.localStorage.getItem("refToken")
+      },
+
+    body : JSON.stringify({
+      _id : ID,
+      CourseID : courseID,
+    })
+    })
+    .then( async (res) =>{
+      //console.log( await res.json() )
+      // console.log("HUha YEHA TAK")
+    return await res.json()})
+    .then((res) => {
+      // console.log((res));
+      if(res.error){
+        return res.error;
+      }
+      else{
+        return res.data;
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
+    }
+  );
+
+//   console.log(response[response.length-1]._id);
+  return response;
+
+
+
+
+}
+
+export async function Get_Course(){
   
 }
 
