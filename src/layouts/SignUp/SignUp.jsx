@@ -119,7 +119,7 @@ function S() {
               <div id="" style={{overflowY: 'scroll', height: '660px'}}>
 
 
-                <ImageUpload onProfilePicChange={handleProfilePicChange} defaultPicUrl={'https://firebasestorage.googleapis.com/v0/b/forget-normal-life.appspot.com/o/default-avatar.png?alt=media&token=92a92dbe-097e-463e-a96b-ff6d814a0b28'} text = "Upload Profile Pic"/>
+                <ImageUpload onProfilePicChange={handleProfilePicChange} defaultPicUrl={'https://firebasestorage.googleapis.com/v0/b/forget-normal-life.appspot.com/o/default-avatar.png?alt=media&token=92a92dbe-097e-463e-a96b-ff6d814a0b28'}/>
                 <MDBInput wrapperClass='mb-4' label='Username*' id='formControlLg' type='text' size="lg" value={UserName} onChange={(e) => setUserName(e.target.value)}/>
                 <MDBInput wrapperClass='mb-4' label='Name*' id='formControlLg' type='text' size="lg" value={Name} onChange={(e) => setName(e.target.value)}/>
                 <MDBInput wrapperClass='mb-4' label='Email address*' id='formControlLg' type='email' size="lg" value={Email} onChange={(e) => setEmail(e.target.value)}/>
