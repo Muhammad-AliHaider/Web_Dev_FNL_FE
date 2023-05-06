@@ -1,3 +1,4 @@
+import Quiz from 'views/Quiz.js';
 import getBaseURL from './BaseURLs.jsx';
 import jwtDecode from "jwt-decode";
 
@@ -66,7 +67,7 @@ export async function  get_videos (){
       url = x.toString() + "/admin/get_Video"
     }
     else{
-      url = x.toString() + "/student/get_Video"
+      url = x.toString() + "/student/video/get"
     }
     const response = await fetch(url, {
         method: "GET",
@@ -176,7 +177,6 @@ export async function remove_video_from_course(props){
   
 
   for(let i = 0; i < props.length; i++){
-    // console.log(props[i]);
   const response = await fetch(url, {
       method: "PUT",
       headers: {
