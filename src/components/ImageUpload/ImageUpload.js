@@ -6,7 +6,7 @@ import { MDBInput,MDBCardImage, MDBCol,MDBRow } from "mdb-react-ui-kit";
 import { Col, Row } from "reactstrap";
 
 
-export function ImageUpload({ onProfilePicChange, defaultPicUrl , text }) {
+export function ImageUpload({ onProfilePicChange, defaultPicUrl }) {
   const [progress, setProgress] = useState(0);
   const [downloadURL, setDownloadURL] = useState(defaultPicUrl);
 
@@ -47,7 +47,7 @@ export function ImageUpload({ onProfilePicChange, defaultPicUrl , text }) {
   return (
     <div className="ImageUpload">
       <form onSubmit={formHandler}>
-      <p wrapperClass='mb-4' id='formControlLg' size="lg"> {text} </p>
+      <p wrapperClass='mb-4' id='formControlLg' size="lg"> Upload Profile Picture </p>
       <MDBRow className='g-0 d-flex align-items-center' >
         <MDBCol md='2'>
           <MDBCardImage src={downloadURL} alt='image' className='rounded-t-5 rounded-tr-lg-0' fluid />

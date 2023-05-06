@@ -29,8 +29,6 @@ import CreditCardForm from "views/CreditCardForm.js";
 
 import Video_Editor from "views/Video_Editor.js";
 
-import Quiz from "views/Quiz.js";
-
 
 
 export var StudentRoutes = [
@@ -226,14 +224,6 @@ export var TeacherRoutes = [
     rtlName: "إخطارات",
     icon: "tim-icons icon-book-55",
     component: Video_Editor,
-    layout: "/teacher"
-  },
-  {
-    path : "/quiz",
-    name : "Quiz",
-    rtlName: "إخطارات",
-    icon: "tim-icons icon-book-55",
-    component: Quiz,
     layout: "/teacher"
   },
   {
