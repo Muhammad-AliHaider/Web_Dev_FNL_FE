@@ -95,19 +95,6 @@ function Courses_Offered() {
                         
                     })()
                 }
-                {/* <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"} /> */}
-            {/* <Row>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"} />
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            </Row>
-            <Row>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            <CourseOfferedCardTemplate  title = {"Course 1"} desc = {"lorem ipsum dolor sit amet"}/>
-            </Row> */}
 
             </CardBody>
         </Card>
