@@ -108,7 +108,7 @@ function Student(props) {
     var filtered_routes = [] ;
     // console.log("ahhhhhh");
     for (let i  = 0 ; i < routes.length ; i++) {
-      if (routes[i].name !== "Course" && routes[i].name !== "Video" && routes[i].name !== "Video_upload"){
+      if (routes[i].name !== "Course" && routes[i].name !== "Video" && routes[i].name !== "Video_upload"  && routes[i].name !== "Quiz"){
         console.log(routes[i].name);
         filtered_routes.push(routes[i]);
       }
