@@ -167,6 +167,50 @@ export async function getNotifications(){
   return response;
 }
 
+
+export async function getProfile(){
+  let x = getBaseURL();
+
+  let url ;
+  let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+
+  if(role == "2"){
+    url = x.toString() + "/teacher/profile/get"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/profile/get"
+    }
+  else{
+    url = x.toString() + "/student/profile/get"
+  }
+  
+
+  const response = await  fetch(url, {
+          method: 'GET',
+          headers: {
+              "Content-Type": "application/json",
+              'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+              'refresh-token': window.localStorage.getItem("refToken")
+            }
+        }).then( async (res) =>{
+        return await res.json()})
+        .then((res) => {
+          if(res.error){
+            console.log("hello this is an ",res.error);
+            window.location.href = "/signin";
+            return res.error;
+          }
+          else{
+            return res;
+          }})
+  return response;
+}
+
+
 export async function delete_notification(props){
 
 

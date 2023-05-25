@@ -37,16 +37,32 @@ function Courses_Offered() {
             else
             data = await Course_Offered_By_Teacher();
             // console.log("useEffect -> getAllCourses-> data");
-            console.log(data["teacher"]["CourseOffered"]);
+            // console.log(data["teacher"]["CourseOffered"]);
         
-        if(data["teacher"]["CourseOffered"]){
-        setCourses(data["teacher"]["CourseOffered"]);
+        if(role === "2"){
+            console.log("data[\"teacher\"][\"CourseOffered\"] is => ",data["teacher"]["CourseOffered"]);
+            if(data["teacher"]["CourseOffered"]){
+            setCourses(data["teacher"]["CourseOffered"]);
+            }
+            else
+            {
+                setCourses();
+            }
         }
-        else
+        else if(role === "3")
         {
-            setCourses();
-        }
+            console.log("data is => ",data);
+            if(data){
+            setCourses(data);
+            }
+            else
+            {
+                setCourses();
+            }
+
         } 
+        
+        }
         getCourses();
         
     },[]);
