@@ -868,7 +868,259 @@ export async function add_Course_to_teacher(ID,courseID){
 
 }
 
-export async function Get_Course(){
+export async function remove_Material_from_Course(props){
+
+  let x = getBaseURL();
+
+  let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+
+    let url;
+    if(role == "2"){
+    url = x.toString() + "/teacher/remove_Materials"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/remove_Materials"
+    }
+    
   
+
+  for(let i = 0; i < props.length; i++){
+    console.log(props[i])
+  const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        'authorization': "Bearer "+window.localStorage.getItem("authtoken"),
+        'refresh-token': window.localStorage.getItem("refToken")
+        },
+
+      body : JSON.stringify({
+        _id : window.sessionStorage.getItem("CourseID"),
+        MaterialID : props[i],
+      })
+    })
+    .then( async (res) =>{
+      //console.log( await res.json() )
+    return await res.json()})
+    .then((res) => {
+      // console.log((res));
+      if(res.error){
+        return res.error;
+      }
+      else{
+        return res.data;
+      }
+    }
+  );
+
+}
+
+
+
+}
+
+export async function Delete_Material(props){
+  let x = getBaseURL();
+
+  let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+
+    let url;
+    if(role == "2"){
+    url = x.toString() + "/teacher/delete_Material"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/delete_Material"
+    }
+    
+
+  for(let i = 0; i < props.length; i++){
+
+  const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+        'refresh-token': window.localStorage.getItem("refToken")
+        },
+
+      body : JSON.stringify({
+        _id : props[i],
+      })
+
+    }).then( async (res) =>{
+      //console.log( await res.json() )
+    return await res.json()})
+    .then((res) => {
+      // console.log((res));
+      if(res.error){
+        console.log("hello this is an ",res.error);
+        return res.error;
+      }
+      else{
+        return res.data;
+      }})
+    }
+    window.location.href = "/teacher/course";
+}
+
+export async function Upload_Material(MaterialName, MaterialURL){
+  let x = getBaseURL();
+
+    let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    let url;
+    if(role == "2"){
+      url = x.toString() + "/teacher/create_Material"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/create_Material"
+    }
+
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          'authorization': "Bearer "+ window.localStorage.getItem("authtoken"),
+          'refresh-token': window.localStorage.getItem("refToken")
+          },
+
+        body : JSON.stringify({
+            Name: MaterialName,
+            URL : MaterialURL,
+            // Thumbnail:VideoThumbnail,
+        })
+          
+        })
+        .then( async (res) =>{
+        return await res.json()})
+        .then((res) => {
+          if(res.error){
+            return res.error;
+          }
+          else{
+            return res.data;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          return err;
+        }
+      );
+      return response;
+}
+
+export async function get_Material(){
+  let x = getBaseURL();
+
+    let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    let url;
+    if(role == "2"){
+    url = x.toString() + "/teacher/get_Material"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/get_Material"
+    }
+    else{
+      url = x.toString() + "/student/video/get"
+    }
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+          'refresh-token': window.localStorage.getItem("refToken")
+          },
+          
+        })
+        .then( async (res) =>{
+          //console.log( await res.json() )
+        return await res.json()})
+        .then((res) => {
+          // console.log((res));
+          if(res.error){
+            return res.error;
+          }
+          else{
+            return res.data;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          return err;
+        }
+      );
+  
+    //   console.log(response[response.length-1]._id);
+      return response[response.length-1]._id;
+}
+
+export async function add_Material_to_course(props){
+  let x = getBaseURL();
+
+  let token = window.localStorage.getItem("authtoken");
+
+  const decodedToken = jwtDecode(token);
+  const role = decodedToken.role;
+
+  let url;
+  if(role == "2"){
+  url = x.toString() + "/teacher/add_Materials"
+  }
+
+  else if(role == "1"){
+    url = x.toString() + "/admin/add_Materials"
+  }
+  
+
+  // url = x.toString() + "/teacher/add_Videos"
+
+  const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+        'refresh-token': window.localStorage.getItem("refToken")
+        },
+
+      body : JSON.stringify({
+        _id : window.sessionStorage.getItem("CourseID"),
+        MaterialID : props,
+      })
+      })
+      .then( async (res) =>{
+        //console.log( await res.json() )
+      return await res.json()})
+      .then((res) => {
+        // console.log((res));
+        if(res.error){
+          return res.error;
+        }
+        else{
+          return res.data;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      }
+    );
+
+  //   console.log(response[response.length-1]._id);
+    return response;
 }
 

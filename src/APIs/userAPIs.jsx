@@ -116,7 +116,7 @@ export async function getCourseData(){
         console.log(err);
         return err;
       } );
-      // console.log(response);
+      console.log(response);
 
         return response;
 

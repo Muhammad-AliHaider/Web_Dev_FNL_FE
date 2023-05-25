@@ -32,20 +32,24 @@ function Courses_Offered() {
 
         async function getCourses(){
             let data  = [];
-            if (role === "3")
+            if (role === "3"){
             data = await getAllCourses();
-            else
+            // console.log(data);
+            }
+            else{
             data = await Course_Offered_By_Teacher();
             // console.log("useEffect -> getAllCourses-> data");
             console.log(data["teacher"]["CourseOffered"]);
+            }
         
-        if(data["teacher"]["CourseOffered"]){
-        setCourses(data["teacher"]["CourseOffered"]);
-        }
-        else
-        {
-            setCourses();
-        }
+            if(role === "2"){
+            setCourses(data["teacher"]["CourseOffered"]);
+            }
+            else
+            {
+                setCourses(data);
+                console.log("hugaya")
+            }
         } 
         getCourses();
         
@@ -58,7 +62,8 @@ function Courses_Offered() {
         <Card>
             <CardHeader>
                 <Col >
-                <h3 className="title">Courses Offered</h3>
+                {role === "3"?<h3 className="title">Courses</h3>:<h3 className="title">Courses Offered</h3>}
+                
                 </Col>
                 <Col>
                 {role !== "3"?
