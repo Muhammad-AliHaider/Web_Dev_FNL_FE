@@ -36,6 +36,7 @@ import {
 } from "reactstrap";
 import { useHistory } from 'react-router-dom';
 import { error } from "jquery";
+import { getProfile } from "APIs/userAPIs";
 
 
 function UserProfile() {
@@ -60,28 +61,26 @@ function UserProfile() {
     });
     
     console.log("data yeh tak")
+
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:3000/teacher/profile/get").catch(error=> {
-          if(error.response.data.auth == false){
-            // history.push('/signin')
-          }
-          else{
-            console.log(error)
-          }
-        });
-        
-        console.log('Aaa',response["Headers"]);
+        console.log('Authorization')
+
+        const response = await getProfile();
+        console.log(response)
+
+        // console.log('Aaa',response["Headers"]);
         localStorage.setItem('authToken',response["Headers"])
-        setUserData(response.data);
-        setProfilePic(response.data.data.ProfilePic)
+        // console.log(response)
+        setUserData(response);
+        setProfilePic(response.data.ProfilePic)
         setIsLoading(false);
-        
-        
       } catch (error) {
         console.log(error);
       }
     };
+
+    
 
     fetchData();
   }, []);

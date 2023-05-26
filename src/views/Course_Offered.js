@@ -57,10 +57,12 @@ function Courses_Offered() {
             else{
             data = await Course_Offered_By_Teacher();
             // console.log("useEffect -> getAllCourses-> data");
+
             console.log(data["teacher"]["CourseOffered"]);
             }
         
             if(role === "2"){
+
             setCourses(data["teacher"]["CourseOffered"]);
             }
             else
@@ -68,7 +70,10 @@ function Courses_Offered() {
                 setCourses(data);
                 console.log("hugaya")
             }
+
         } 
+        
+        }
         getCourses();
         
     },[]);
