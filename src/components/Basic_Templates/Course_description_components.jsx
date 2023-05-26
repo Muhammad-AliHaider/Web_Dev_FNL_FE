@@ -49,8 +49,6 @@ export const TeacherDetails = (props) => {
             Email : {props.email}
         </div>
 
-        {role != "3"?
-        <Button variant="text" className="Button"  >Edit_Details</Button>  :<></>}
     </Card>
     </>
     );

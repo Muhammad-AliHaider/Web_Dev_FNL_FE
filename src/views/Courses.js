@@ -126,7 +126,7 @@ export function Courses () {
                     if(CourseData){
                       return (<>
                       <CourseDescription title={"Description"} desc = {CourseData.Description}/>
-                      <TeacherDetails title={"Teacher Details"} name = {"Teacher Name"} email = {"Teacher Email"} desc = {"iufnwiunfuiwnfiweifnweinfwiefnweiufnwiufn"} />
+                      <TeacherDetails title={"Teacher Details"} name = {CourseData.Teacher.UserName} email = {CourseData.Teacher.Email} desc = {CourseData.Teacher.BIO} />
                       </>)
                     }
                     else{
