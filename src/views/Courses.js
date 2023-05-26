@@ -1,5 +1,5 @@
 import React from "react";
-import {VideoCard} from '../components/Basic_Templates/Course_Session_Components.jsx';
+import {VideoCard, MaterialCard} from '../components/Basic_Templates/Course_Session_Components.jsx';
 import { useState } from "react";
 import { useEffect} from "react";
 import jwtDecode from "jwt-decode";
@@ -12,7 +12,7 @@ import {Card,CardHeader,CardBody, CardTitle, CardText,Row , Col} from "reactstra
 import { CourseDescription,TeacherDetails } from "components/Basic_Templates/Course_description_components";
 import {Checkbox, List } from "antd";
 import { getCourseData } from "../APIs/userAPIs.jsx";
-import { remove_video_from_course, delete_Video } from "../APIs/TeacherAPI.jsx";
+import { remove_video_from_course, delete_Video , remove_Material_from_Course , Delete_Material} from "../APIs/TeacherAPI.jsx";
 import { Button } from "@mui/material";
 import "./styleSheet.css"
 
@@ -57,8 +57,8 @@ export function Courses () {
 
   const HandleCheckbox = (props1, props2) =>{
     if(checked.includes(props1)){
-      setChecked(checked.filter((item)=>item!==props1))
-      setToShowChecked(toShowChecked.filter((item)=>item!==props2))
+      setChecked(checked.filter((item)=>item!==props1)) // props 1 is the id of the video/material
+      setToShowChecked(toShowChecked.filter((item)=>item!==props2)) // props 2 is the title of the video/material
     }
     else{
       setChecked([...checked,props1])
@@ -77,11 +77,27 @@ export function Courses () {
     Delete();
     setIsDelete((prev)=>!prev);
 
-    
+  }
+
+  const HandleConfirmDeleteMaterial = () =>{
+
+    async function Delete(){
+      
+      await remove_Material_from_Course(checked)
+      await Delete_Material(checked);
+    }
+
+    Delete();
+    setIsDelete((prev)=>!prev);
+
   }
 
   function Add_Vid(){
     window.location.href = "/teacher/video_upload";
+  }
+
+  function Add_Mat(){
+    window.location.href = "/teacher/material_upload";
   }
 
 
@@ -94,7 +110,7 @@ export function Courses () {
       Vid_arr.push(<VideoCard title = {CourseData.VideoID[i].Name} image = {CourseData.VideoID[i].Thumbnail}  url = {CourseData.VideoID[i].URL} _id = {CourseData.VideoID[i]._id} Quiz_ID = {CourseData.VideoID[i].QuizID} bool = {isDelete}/>)
     }
     for(let i = 0 ; i < CourseData.MaterialID.length ; i++){
-      Mat_arr.push(<VideoCard title = {CourseData.MaterialID[i].Name} image = {CourseData.MaterialID[i].Thumbnail}  />)
+      Mat_arr.push(<MaterialCard title = {CourseData.MaterialID[i].Name}  _id = {CourseData.MaterialID[i]._id} url = {CourseData.MaterialID[i].URL}  />)
     }
   }
 
@@ -110,7 +126,7 @@ export function Courses () {
                     if(CourseData){
                       return (<>
                       <CourseDescription title={"Description"} desc = {CourseData.Description}/>
-                      <TeacherDetails title={"Teacher Details"} name = {"Teacher Name"} email = {"Teacher Email"} desc = {"iufnwiunfuiwnfiweifnweinfwiefnweiufnwiufn"} />
+                      <TeacherDetails title={"Teacher Details"} name = {CourseData.Teacher.UserName} email = {CourseData.Teacher.Email} desc = {CourseData.Teacher.BIO} />
                       </>)
                     }
                     else{
@@ -181,38 +197,69 @@ export function Courses () {
                   }
                   }
                   )()}
-            
-                {/* {isDelete?
-                  Vid_arr:
-                  <>
-                  <div style={{ marginTop: 20 }}>
-                    <p>Selected: {toShowChecked.join(', ')} </p> 
-                  </div>
-
-                  <List
-
-                    dataSource={Vid_arr}
-                    renderItem={item => (
-                      <List.Item>
-                         <List.Item.Meta
-                        //  onChange={HandleCheckbox(item.props)}
-                        avatar = {<Checkbox onChange={() => {HandleCheckbox(item.props._id,item.props.title)}}/>}
-                        />
-                        {item}
-                      </List.Item>
-                    )}
-                  />
-                  
-                  </>
-                } */}
-      
-            
         </>
     },
     {
       key: '3',
       label: <CardText>Course Material </CardText>,
-      children: `Content of Tab Pane 3`,
+      children: 
+      <>
+      {(() =>{
+        let token = window.localStorage.getItem("authtoken");
+
+        const decodedToken = jwtDecode(token);
+        const role = decodedToken.role;
+        
+        if (role == "3"){
+
+          return (Mat_arr);
+        }
+        else{
+        
+          if(isDelete)
+          return(<>
+          <Col>
+            <Row style={{justifyContent : "flex-end"}}>
+              <Button variant="text" className="Button"  onClick= {Add_Mat} style={{justifySelf : "flex-end"}}>ADD +</Button>
+              <Button variant="text" className="Button" onClick={HandleDeleteOnClick} style={{justifySelf : "flex-end"}}>Delete -</Button>
+            </Row>
+          </Col>
+           {Mat_arr}
+          </>);
+          else
+          return(<>
+            <Col>
+            <Row style={{justifyContent : "flex-end"}}>
+              <Button variant="text" className="Button" onClick={HandleDeleteOnClick}  style={{justifySelf : "flex-end"}}>cancel</Button>
+              <Button variant="text" className="Button" onClick = {HandleConfirmDeleteMaterial}style={{justifySelf : "flex-end"}}>confirm</Button>
+            </Row>
+          </Col>
+
+          <div style={{ marginTop: 20 }}>
+            <p>Selected: {toShowChecked.join(', ')} </p> 
+          </div>
+
+          <List
+
+            dataSource={Mat_arr}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                //  onChange={HandleCheckbox(item.props)}
+                avatar = {<Checkbox onChange={() => {HandleCheckbox(item.props._id,item.props.title)}}/>}
+                />
+                {item}
+              </List.Item>
+            )}
+          />
+          
+          </>);
+          
+        
+        }
+        }
+        )()}
+        </>
     },
   ];
     return(

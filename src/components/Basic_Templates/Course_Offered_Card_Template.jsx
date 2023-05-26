@@ -3,6 +3,8 @@ import {  Col} from "reactstrap";
 import {Button} from "@mui/material";
 import "./styleSheet.css";
 import jwtDecode from 'jwt-decode';
+import { IoCloseCircleSharp } from "react-icons/io5";
+import { remove_Course_from_teacher,delete_Course } from "APIs/TeacherAPI";
 //import {Link} from "react-router-dom" ;
 
 
@@ -10,6 +12,8 @@ import jwtDecode from 'jwt-decode';
 
 export const CourseOfferedCardTemplate = (props) => {
     const id = props._id;
+    
+    
 
     function handleButtonClick(){
         // console.log(id);
@@ -28,11 +32,24 @@ export const CourseOfferedCardTemplate = (props) => {
             }
     
     }
+
+    function handleDelete(){
+        async function Delete(){
+      
+            await remove_Course_from_teacher(props._id)
+            await delete_Course(props._id);
+          }
+        Delete();
+    }
+
     return (
     <>
         <Col lg="3" md="6" sm="4" className="content">
+        
+        {props.isDelete? <></> : <IoCloseCircleSharp onClick = {handleDelete} style = {{justifySelf : "flex-end" , color : '#c44b99'}} size = {30}/>}
             <div className="font-icon-list" >
             <div className="font-icon-detail">
+            
                 <i className="tim-icons icon-coins" />
                 <div className = "Title">
                 {props.title}

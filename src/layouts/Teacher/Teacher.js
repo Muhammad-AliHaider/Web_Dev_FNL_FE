@@ -105,7 +105,7 @@ function Teacher(props) {
   const filterRoutes = (routes) => {
     var filtered_routes = [] ;
     for (let i  = 0 ; i < routes.length ; i++) {
-      if (routes[i].name !== "Course" && routes[i].name !== "Video" && routes[i].name !== "Video_upload" && routes[i].name !== "video_editor" && routes[i].name !== "Quiz"  ){
+      if (routes[i].name !== "Course" && routes[i].name !== "Video" && routes[i].name !== "Video_upload" && routes[i].name !== "video_editor" && routes[i].name !== "Quiz" && routes[i].name !== "Material_upload" && routes[i].name !== "Course_upload" ){
         console.log(routes[i].name);
         filtered_routes.push(routes[i]);
       }

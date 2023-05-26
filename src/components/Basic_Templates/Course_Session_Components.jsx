@@ -4,9 +4,12 @@ import {MDBCard,MDBRow,MDBCol,MDBCardImage,MDBCardTitle, MDBCardBody} from 'mdb-
 import {Button} from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Input, Label } from 'reactstrap';
-import { IoPlayCircle, IoPencil, IoAddCircleSharp , IoRemoveCircleSharp } from "react-icons/io5";
+import { IoPlayCircle, IoPencil, IoAddCircleSharp , IoRemoveCircleSharp , IoDownload } from "react-icons/io5";
 import React from "react";
 import jwtDecode from 'jwt-decode';
+import Doc from "./Doc.jpg";
+import { saveAs } from 'file-saver';
+
 
 import "./styleSheet.css"
 // jwtDecode
@@ -76,6 +79,46 @@ export function VideoCard(props){
     </MDBRow>
   </MDBCard>);
 }
+
+
+
+export function MaterialCard(props){
+
+  let token = window.localStorage.getItem("authtoken");
+
+  const decodedToken = jwtDecode(token);
+  const role = decodedToken.role;
+
+  function handleDownload(){
+
+    saveAs(props.url, `${props.title}.pdf`);
+    
+  }
+
+  
+
+  // <a href={'file url'} download={'name'}>download</a>
+  return(
+  <MDBCard  style = {{border: '1px solid '}} >
+    <MDBRow className='g-0 d-flex align-items-center' >
+      <MDBCol md='2'>
+        <MDBCardImage src={Doc} alt='image' className='rounded-t-5 rounded-tr-lg-0' fluid />
+        </MDBCol>
+        <MDBCol md='8'>
+            <MDBCardTitle tag="h5">{props.title}</MDBCardTitle>
+        </MDBCol>
+      <MDBCol>
+        <MDBRow>
+        <IoDownload color= '#c44b99' size= {37} onClick={handleDownload}  />
+        {/* <Button variant="text" style = {{color : "#c44b99", justifyContent : "flex-end" }} onClick ={handleChange}>Play</Button> */}
+        </MDBRow>
+      </MDBCol>
+    </MDBRow>
+  </MDBCard>);
+}
+
+
+
 
 export function Quiz_card_edit(props){
   const [arr_of_options,setArr_of_options] = useState([]);

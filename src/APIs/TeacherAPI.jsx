@@ -747,51 +747,246 @@ export async function Course_Offered_By_Teacher(){
       }
     }
   );
+  console.log("from API",response)
   return response;
 }
 
-export async function Create_Courses(Name, Description , Thumbnail, Teacher,Topic ,Language ){
 
-  // Teacher: req.body.Teacher.toUpperCase() ,
-  // Topic: req.body.Topic.toUpperCase(),
-  // Language: req.body.Language.toUpperCase(), 
-  // Name: req.body.Name.toUpperCase(), 
-  // Description: req.body.Description, 
-  // Thumbnail: req.body.Thumbnail
+export async function remove_Material_from_Course(props){
 
+  let x = getBaseURL();
+
+  let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+
+    let url;
+    if(role == "2"){
+    url = x.toString() + "/teacher/remove_Materials"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/remove_Materials"
+    }
+    
+  
+
+  for(let i = 0; i < props.length; i++){
+    console.log(props[i])
+  const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        'authorization': "Bearer "+window.localStorage.getItem("authtoken"),
+        'refresh-token': window.localStorage.getItem("refToken")
+        },
+
+      body : JSON.stringify({
+        _id : window.sessionStorage.getItem("CourseID"),
+        MaterialID : props[i],
+      })
+    })
+    .then( async (res) =>{
+      //console.log( await res.json() )
+    return await res.json()})
+    .then((res) => {
+      // console.log((res));
+      if(res.error){
+        return res.error;
+      }
+      else{
+        return res.data;
+      }
+    }
+  );
+
+}
+
+
+
+}
+
+export async function Delete_Material(props){
+  let x = getBaseURL();
+
+  let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+
+    let url;
+    if(role == "2"){
+    url = x.toString() + "/teacher/delete_Material"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/delete_Material"
+    }
+    
+
+  for(let i = 0; i < props.length; i++){
+
+  const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+        'refresh-token': window.localStorage.getItem("refToken")
+        },
+
+      body : JSON.stringify({
+        _id : props[i],
+      })
+
+    }).then( async (res) =>{
+      //console.log( await res.json() )
+    return await res.json()})
+    .then((res) => {
+      // console.log((res));
+      if(res.error){
+        console.log("hello this is an ",res.error);
+        return res.error;
+      }
+      else{
+        return res.data;
+      }})
+    }
+    window.location.href = "/teacher/course";
+}
+
+export async function Upload_Material(MaterialName, MaterialURL){
+  let x = getBaseURL();
+
+    let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    let url;
+    if(role == "2"){
+      url = x.toString() + "/teacher/create_Material"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/create_Material"
+    }
+
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          'authorization': "Bearer "+ window.localStorage.getItem("authtoken"),
+          'refresh-token': window.localStorage.getItem("refToken")
+          },
+
+        body : JSON.stringify({
+            Name: MaterialName,
+            URL : MaterialURL,
+            // Thumbnail:VideoThumbnail,
+        })
+          
+        })
+        .then( async (res) =>{
+        return await res.json()})
+        .then((res) => {
+          if(res.error){
+            return res.error;
+          }
+          else{
+            return res.data;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          return err;
+        }
+      );
+      return response;
+}
+
+export async function get_Material(){
+  let x = getBaseURL();
+
+    let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    let url;
+    if(role == "2"){
+    url = x.toString() + "/teacher/get_Material"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/get_Material"
+    }
+    else{
+      url = x.toString() + "/student/video/get"
+    }
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+          'refresh-token': window.localStorage.getItem("refToken")
+          },
+          
+        })
+        .then( async (res) =>{
+          //console.log( await res.json() )
+        return await res.json()})
+        .then((res) => {
+          // console.log((res));
+          if(res.error){
+            return res.error;
+          }
+          else{
+            return res.data;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          return err;
+        }
+      );
+  
+    //   console.log(response[response.length-1]._id);
+      return response[response.length-1]._id;
+}
+
+export async function add_Material_to_course(props){
   let x = getBaseURL();
 
   let token = window.localStorage.getItem("authtoken");
 
   const decodedToken = jwtDecode(token);
   const role = decodedToken.role;
+
   let url;
   if(role == "2"){
-  url = x.toString() + "/teacher/create_Course"
+  url = x.toString() + "/teacher/add_Materials"
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/create_Course"
+    url = x.toString() + "/admin/add_Materials"
   }
   
-  // console.log(Question,Options,Answer);
+
+  // url = x.toString() + "/teacher/add_Videos"
 
   const response = await fetch(url, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
         'refresh-token': window.localStorage.getItem("refToken")
         },
-        body : JSON.stringify({
-          Teacher: Teacher,
-          Topic: Topic,
-          Language: Language,
-          Name: Name,
-          Description: Description,
-          Thumbnail: Thumbnail
-        })
-      }).then( async (res) =>{
+
+      body : JSON.stringify({
+        _id : window.sessionStorage.getItem("CourseID"),
+        MaterialID : props,
+      })
+      })
+      .then( async (res) =>{
         //console.log( await res.json() )
       return await res.json()})
       .then((res) => {
@@ -802,22 +997,130 @@ export async function Create_Courses(Name, Description , Thumbnail, Teacher,Topi
         else{
           return res.data;
         }
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
       }
     );
-    // console.log(response);
+
+  //   console.log(response[response.length-1]._id);
     return response;
-  
-  
 }
 
-export async function add_Course_to_teacher(ID,courseID){
 
+export async function create_Course(Name, Language, Topic, Description){
   let x = getBaseURL();
 
   let token = window.localStorage.getItem("authtoken");
 
   const decodedToken = jwtDecode(token);
   const role = decodedToken.role;
+  const User_Teacher_id = decodedToken.id;
+  console.log("From API calling ",User_Teacher_id);
+  let url;
+  if(role == "2"){
+    url = x.toString() + "/teacher/create_Course"
+  }
+
+  else if(role == "1"){
+    url = x.toString() + "/admin/create_Course"
+  }
+
+  let response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'authorization': "Bearer "+ window.localStorage.getItem("authtoken"),
+        'refresh-token': window.localStorage.getItem("refToken")
+        },
+
+      body : JSON.stringify({
+          Name: Name,
+          Teacher: User_Teacher_id,
+          Language : Language,
+          Topic : Topic,
+          Description : Description,
+          // Thumbnail:VideoThumbnail,
+      })
+        
+      })
+      .then( async (res) =>{
+      return await res.json()})
+      .then((res) => {
+        if(res.error){
+          return res.error;
+        }
+        else{
+          return res.data;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      }
+    );
+    return response;
+}
+
+export async function get_Course_id(){
+  let x = getBaseURL();
+
+    let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    let url;
+    if(role == "2"){
+    url = x.toString() + "/teacher/get_Course"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/get_Course"
+    }
+    else{
+      // url = x.toString() + "/student/video/get"
+    }
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+          'refresh-token': window.localStorage.getItem("refToken")
+          },
+          
+        })
+        .then( async (res) =>{
+          //console.log( await res.json() )
+        return await res.json()})
+        .then((res) => {
+          // console.log((res));
+          if(res.error){
+            return res.error;
+          }
+          else{
+            return res.data;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          return err;
+        }
+      );
+  
+    //   console.log(response[response.length-1]._id);
+      return response[response.length-1]._id;
+}
+
+export async function add_Course_to_teacher(props){
+  let x = getBaseURL();
+
+  let token = window.localStorage.getItem("authtoken");
+
+  const decodedToken = jwtDecode(token);
+  const role = decodedToken.role;
+  const User_Teacher_id = decodedToken.id;
+
   let url;
   if(role == "2"){
   url = x.toString() + "/teacher/add_courses"
@@ -827,23 +1130,75 @@ export async function add_Course_to_teacher(ID,courseID){
     url = x.toString() + "/admin/add_courses"
   }
 
-
   const response = await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
-      'refresh-token': window.localStorage.getItem("refToken")
-      },
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+        'refresh-token': window.localStorage.getItem("refToken")
+        },
 
-    body : JSON.stringify({
-      _id : ID,
-      CourseID : courseID,
-    })
+      body : JSON.stringify({
+        Teacher_Id : User_Teacher_id,
+        CourseID :  props,
+      })
+      })
+      .then( async (res) =>{
+        //console.log( await res.json() )
+      return await res.json()})
+      .then((res) => {
+        // console.log((res));
+        if(res.error){
+          return res.error;
+        }
+        else{
+          return res.data;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      }
+    );
+
+  //   console.log(response[response.length-1]._id);
+    return response;
+}
+
+export async function remove_Course_from_teacher(props){
+
+  let x = getBaseURL();
+
+  let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    const User_Teacher_id = decodedToken.id;
+
+    let url;
+    if(role == "2"){
+    url = x.toString() + "/teacher/remove_courses"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/remove_courses"
+    }
+    
+  const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        'authorization': "Bearer "+window.localStorage.getItem("authtoken"),
+        'refresh-token': window.localStorage.getItem("refToken")
+        },
+
+      body : JSON.stringify({
+        Teacher_Id : User_Teacher_id,
+        CourseID :  props,
+      })
     })
     .then( async (res) =>{
       //console.log( await res.json() )
-      // console.log("HUha YEHA TAK")
     return await res.json()})
     .then((res) => {
       // console.log((res));
@@ -853,22 +1208,58 @@ export async function add_Course_to_teacher(ID,courseID){
       else{
         return res.data;
       }
-    })
-    .catch((err) => {
-      console.log(err);
-      return err;
     }
   );
 
-//   console.log(response[response.length-1]._id);
-  return response;
-
-
-
-
 }
 
-export async function Get_Course(){
-  
+export async function delete_Course(props){
+
+  let x = getBaseURL();
+
+  let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+
+    let url;
+    if(role == "2"){
+    url = x.toString() + "/teacher/delete_Course"
+    }
+
+    else if(role == "1"){
+      url = x.toString() + "/admin/delete_Course"
+    }
+    
+
+  const response = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+        'refresh-token': window.localStorage.getItem("refToken")
+        },
+
+      body : JSON.stringify({
+        _id : props,
+      })
+
+    }).then( async (res) =>{
+      //console.log( await res.json() )
+    return await res.json()})
+    .then((res) => {
+      // console.log((res));
+      if(res.error){
+        console.log("hello this is an ",res.error);
+        return res.error;
+      }
+      else{
+        return res.data;
+      }})
+
+      if(role == "2"){
+        window.location.href = "/teacher/Course_Offered";
+      }
+
 }
 
