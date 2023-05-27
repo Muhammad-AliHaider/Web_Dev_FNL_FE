@@ -48,6 +48,7 @@ function Student(props) {
         suppressScrollX: true
       });
       let tables = document.querySelectorAll(".table-responsive");
+      console.log(tables);
       for (let i = 0; i < tables.length; i++) {
         ps = new PerfectScrollbar(tables[i]);
       }
@@ -107,7 +108,7 @@ function Student(props) {
     var filtered_routes = [] ;
     // console.log("ahhhhhh");
     for (let i  = 0 ; i < routes.length ; i++) {
-      if (routes[i].name !== "Course" && routes[i].name !== "Video" && routes[i].name !== "Video_upload"){
+      if (routes[i].name !== "Course" && routes[i].name !== "Video" && routes[i].name !== "Video_upload"  && routes[i].name !== "Quiz"){
         console.log(routes[i].name);
         filtered_routes.push(routes[i]);
       }
@@ -123,7 +124,7 @@ function Student(props) {
               routes={filterRoutes(StudentRoutes)}
               logo={{
                 outterLink: "https://www.creative-tim.com/",
-                text: "NFL",
+                text: "FNL",
                 imgSrc: logo
               }}
               toggleSidebar={toggleSidebar}
