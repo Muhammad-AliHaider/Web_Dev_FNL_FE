@@ -5,12 +5,12 @@ import { storage } from "../../contexts/Firebase";
 import {Button} from '@mui/material';
 import { MDBInput,MDBCol,MDBRow } from "mdb-react-ui-kit";
 
-var dr = 'https://firebasestorage.googleapis.com/v0/b/forget-normal-life.appspot.com/o/default-avatar.png?alt=media&token=92a92dbe-097e-463e-a96b-ff6d814a0b28'
+// var dr = 'https://firebasestorage.googleapis.com/v0/b/forget-normal-life.appspot.com/o/default-avatar.png?alt=media&token=92a92dbe-097e-463e-a96b-ff6d814a0b28'
 
-export  function Video_uploader() {
+export  function Video_uploader(defaulturl) {
 
     const [progress, setProgress] = useState(0);
-    const [downloadURL, setDownloadURL] = useState(dr);
+    const [downloadURL, setDownloadURL] = useState(defaulturl);
 
     const formHandler = (e) => {
         e.preventDefault();
@@ -57,7 +57,7 @@ export  function Video_uploader() {
                     <p wrapperClass='mb-4' id='formControlLg' size="lg"> Upload Video </p>
                   </MDBCol>
                   <MDBCol md='8'>
-                    <MDBInput type="file" className="input" style={{justifyContent : "flex-start"}} />
+                    <MDBInput src = {defaulturl} type="file" className="input" style={{justifyContent : "flex-start"}} />
                   </MDBCol>
                   <MDBCol>
                     <Button type="submit"  style={{color : "#A31ACD"}} >Upload</Button>

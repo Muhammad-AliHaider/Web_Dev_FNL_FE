@@ -8,7 +8,8 @@ import { IoPlayCircle, IoPencil, IoAddCircleSharp , IoRemoveCircleSharp , IoDown
 import React from "react";
 import jwtDecode from 'jwt-decode';
 import Doc from "./Doc.jpg";
-//import { saveAs } from 'file-saver';
+import { saveAs } from 'file-saver';
+
 
 
 import "./styleSheet.css"
@@ -91,7 +92,8 @@ export function MaterialCard(props){
 
   function handleDownload(){
 
-    //saveAs(props.url, `${props.title}.pdf`);
+
+    saveAs(props.url, `${props.title}.pdf`);
     
   }
 
