@@ -6,7 +6,6 @@ import {Button} from "@mui/material";
 import "../components/Basic_Templates/styleSheet.css";
 import { getAllCourses } from "../APIs/userAPIs.jsx";
 import {Course_Offered_By_Teacher} from "../APIs/TeacherAPI.jsx";
-import {Checkbox, List } from "antd";
 import jwtDecode from "jwt-decode";
 
 
@@ -70,7 +69,7 @@ function Courses_Offered() {
             }
         } 
         getCourses();
-        
+    
     },[]);
     // console.log(Courses)
 
