@@ -37,7 +37,6 @@ import {
 } from "reactstrap";
 import { useHistory } from 'react-router-dom';
 import { error } from "jquery";
-import { getProfile } from "APIs/userAPIs";
 
 
 
@@ -52,12 +51,12 @@ function UserProfile() {
     
     
     // Retrieve token from local storage
-    const token = localStorage.getItem('authtoken');
+    const token = localStorage.getItem('authToken');
     const rtoken = localStorage.getItem('refToken');
 
     axios.interceptors.request.use(config => {
-      config.headers['Authorization'] = token;
-      console.log('Reftoken',rtoken)
+      config.headers['Authorization'] = `Bearer ${token}`;
+      console.log('Rtoken',rtoken)
       config.headers['Refresh-Token'] = rtoken;
       return config;
     });
@@ -68,9 +67,7 @@ function UserProfile() {
       try {
         console.log('Authorization')
 
-
         const response = await getProfile();
-
 
         // console.log('Aaa',response["Headers"]);
         localStorage.setItem('authToken',response["Headers"])
@@ -82,8 +79,6 @@ function UserProfile() {
         console.log(error);
       }
     };
-
-    
 
     fetchData();
   }, []);

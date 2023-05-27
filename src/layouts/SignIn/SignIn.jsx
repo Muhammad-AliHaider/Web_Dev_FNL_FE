@@ -4,8 +4,6 @@ import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCo
 import { Link } from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 import { useHistory } from 'react-router-dom';
-import LandingNavbar from "../../components/Navbars/LandingNavbar.js"
-
 
 function S() {
   const [UserName, setUserName] = useState('');
@@ -35,29 +33,20 @@ function S() {
 
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem('authtoken', data.data.token);
-        console.log(data.data.rtoken)
+        localStorage.setItem('token', data.data.token);
         localStorage.setItem('refToken', data.data.rtoken);
         const decodedToken = jwtDecode(data.data.token);
         const role = decodedToken.role;
-        let route = '';
-        if(role=="1"){
-          route = '/admin/dashboard';
-        // history.push('/admin/dashboard');
+        if(role==1){
+        history.push('/admin/dashboard');
         }
-        else if(role=="2"){
+        else if(role==2){
           console.log(role)
-          console.log("hugaya");
-          route = '/teacher/dashboard';
-          // history.push('/teacher/dashboard');
+          history.push('/teacher/dashboard');
         }
         else{
-          route = '/student/dashboard';
-          // history.push('/student/dashboard');
+          history.push('/student/dashboard');
         }
-
-        console.log(route)
-        history.push(route);
       } else {
         setError('Invalid username or password');
       }
@@ -68,9 +57,6 @@ function S() {
   };
 
   return (
-    <>
-    
-    <LandingNavbar link1="/" link1Name="Home" link2="/about" link2Name="About" />
     <MDBContainer className="my-5">
       <MDBCard>
         <MDBRow className="g-0">
@@ -99,7 +85,6 @@ function S() {
         </MDBRow>
       </MDBCard>
     </MDBContainer>
-    </>
   );
 }
 

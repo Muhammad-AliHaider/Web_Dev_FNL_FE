@@ -35,7 +35,7 @@ import TeacherRoute from "../../middleware/TeacherRoute";
 var ps;
 
 function Teacher(props) {
-  console.log("Win_teacher")
+  console.log("Win")
   const location = useLocation();
   const mainPanelRef = React.useRef(null);
   const [sidebarOpened, setsidebarOpened] = React.useState(
@@ -43,20 +43,13 @@ function Teacher(props) {
   );
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
-      
       document.documentElement.className += " perfect-scrollbar-on";
       document.documentElement.classList.remove("perfect-scrollbar-off");
-      
       ps = new PerfectScrollbar(mainPanelRef.current, {
         suppressScrollX: true
       });
-
-      
       let tables = document.querySelectorAll(".table-responsive");
-      console.log(tables);
-      console.log("no_error")
       for (let i = 0; i < tables.length; i++) {
-        
         ps = new PerfectScrollbar(tables[i]);
       }
     }
@@ -102,16 +95,6 @@ function Teacher(props) {
       }
     });
   };
-  const filterRoutes = (routes) => {
-    var filtered_routes = [] ;
-    for (let i  = 0 ; i < routes.length ; i++) {
-      if (routes[i].name !== "Course" && routes[i].name !== "Video" && routes[i].name !== "Video_upload" && routes[i].name !== "video_editor" && routes[i].name !== "Quiz" && routes[i].name !== "Material_upload" && routes[i].name !== "Course_upload" ){
-        console.log(routes[i].name);
-        filtered_routes.push(routes[i]);
-      }
-    }
-    return filtered_routes;
-  }
   const getBrandText = (path) => {
     for (let i = 0; i < TeacherRoutes.length; i++) {
       if (location.pathname.indexOf(TeacherRoutes[i].layout + TeacherRoutes[i].path) !== -1) {
@@ -126,10 +109,10 @@ function Teacher(props) {
         <React.Fragment>
           <div className="wrapper">
             <Sidebar
-              routes={filterRoutes(TeacherRoutes)}
+              routes={TeacherRoutes}
               logo={{
                 outterLink: "https://www.creative-tim.com/",
-                text: "FNL",
+                text: "NFL",
                 imgSrc: logo
               }}
               toggleSidebar={toggleSidebar}
@@ -141,7 +124,6 @@ function Teacher(props) {
                 sidebarOpened={sidebarOpened}
               />
               <Switch>
-              
                 {getRoutes(TeacherRoutes)}
                 <Redirect from="*" to="/teacher/dashboard" />
               </Switch>

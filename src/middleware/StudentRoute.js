@@ -3,12 +3,12 @@ import { Route, Redirect } from 'react-router-dom';
 import jwtDecode from "jwt-decode";
 
 const StudentRoute = ({ component: Component, ...rest }) => {
-  const token = localStorage.getItem('authtoken');
+  const token = localStorage.getItem('token');
   var isAllowed = false;
   if(token!=null){
     const decodedToken = jwtDecode(token);
     const role = decodedToken.role;
-    const isStudent = role == "3"
+    const isStudent = role == 3
     isAllowed = isStudent && (token!=null)
   }
 

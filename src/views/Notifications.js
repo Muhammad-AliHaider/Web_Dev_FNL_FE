@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import NotificationAlert from "react-notification-alert";
-import { getNotifications } from "APIs/userAPIs";
 import axios from "axios";
 import {
   UncontrolledAlert,
@@ -12,7 +11,6 @@ import {
   Col
 } from "reactstrap";
 import { useHistory } from 'react-router-dom';
-import { delete_notification } from "APIs/userAPIs";
 
 function Notifications() {
   const history = useHistory();
@@ -25,46 +23,31 @@ function Notifications() {
   useEffect(() => {
     
     
-    // const token = localStorage.getItem('authToken');
-    // const rtoken = localStorage.getItem('refToken');
+    // Retrieve token from local storage
+    const token = localStorage.getItem('authToken');
+    const rtoken = localStorage.getItem('refToken');
 
-    // axios.interceptors.request.use(config => {
-    //   config.headers['Authorization'] = `Bearer ${token}`;
-    //   config.headers['Refresh-Token'] = rtoken;
-    //   return config;
-    // });
-    
-    // const fetchData = async () => {
-    //   try {
-    //     console.log('Authorization')
-    //     const response = await axios.get("http://127.0.0.1:3000/student/notification/get").catch(error=> {
-    //       if(error.response.data.auth == false){
-    //         history.push('/signin')
-    //       }
-    //       else{
-    //         console.log(error)
-    //       };
-    //   })
-    //     console.log('Aaa',response.headers['access']);
-    //     localStorage.setItem('authToken',response.headers['access'])
-    //     console.log(response)
-    //     setNotifications(response.data.data);
-    //     setIsLoading(false);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
+    axios.interceptors.request.use(config => {
+      config.headers['Authorization'] = `Bearer ${token}`;
+      config.headers['Refresh-Token'] = rtoken;
+      return config;
+    });
     
     const fetchData = async () => {
       try {
         console.log('Authorization')
-
-        const response = await getNotifications();
-
-        // console.log('Aaa',response["Headers"]);
-        localStorage.setItem('authToken',response["Headers"])
-        // console.log(response)
-        setNotifications(response.data);
+        const response = await axios.get("http://127.0.0.1:3000/student/notification/get").catch(error=> {
+          if(error.response.data.auth == false){
+            history.push('/signin')
+          }
+          else{
+            console.log(error)
+          };
+      })
+        console.log('Aaa',response.headers['access']);
+        localStorage.setItem('authToken',response.headers['access'])
+        console.log(response)
+        setNotifications(response.data.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -78,8 +61,7 @@ function Notifications() {
     // Make API call to dismiss notification
     try {
       console.log("hello")
-      // const response = await axios.delete("http://127.0.0.1:3000/student/notification/delete", {data: {ID: notification._id}});
-      const response = await delete_notification(notification._id);
+      const response = await axios.delete("http://127.0.0.1:3000/student/notification/delete", {data: {ID: notification._id}});
       console.log(response)
       const updatedNotifications = notifications.filter(n => n._id !== notification._id);
       setNotifications(updatedNotifications);

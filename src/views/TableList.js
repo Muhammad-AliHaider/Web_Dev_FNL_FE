@@ -25,43 +25,10 @@ import {
   CardTitle,
   Table,
   Row,
-  Col,
+  Col
 } from "reactstrap";
 
 function Tables() {
-  const data = [
-    {
-      thumbnail: 'https://example.com/image1.jpg',
-      name: 'Product 1',
-      price: '$50',
-    },
-    {
-      thumbnail: 'https://example.com/image2.jpg',
-      name: 'Product 2',
-      price: '$100',
-    },
-    {
-      thumbnail: 'https://example.com/image3.jpg',
-      name: 'Product 3',
-      price: '$75',
-    },
-    {
-      thumbnail: 'https://example.com/image4.jpg',
-      name: 'Product 4',
-      price: '$120',
-    },
-    {
-      thumbnail: 'https://example.com/image5.jpg',
-      name: 'Product 5',
-      price: '$150',
-    },
-    {
-      thumbnail: 'https://example.com/image6.jpg',
-      name: 'Product 6',
-      price: '$200',
-    },
-  ];
-  
   return (
     <>
       <div className="content">
@@ -69,31 +36,125 @@ function Tables() {
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Courses Enrolled </CardTitle>
+                <CardTitle tag="h4">Simple Table</CardTitle>
               </CardHeader>
               <CardBody>
                 <Table className="tablesorter" responsive>
                   <thead className="text-primary">
                     <tr>
-                      <th>Thumbnail</th>
                       <th>Name</th>
-                      <th className="text-center">Price</th>
+                      <th>Country</th>
+                      <th>City</th>
+                      <th className="text-center">Salary</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {data.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          <img
-                            src={item.thumbnail}
-                            alt={item.name}
-                            style={{ width: "50px", height: "50px" }}
-                          />
-                        </td>
-                        <td>{item.name}</td>
-                        <td className="text-center">{item.price}</td>
-                      </tr>
-                    ))}
+                    <tr>
+                      <td>Dakota Rice</td>
+                      <td>Niger</td>
+                      <td>Oud-Turnhout</td>
+                      <td className="text-center">$36,738</td>
+                    </tr>
+                    <tr>
+                      <td>Minerva Hooper</td>
+                      <td>Curaçao</td>
+                      <td>Sinaai-Waas</td>
+                      <td className="text-center">$23,789</td>
+                    </tr>
+                    <tr>
+                      <td>Sage Rodriguez</td>
+                      <td>Netherlands</td>
+                      <td>Baileux</td>
+                      <td className="text-center">$56,142</td>
+                    </tr>
+                    <tr>
+                      <td>Philip Chaney</td>
+                      <td>Korea, South</td>
+                      <td>Overland Park</td>
+                      <td className="text-center">$38,735</td>
+                    </tr>
+                    <tr>
+                      <td>Doris Greene</td>
+                      <td>Malawi</td>
+                      <td>Feldkirchen in Kärnten</td>
+                      <td className="text-center">$63,542</td>
+                    </tr>
+                    <tr>
+                      <td>Mason Porter</td>
+                      <td>Chile</td>
+                      <td>Gloucester</td>
+                      <td className="text-center">$78,615</td>
+                    </tr>
+                    <tr>
+                      <td>Jon Porter</td>
+                      <td>Portugal</td>
+                      <td>Gloucester</td>
+                      <td className="text-center">$98,615</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col md="12">
+            <Card className="card-plain">
+              <CardHeader>
+                <CardTitle tag="h4">Table on Plain Background</CardTitle>
+                <p className="category">Here is a subtitle for this table</p>
+              </CardHeader>
+              <CardBody>
+                <Table className="tablesorter" responsive>
+                  <thead className="text-primary">
+                    <tr>
+                      <th>Name</th>
+                      <th>Country</th>
+                      <th>City</th>
+                      <th className="text-center">Salary</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Dakota Rice</td>
+                      <td>Niger</td>
+                      <td>Oud-Turnhout</td>
+                      <td className="text-center">$36,738</td>
+                    </tr>
+                    <tr>
+                      <td>Minerva Hooper</td>
+                      <td>Curaçao</td>
+                      <td>Sinaai-Waas</td>
+                      <td className="text-center">$23,789</td>
+                    </tr>
+                    <tr>
+                      <td>Sage Rodriguez</td>
+                      <td>Netherlands</td>
+                      <td>Baileux</td>
+                      <td className="text-center">$56,142</td>
+                    </tr>
+                    <tr>
+                      <td>Philip Chaney</td>
+                      <td>Korea, South</td>
+                      <td>Overland Park</td>
+                      <td className="text-center">$38,735</td>
+                    </tr>
+                    <tr>
+                      <td>Doris Greene</td>
+                      <td>Malawi</td>
+                      <td>Feldkirchen in Kärnten</td>
+                      <td className="text-center">$63,542</td>
+                    </tr>
+                    <tr>
+                      <td>Mason Porter</td>
+                      <td>Chile</td>
+                      <td>Gloucester</td>
+                      <td className="text-center">$78,615</td>
+                    </tr>
+                    <tr>
+                      <td>Jon Porter</td>
+                      <td>Portugal</td>
+                      <td>Gloucester</td>
+                      <td className="text-center">$98,615</td>
+                    </tr>
                   </tbody>
                 </Table>
               </CardBody>

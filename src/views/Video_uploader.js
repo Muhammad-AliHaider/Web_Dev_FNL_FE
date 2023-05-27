@@ -14,9 +14,9 @@ import { Col, Row } from "reactstrap";
 // import "./styleSheet.css"
 
 function Videos(){
-    // const [VideoData, setVideoData] = useState();
+    const [VideoData, setVideoData] = useState();
     const [VideoName, setVideoName] = useState();
-    // const [VideoThumbnail, setVideoThumbnail] = useState();
+    const [VideoThumbnail, setVideoThumbnail] = useState();
 
     async function handleSubmit(){
 
@@ -31,7 +31,7 @@ function Videos(){
             let y = await add_video_to_course(res);
             console.log(y)
         }).then(()=>{
-            window.location.href = "/teacher/course";
+            window.location.href = "/student/course";
         }).catch((err)=>{
             console.log(err);
         })
