@@ -18,6 +18,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ImageUpload from "../components/ImageUpload/ImageUpload";
+import { getProfile, updateProfile } from "APIs/userAPIs";
 
 
 // reactstrap components
@@ -36,7 +37,7 @@ import {
 } from "reactstrap";
 import { useHistory } from 'react-router-dom';
 import { error } from "jquery";
-import { getProfile } from "APIs/userAPIs";
+
 
 
 function UserProfile() {
@@ -108,8 +109,8 @@ function UserProfile() {
 
       // Send the updated data to the API
       console.log(updatedData)
-      const response = await axios.patch("http://127.0.0.1:3000/student/profile/update", updatedData);
-      console.log(response.data);
+      updateProfile(updatedData)
+      
     } catch (error) {
       console.log(error);
     }

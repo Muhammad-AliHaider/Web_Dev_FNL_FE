@@ -16,6 +16,7 @@
 
 */
 import StudentDashboard from "views/Dashboard.js";
+import { TeachersDashboard } from "views/Dashboard";
 import Icons from "views/Icons.js";
 import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
@@ -154,7 +155,7 @@ export var TeacherRoutes = [
     path: "/dashboard",
     name: "Dashboard",
     icon: "tim-icons icon-chart-pie-36",
-    component: StudentDashboard,
+    component: TeachersDashboard,
     layout: "/teacher"
   },
   {

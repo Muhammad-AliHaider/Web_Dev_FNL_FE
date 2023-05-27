@@ -20,6 +20,7 @@ import React from "react";
 import classNames from "classnames";
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
+import { delete_profile, signout} from "APIs/userAPIs";
 
 // reactstrap components
 import {
@@ -83,7 +84,7 @@ function StudentNavbar(props) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       // Collect the updated data from the input fields
       console.log("hi")
-      const response = await axios.delete("http://127.0.0.1:3000/student/profile/delete");
+      const response = await delete_profile();
       console.log(response.data);
       localStorage.removeItem('authToken');
       history.push('/signin')
@@ -98,8 +99,10 @@ function StudentNavbar(props) {
     // Set default Authorization header for all Axios requests
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     try {
-      await axios.get("http://127.0.0.1:3000/auth/signout");
+      const response = await signout();
+      console.log(response)
       localStorage.removeItem('authToken');
+      console.log(localStorage.getItem('authToken'));
       history.push('/signin');
     } catch (error) {
       console.log(error);
