@@ -21,6 +21,7 @@ import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
 import UserProfile from "views/UserProfile.js";
 import Courses_Offered from "views/Course_Offered.js";
+import { TeachersDashboard } from "views/Dashboard";
 import Course from "views/Courses.js";
 import Video from "views/Video_player.js";
 import Video_uploader from "views/Video_uploader.js";
@@ -171,7 +172,7 @@ export var TeacherRoutes = [
     path: "/dashboard",
     name: "Dashboard",
     icon: "tim-icons icon-chart-pie-36",
-    component: StudentDashboard,
+    component: TeachersDashboard ,
     layout: "/teacher"
   },
   {

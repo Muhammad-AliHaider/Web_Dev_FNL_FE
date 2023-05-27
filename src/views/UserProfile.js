@@ -18,6 +18,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ImageUpload from "../components/ImageUpload/ImageUpload";
+import { getProfile, updateProfile } from "APIs/userAPIs";
 
 
 // reactstrap components
@@ -36,7 +37,7 @@ import {
 } from "reactstrap";
 import { useHistory } from 'react-router-dom';
 import { error } from "jquery";
-import { getProfile } from "APIs/userAPIs";
+
 
 
 function UserProfile() {
@@ -50,12 +51,12 @@ function UserProfile() {
     
     
     // Retrieve token from local storage
-    const token = localStorage.getItem('authtoken');
+    const token = localStorage.getItem('authToken');
     const rtoken = localStorage.getItem('refToken');
 
     axios.interceptors.request.use(config => {
-      config.headers['Authorization'] = token;
-      console.log('Reftoken',rtoken)
+      config.headers['Authorization'] = `Bearer ${token}`;
+      console.log('Rtoken',rtoken)
       config.headers['Refresh-Token'] = rtoken;
       return config;
     });
@@ -67,7 +68,6 @@ function UserProfile() {
         console.log('Authorization')
 
         const response = await getProfile();
-        console.log(response)
 
         // console.log('Aaa',response["Headers"]);
         localStorage.setItem('authToken',response["Headers"])
@@ -79,8 +79,6 @@ function UserProfile() {
         console.log(error);
       }
     };
-
-    
 
     fetchData();
   }, []);
@@ -101,9 +99,9 @@ function UserProfile() {
         BIO: document.getElementById("bio").value,
         Age: document.getElementById("age").value,
         CreditCard: {
-          cardNumber: document.getElementById("cardNumber").value,
-          expirationDate: document.getElementById("expirationDate").value,
-          securityCode: document.getElementById("securityCode").value,
+          cardNumber: document.getElementById("cardNumber")?.value,
+          expirationDate: document.getElementById("expirationDate")?.value,
+          securityCode: document.getElementById("securityCode")?.value,
         },
         Role: userData.data.Role,
         ProfilePic: ProfilePic
@@ -111,8 +109,8 @@ function UserProfile() {
 
       // Send the updated data to the API
       console.log(updatedData)
-      const response = await axios.patch("http://127.0.0.1:3000/student/profile/update", updatedData);
-      console.log(response.data);
+      updateProfile(updatedData)
+      
     } catch (error) {
       console.log(error);
     }
@@ -223,8 +221,8 @@ function UserProfile() {
                         <label>CardNumber</label>
                         <Input
                           id="cardNumber"
-                          defaultValue={userData.data.CreditCard.cardNumber}
-                          placeholder={userData.data.CreditCard.cardNumber}
+                          defaultValue={userData.data.CreditCard?.cardNumber}
+                          placeholder={userData.data.CreditCard?.cardNumber}
                           type="text"
                         />
                       </FormGroup>
@@ -232,7 +230,7 @@ function UserProfile() {
                     <Col className="pl-md-1" md="4">
                       <FormGroup>
                         <label>Expiration Date</label>
-                        <Input id="expirationDate" placeholder={userData.data.CreditCard.expirationDate}type="text" />
+                        <Input id="expirationDate" placeholder={userData.data.CreditCard?.expirationDate}type="text" />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -242,8 +240,8 @@ function UserProfile() {
                         <label>Security Code</label>
                         <Input
                           id="securityCode"
-                          defaultValue={userData.data.CreditCard.securityCode}
-                          placeholder={userData.data.CreditCard.securityCode}
+                          defaultValue={userData.data.CreditCard?.securityCode}
+                          placeholder={userData.data.CreditCard?.securityCode}
                           type="password"
                         />
                       </FormGroup>
