@@ -594,7 +594,7 @@ export function TeachersDashboard(props) {
         };
   
         const response = await getProfile();
-        console.log(response)
+        console.log("yeha say aya yeh ab kia karey",response.data)
   
         const courseNames = []
         const courseStudents = [];
@@ -607,8 +607,8 @@ export function TeachersDashboard(props) {
         const curseInfo = [];
         const curseCInfo = [];
   
-        for (let i = 0; i < response.teacher.CourseOffered.length; i++) {
-          const courseId = response.teacher.CourseOffered[i].id;
+        for (let i = 0; i < response.data.teacher.CourseOffered.length; i++) {
+          const courseId = response.data.teacher.CourseOffered[i].id;
           const courseResponse = await getCourse({ _id: courseId });
           console.log('askxdl',courseResponse)
           courseStudents.push(courseResponse[0].Students.length)

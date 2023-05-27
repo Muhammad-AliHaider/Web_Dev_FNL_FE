@@ -207,6 +207,7 @@ export async function getProfile(){
           else{
             return res;
           }})
+          console.log("print huha get profile sey", response);
   return response;
 }
 

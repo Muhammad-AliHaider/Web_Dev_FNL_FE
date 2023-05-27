@@ -37,6 +37,7 @@ import {
 } from "reactstrap";
 import { useHistory } from 'react-router-dom';
 import { error } from "jquery";
+import jwtDecode from "jwt-decode";
 
 
 
@@ -47,7 +48,14 @@ function UserProfile() {
   const [ProfilePic, setProfilePic] = useState("");
   const history = useHistory();
 
+  let token_1 = window.localStorage.getItem("authtoken");
+
+  const decodedToken = jwtDecode(token_1);
+  const role = decodedToken.role;
+
   useEffect(() => {
+
+    console.log(role)
     
     
     // Retrieve token from local storage
@@ -71,7 +79,8 @@ function UserProfile() {
 
         // console.log('Aaa',response["Headers"]);
         localStorage.setItem('authToken',response["Headers"])
-        // console.log(response)
+        
+        console.log(response)
         setUserData(response);
         setProfilePic(response.data.ProfilePic)
         setIsLoading(false);
@@ -141,8 +150,8 @@ function UserProfile() {
                         <label>Username</label>
                         <Input
                           id="username"
-                          defaultValue={userData.data.UserName}
-                          placeholder={userData.data.UserName}
+                          defaultValue={role == "2" ? userData.data.user.UserName : userData.data.UserName}
+                          placeholder={role == "2" ? userData.data.user.UserName : userData.data.UserName}
                           type="text"
                         />
                       </FormGroup>
@@ -152,8 +161,8 @@ function UserProfile() {
                         <label>Name</label>
                         <Input
                           id="name"
-                          defaultValue={userData.data.Name}
-                          placeholder={userData.data.Name}
+                          defaultValue={role == "2" ? userData.data.user.Name : userData.data.Name}
+                          placeholder={role == "2" ? userData.data.user.Name : userData.data.Name}
                           type="text"
                         />
                       </FormGroup>
@@ -163,7 +172,7 @@ function UserProfile() {
                         <label htmlFor="exampleInputEmail1">
                           Email address
                         </label>
-                        <Input id="email" placeholder={userData.data.Email} type="email" />
+                        <Input id="email" placeholder={role == "2" ? userData.data.user.Email : userData.data.Email} type="email" />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -173,8 +182,8 @@ function UserProfile() {
                         <label>Gender</label>
                         <Input
                           id="gender"
-                          defaultValue={userData.data.Gender}
-                          placeholder={userData.data.Gender}
+                          defaultValue={role == "2" ? userData.data.user.Gender : userData.data.Gender}
+                          placeholder={role == "2" ? userData.data.user.Gender : userData.data.Gender}
                           type="text"
                         />
                       </FormGroup>
@@ -184,8 +193,8 @@ function UserProfile() {
                         <label>Password</label>
                         <Input
                           id="password"
-                          defaultValue={userData.data.Password}
-                          placeholder={userData.data.Password}
+                          defaultValue={role == "2" ? userData.data.user.Password : userData.data.Password}
+                          placeholder={role == "2" ? userData.data.user.Password : userData.data.Password}
                           type="password"
                         />
                       </FormGroup>
@@ -197,8 +206,8 @@ function UserProfile() {
                         <label>BIO</label>
                         <Input
                           id="bio"
-                          defaultValue={userData.data.BIO}
-                          placeholder={userData.data.BIO}
+                          defaultValue={role == "2" ? userData.data.user.BIO : userData.data.BIO}
+                          placeholder={role == "2" ? userData.data.user.BIO : userData.data.BIO}
                           type="text"
                         />
                       </FormGroup>
@@ -210,8 +219,8 @@ function UserProfile() {
                         <label>Age</label>
                         <Input
                           id="age"
-                          defaultValue={userData.data.Age}
-                          placeholder={userData.data.Age}
+                          defaultValue={role == "2" ? userData.data.user.Age : userData.data.Age}
+                          placeholder={role == "2" ? userData.data.user.Age : userData.data.Age}
                           type="text"
                         />
                       </FormGroup>
@@ -221,8 +230,8 @@ function UserProfile() {
                         <label>CardNumber</label>
                         <Input
                           id="cardNumber"
-                          defaultValue={userData.data.CreditCard?.cardNumber}
-                          placeholder={userData.data.CreditCard?.cardNumber}
+                          defaultValue={role == "2" ?  userData.data.user.CreditCard?.cardNumber: userData.data.CreditCard?.cardNumber}
+                          placeholder={role == "2" ?  userData.data.user.CreditCard?.cardNumber: userData.data.CreditCard?.cardNumber}
                           type="text"
                         />
                       </FormGroup>
@@ -230,7 +239,7 @@ function UserProfile() {
                     <Col className="pl-md-1" md="4">
                       <FormGroup>
                         <label>Expiration Date</label>
-                        <Input id="expirationDate" placeholder={userData.data.CreditCard?.expirationDate}type="text" />
+                        <Input id="expirationDate" placeholder={role == "2" ?  userData.data.CreditCard?.expirationDate: userData.data.CreditCard?.expirationDate}type="text" />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -240,8 +249,8 @@ function UserProfile() {
                         <label>Security Code</label>
                         <Input
                           id="securityCode"
-                          defaultValue={userData.data.CreditCard?.securityCode}
-                          placeholder={userData.data.CreditCard?.securityCode}
+                          defaultValue={role == "2" ? userData.data.user.CreditCard?.securityCode:userData.data.CreditCard?.securityCode}
+                          placeholder={role == "2" ? userData.data.user.CreditCard?.securityCode:userData.data.CreditCard?.securityCode}
                           type="password"
                         />
                       </FormGroup>
@@ -252,8 +261,8 @@ function UserProfile() {
                         <Input
                           id="role"
                           disabled
-                          defaultValue={userData.data.Role}
-                          placeholder={userData.data.Role}
+                          defaultValue={role == "2" ? userData.data.user.Role:userData.data.Role}
+                          placeholder={role == "2" ? userData.data.user.Role:userData.data.Role}
                           type="text"
                         />
                       </FormGroup>
