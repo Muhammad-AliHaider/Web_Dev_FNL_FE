@@ -12,15 +12,15 @@ export async function getCourse(courseData){
     const role = decodedToken.role;
     let url;
     if(role == "2"){
-    url = x.toString() + "/student/course/get"
+    url = x.toString() + "/student/courser/get"
     }
   
     else if(role == "1"){
-      url = x.toString() + "/student/course/get"
+      url = x.toString() + "/student/courser/get"
     }
   
     else{
-      url = x.toString() + "/student/course/get"
+      url = x.toString() + "/student/courser/get"
     }
   
   

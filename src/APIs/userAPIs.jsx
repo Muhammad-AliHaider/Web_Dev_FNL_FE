@@ -236,14 +236,14 @@ export async function delete_notification(props){
   }
 
   const response = await  fetch(url, {
-          method: 'GET',
+          method: 'DELETE',
           headers: {
               "Content-Type": "application/json",
               'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
               'refresh-token': window.localStorage.getItem("refToken")
             },
           body : JSON.stringify({
-            ID : props
+            _id : props
           })
         }).then( async (res) =>{
           return await res.json()})
