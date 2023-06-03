@@ -11,12 +11,13 @@ import {MDBCardText} from 'mdb-react-ui-kit';
 import {Card,CardHeader,CardBody, CardTitle, CardText,Row , Col} from "reactstrap";
 import { CourseDescription,TeacherDetails } from "components/Basic_Templates/Course_description_components";
 import {Checkbox, List } from "antd";
-import { getCourseData } from "../APIs/userAPIs.jsx";
+import { getCourseData,isenrolledin } from "../APIs/userAPIs.jsx";
 import { remove_video_from_course, delete_Video , remove_Material_from_Course , Delete_Material} from "../APIs/TeacherAPI.jsx";
 import { Button } from "@mui/material";
 import "./styleSheet.css"
 
 import { Tabs } from 'antd';
+import { Check } from "@material-ui/icons";
 
 
 export function Courses () {
@@ -25,6 +26,7 @@ export function Courses () {
   const [isDelete, setIsDelete] = useState(true);
   const [checked, setChecked] = useState([]);
   const [toShowChecked, setToShowChecked] = useState([]);
+  const[check,setCheck]=useState(false)
   // const [indeterminate, setIndeterminate] = useState(false);
 
   
@@ -34,12 +36,16 @@ export function Courses () {
     let data = [];
     async function getData(){
       data = await getCourseData();
-      console.log(data);
+      
+      console.log("djhkjnbmnnata",data);
 
 
 
-      if(data)
+      if(data){
       setCourseData(data);
+      const checker = await isenrolledin(data._id)
+      setCheck(checker)
+      console.log("akin",checker)}
       else
       setCourseData();
     }
@@ -107,10 +113,10 @@ export function Courses () {
 
   if(CourseData){
     for(let i = 0 ; i < CourseData.VideoID.length ; i++){
-      Vid_arr.push(<VideoCard title = {CourseData.VideoID[i].Name} image = {CourseData.VideoID[i].Thumbnail}  url = {CourseData.VideoID[i].URL} _id = {CourseData.VideoID[i]._id} Quiz_ID = {CourseData.VideoID[i].QuizID} bool = {isDelete}/>)
+      Vid_arr.push(<VideoCard title = {CourseData.VideoID[i].Name} image = {CourseData.VideoID[i].Thumbnail}  url = {CourseData.VideoID[i].URL} _id = {CourseData.VideoID[i]._id} Quiz_ID = {CourseData.VideoID[i].QuizID} Course_ID={check} bool = {isDelete}/>)
     }
     for(let i = 0 ; i < CourseData.MaterialID.length ; i++){
-      Mat_arr.push(<MaterialCard title = {CourseData.MaterialID[i].Name}  _id = {CourseData.MaterialID[i]._id} url = {CourseData.MaterialID[i].URL}  />)
+      Mat_arr.push(<MaterialCard title = {CourseData.MaterialID[i].Name}  _id = {CourseData.MaterialID[i]._id} url = {CourseData.MaterialID[i].URL} Course_ID={check}  />)
     }
   }
 
@@ -285,4 +291,3 @@ export function Courses () {
 }
 
 export default Courses;
-

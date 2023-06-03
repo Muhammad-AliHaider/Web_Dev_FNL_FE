@@ -211,6 +211,59 @@ export async function getProfile(){
   return response;
 }
 
+export async function enrolin(){
+  const profile = await getProfile()
+  const courseName = profile.std.CourseEnrolled.map(course => course.name);
+  const allcourses = await getAllCourses()
+  const allname = allcourses.map(course => course.Name);
+  var arr =[]
+
+  for(let i=0;i<allname.length;i++){
+    for(let j=0; j<courseName.length;j++){
+      if(courseName[j]==allname[i]){
+        arr.push(allcourses[i])
+      }
+    }
+  }
+  console.log(("print",courseName))
+  console.log(("print",allname))
+
+  const NotEnrolledIn = allcourses.filter((item) => !arr.includes(item));
+  console.log(("print",NotEnrolledIn))
+
+  return(NotEnrolledIn)
+}
+
+export async function enrolledin(){
+  const profile = await getProfile()
+  const courseName = profile.std.CourseEnrolled.map(course => course.name);
+  const allcourses = await getAllCourses()
+  const allname = allcourses.map(course => course.Name);
+  var arr =[]
+
+  for(let i=0;i<allname.length;i++){
+    for(let j=0; j<courseName.length;j++){
+      if(courseName[j]==allname[i]){
+        arr.push(allcourses[i])
+      }
+    }
+  }
+
+  return(arr)
+}
+
+export async function isenrolledin(id){
+  const toenroll= await enrolin()
+  console.log(toenroll)
+  console.log(id)
+  for(let i=0;i<toenroll.length;i++){
+    console.log((toenroll[i]._id == id))
+    if(toenroll[i]._id == id){
+        return(false)
+    }
+  }
+  return true
+}
 
 export async function delete_notification(props){
 
@@ -396,4 +449,3 @@ export async function signout(){
 
   return response;
 }
-

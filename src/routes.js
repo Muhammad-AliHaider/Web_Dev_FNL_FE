@@ -26,6 +26,7 @@ import Course from "views/Courses.js";
 import Video from "views/Video_player.js";
 import Video_uploader from "views/Video_uploader.js";
 import Material_Upload from "views/Material_Upload";
+import Enrolled from "views/Enrolled_In";
 
 import CreditCardForm from "views/CreditCardForm.js";
 
@@ -109,7 +110,7 @@ export var StudentRoutes = [
     path: "/enrolledcourse",
     name: "ENROLLED COURSES",
     icon: "tim-icons icon-puzzle-10",
-    component: TableList,
+    component: Enrolled,
     layout: "/student"
   },
 
@@ -155,7 +156,7 @@ export var AdminRoutes = [
     path: "/enrolledcourse",
     name: "ENROLLED COURSES",
     icon: "tim-icons icon-puzzle-10",
-    component: TableList,
+    component: Enrolled,
     layout: "/admin"
   },
   {
@@ -270,4 +271,3 @@ export var TeacherRoutes = [
     layout: "/teacher"
   },
 ];
-

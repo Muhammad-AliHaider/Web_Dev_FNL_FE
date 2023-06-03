@@ -4,7 +4,7 @@ import { Card, CardHeader, CardBody, Row , Col} from "reactstrap";
 import { CourseOfferedCardTemplate } from "components/Basic_Templates/Course_Offered_Card_Template";
 import {Button} from "@mui/material";
 import "../components/Basic_Templates/styleSheet.css";
-import { getAllCourses, enrolin } from "../APIs/userAPIs.jsx";
+import { getAllCourses, enrolin,enrolledin } from "../APIs/userAPIs.jsx";
 import {Course_Offered_By_Teacher} from "../APIs/TeacherAPI.jsx";
 import jwtDecode from "jwt-decode";
 
@@ -16,7 +16,7 @@ import jwtDecode from "jwt-decode";
 
 
 
-function Courses_Offered() {
+function Enrolled() {
 
     const [isDelete, setIsDelete] = useState(true);
     const [checked, setChecked] = useState([]);
@@ -50,22 +50,9 @@ function Courses_Offered() {
         async function getCourses(){
             let data  = [];
             if (role === "3"){
-            data = await enrolin();
-            console.log("tehhjv",data);
-            }
-            else{
-            data = await Course_Offered_By_Teacher();
-            // console.log("useEffect -> getAllCourses-> data");
-            console.log(data["teacher"]["CourseOffered"]);
-            }
-        
-            if(role === "2"){
-            setCourses(data["teacher"]["CourseOffered"]);
-            }
-            else
-            {
-                setCourses(data);
-                console.log("hugaya")
+            data = await enrolledin();
+            console.log("hu",data)
+            setCourses(data)
             }
         } 
         getCourses();
@@ -190,5 +177,5 @@ function Courses_Offered() {
     
 }
 
-export default Courses_Offered;
+export default Enrolled;
 
