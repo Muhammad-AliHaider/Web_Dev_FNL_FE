@@ -1,4 +1,5 @@
 import React from "react";
+import jwtDecode from "jwt-decode";
 import {FileUpload} from '../components/DocUpload/Document_Upload.js';
 // import {ImageUpload} from '../components/ImageUpload/ImageUpload.js';
 import { useState } from "react";
@@ -27,7 +28,15 @@ export function Material_Upload(){
             let y = await add_Material_to_course(res);
             console.log(y)
         }).then(()=>{
-            window.location.href = "/teacher/course";
+            let token = window.localStorage.getItem("authtoken");
+
+            const decodedToken = jwtDecode(token);
+            const role = decodedToken.role;
+            if(role == "2"){
+            window.location.href = "/teacher/course";}
+            else{
+                window.location.href = "/admin/course";
+            }
         }).catch((err)=>{
             console.log(err);
         })

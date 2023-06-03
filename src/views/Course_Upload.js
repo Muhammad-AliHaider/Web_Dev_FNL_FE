@@ -1,5 +1,6 @@
 import React from "react";
 import { create_Course,get_Course_id,add_Course_to_teacher } from "APIs/TeacherAPI.jsx";
+import jwtDecode from "jwt-decode";
 // import {ImageUpload} from '../components/ImageUpload/ImageUpload.js';
 import { useState } from "react";
 import { Button } from "@mui/material";
@@ -31,7 +32,15 @@ export function CourseUpload(){
         console.log(y)
     })
     .then(()=>{
+      let token = window.localStorage.getItem("authtoken");
+      const decodedToken = jwtDecode(token);
+      const role = decodedToken.role;
+      if (role ==="2"){
         window.location.href = "/teacher/Course_Offered";
+      }
+      else{
+        window.location.href = "/admin/Course_Offered";
+      }
     }).catch((err)=>{
         console.log(err);
     })

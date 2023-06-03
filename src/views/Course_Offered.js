@@ -40,8 +40,8 @@ function Courses_Offered() {
         if (role ==="2"){
             window.location.href = "/teacher/course_upload";
         }
-        else if(role === "3"){
-            // window.location.href = "/admin/course_upload";
+        else if(role === "1"){
+            window.location.href = "/admin/course_upload";
         }
     }
 
@@ -59,7 +59,7 @@ function Courses_Offered() {
             console.log(data["teacher"]["CourseOffered"]);
             }
         
-            if(role === "2"){
+            if(role === "2" || role === "1"){
             setCourses(data["teacher"]["CourseOffered"]);
             }
             else

@@ -4,7 +4,7 @@ import { Card, CardHeader, CardBody, Row , Col} from "reactstrap";
 import { CourseOfferedCardTemplate } from "components/Basic_Templates/Course_Offered_Card_Template";
 import {Button} from "@mui/material";
 import "../components/Basic_Templates/styleSheet.css";
-import { getAllCourses, enrolin,enrolledin } from "../APIs/userAPIs.jsx";
+import { getAllCourses, enrolin } from "../APIs/userAPIs.jsx";
 import {Course_Offered_By_Teacher} from "../APIs/TeacherAPI.jsx";
 import jwtDecode from "jwt-decode";
 
@@ -16,7 +16,7 @@ import jwtDecode from "jwt-decode";
 
 
 
-function Enrolled() {
+function All_Courses() {
 
     const [isDelete, setIsDelete] = useState(true);
     const [checked, setChecked] = useState([]);
@@ -40,8 +40,8 @@ function Enrolled() {
         if (role ==="2"){
             window.location.href = "/teacher/course_upload";
         }
-        else if(role === "1"){
-            window.location.href = "/admin/course_upload";
+        else if(role === "3"){
+            // window.location.href = "/admin/course_upload";
         }
     }
 
@@ -49,11 +49,10 @@ function Enrolled() {
 
         async function getCourses(){
             let data  = [];
-            if (role === "3"){
-            data = await enrolledin();
-            console.log("hu",data)
-            setCourses(data)
-            }
+            data = await enrolin();
+            console.log("tehhjv",data);
+            setCourses(data);
+            console.log("hugaya")
         } 
         getCourses();
     
@@ -65,7 +64,7 @@ function Enrolled() {
         <Card>
             <CardHeader>
                 <Col >
-                {role === "3"?<h3 className="title">Courses</h3>:<h3 className="title">Courses Offered</h3>}
+                {role === "1"?<h3 className="title">Courses</h3>:<h3 className="title">Courses Offered</h3>}
                 
                 </Col>
             </CardHeader>
@@ -122,41 +121,7 @@ function Enrolled() {
                         return (
                             <>
                              {(() =>{
-                                let token = window.localStorage.getItem("authtoken");
-
-                                const decodedToken = jwtDecode(token);
-                                const role = decodedToken.role;
-                                
-                                if (role == "3"){
-
                                     return (array_to_render);
-                                }
-                                else{
-                                
-                                    if(isDelete)
-                                    return(<>
-                                    <Col>
-                                    <Row style={{justifyContent : "flex-end"}}>
-                                        <Button variant="text" className="Button" onClick = {handleAdd}  style={{justifySelf : "flex-end"}}>ADD +</Button>
-                                        <Button variant="text" className="Button" onClick={HandleDeleteOnClick} style={{justifySelf : "flex-end"}}>Delete -</Button>
-                                    </Row>
-                                    </Col>
-                                    {array_to_render}
-                                    </>);
-                                    else
-                                    return(<>
-                                    <Col>
-                                    <Row style={{justifyContent : "flex-end"}}>
-                                        <Button variant="text" className="Button" onClick={HandleDeleteOnClick}  style={{justifySelf : "flex-end"}}>cancel</Button>
-                                    </Row>
-                                    </Col>
-
-                                    {array_to_render}
-                                    
-                                    </>);
-                                    
-                                
-                                }
                                 }
                                 )()}
                             </>
@@ -177,5 +142,5 @@ function Enrolled() {
     
 }
 
-export default Enrolled;
+export default All_Courses;
 

@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode";
 import React from "react";
 import {Video_uploader} from '../components/Basic_Templates/Video_uploader.jsx';
 import {ImageUpload} from '../components/ImageUpload/ImageUpload.js';
@@ -31,7 +32,15 @@ function Videos(){
             let y = await add_video_to_course(res);
             console.log(y)
         }).then(()=>{
-            window.location.href = "/teacher/course";
+            let token = window.localStorage.getItem("authtoken");
+
+            const decodedToken = jwtDecode(token);
+            const role = decodedToken.role;
+            if(role == "2"){
+            window.location.href = "/teacher/course";}
+            else{
+                window.location.href = "/admin/course";
+            }
         }).catch((err)=>{
             console.log(err);
         })

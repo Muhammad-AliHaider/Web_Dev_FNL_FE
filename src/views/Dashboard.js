@@ -508,6 +508,424 @@ function StudentDashboard(props) {
 export default StudentDashboard;
 
 
+export function AdminDashboard(props) {
+  const [bigChartData, setbigChartData] = React.useState("data1");
+  const [chartData1, setChartData1] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Quiz Scores",
+        data: [],
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(75,192,192,1)",
+        borderWidth: 2
+      }
+    ],
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
+  const [chartData2, setChartData2] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Quiz Scores",
+        data: [],
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(75,192,192,1)",
+        borderWidth: 2
+      }
+    ],
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
+  const [chartData3, setChartData3] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Quiz Scores",
+        data: [],
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(75,192,192,1)",
+        borderWidth: 2
+      }
+    ],
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
+  const [courseInfo, setCourseInfo] = useState([]);
+  const [courseCInfo, setCourseCInfo] = useState([]);
+
+  const [chart1, setChart1] = React.useState("chart1")
+  const [chart2, setChart2] = React.useState("chart2")
+  const [chart3, setChart3] = React.useState("chart3")
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Student Enrollment",
+        data: [],
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(75,192,192,1)",
+        borderWidth: 2
+      }
+    ],
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        const rtoken = localStorage.getItem('refToken');
+        const config = {
+          headers: {
+            'authorization': `Bearer ${token}`,
+            'refresh-Token': rtoken
+          }
+        };
+  
+        const response = await getProfile();
+        console.log("yeha say aya yeh ab kia karey",response.data)
+  
+        const courseNames = []
+        const courseStudents = [];
+        const chartData1Labels = [];
+        const chartData1Scores = [];
+        const chartData2Labels = [];
+        const chartData2Scores = [];
+        const chartData3Labels = [];
+        const chartData3Scores = [];
+        const curseInfo = [];
+        const curseCInfo = [];
+  
+        for (let i = 0; i < response.data.teacher.CourseOffered.length; i++) {
+          const courseId = response.data.teacher.CourseOffered[i].id;
+          const courseResponse = await getCourse({ _id: courseId });
+          console.log('askxdl',courseResponse)
+          courseStudents.push(courseResponse[0].Students.length)
+          courseNames.push(courseResponse[0].Name)
+  
+  
+          const newCourse = {
+            language: courseResponse[0].Language,
+            topic: courseResponse[0].Topic,
+            teacher: courseResponse[0].Teacher,
+            price: '$10'
+          };
+  
+          if (true) {
+            const newCCourse = {
+              name: courseResponse[0].Name,
+              description: courseResponse[0].Description
+            };
+            curseCInfo.push(newCCourse);
+          }
+  
+          console.log(newCourse)
+          curseInfo.push(newCourse)
+          
+        }
+  
+        const newLabels = courseNames;
+        const newData = courseStudents;
+  
+        setChartData(prevChartData => ({
+          ...prevChartData,
+          labels: newLabels,
+          datasets: [
+            {
+              ...prevChartData.datasets[0],
+              data: newData
+            }
+          ]
+        }));
+  
+        setChartData1(prevChartData1 => ({
+          ...prevChartData1,
+          labels: chartData1Labels,
+          datasets: [
+            {
+              ...prevChartData1.datasets[0],
+              data: chartData1Scores
+            }
+          ]
+        }));
+  
+        setChartData2(prevChartData2 => ({
+          ...prevChartData2,
+          labels: chartData2Labels,
+          datasets: [
+            {
+              ...prevChartData2.datasets[0],
+              data: chartData2Scores
+            }
+          ]
+        }));
+
+        setCourseInfo(curseInfo)
+        setCourseCInfo(curseCInfo)
+
+      
+  
+        setChartData3(prevChartData3 => ({
+          ...prevChartData3,
+          labels: chartData3Labels,
+          datasets: [
+            {
+              ...prevChartData3.datasets[0],
+              data: chartData3Scores
+            }
+          ]
+        }));
+      } catch (error) {
+        console.error(error);
+        // Handle any errors from the API calls
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
+  console.log(courseInfo)
+
+
+  
+  return (
+    <>
+      <div className="content">
+        <Row>
+          <Col xs="12">
+           {chartData.labels.length>=1 ? (
+            <Card className="card-chart">
+            <CardHeader>
+            <Row>
+              <Col className="text-left" sm="6">
+                <h5 className="card-category">Total Courses</h5>
+                <CardTitle tag="h2">Enrollment</CardTitle>
+              </Col>
+              <Col sm="6">
+                <ButtonGroup>
+                </ButtonGroup>
+              </Col>
+            </Row>
+            </CardHeader>
+            <CardBody>
+            <div className="chart-area">
+              <Line data={chartData} options={chartExample1.options} />
+            </div>
+            </CardBody>
+            </Card>
+            ) : (
+              <Col xs="12" style={{ paddingBottom: "20px" }}>
+              <Link to="/student/enrollin">
+              <img src={Enroll} alt="Image description" className="img-fluid w-100" />
+  </Link>
+</Col>
+  )}
+</Col>
+
+        </Row>
+        <Row>
+          <Col lg="4">
+            {chartData1.labels.length>=1 ? (
+            <Card className="card-chart">
+              <CardHeader>
+                <h5 className="card-category">{chart1}</h5>
+                <CardTitle tag="h3">
+                </CardTitle>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-area">
+                  <Line
+                    data={chartData1}
+                    options={chartExample2.options}
+                  />
+                </div>
+              </CardBody>
+            </Card>
+            ) : (
+              <Col style={{ paddingBottom: "20px"}}>
+              <Link to="/student/enrollin">
+              <img src={Left} alt="Image description" className="img-fluid w-100" />
+  </Link>
+</Col>
+  )}
+          </Col>
+          <Col lg="4">
+           {chartData2.labels.length>=1 ? (
+            <Card className="card-chart">
+              <CardHeader>
+                <h5 className="card-category">{chart2}</h5>
+                <CardTitle tag="h3">
+                </CardTitle>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-area">
+                  <Bar
+                    data={chartData2}
+                    options={chartExample3.options}
+                  />
+                </div>
+              </CardBody>
+            </Card>
+            ) : (
+              <Col style={{ paddingBottom: "20px"}}>
+              <Link to="/student/enrollin">
+              <img src={Middle} alt="Image description" className="img-fluid w-100" />
+  </Link>
+</Col>
+  )}
+          </Col>
+          <Col lg="4">
+          {chartData3.labels.length>=1 ? (
+            <Card className="card-chart">
+              <CardHeader>
+                <h5 className="card-category">{chart3}</h5>
+                <CardTitle tag="h3">
+                </CardTitle>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-area">
+                  <Line
+                    data={chartData3}
+                    options={chartExample4.options}
+                  />
+                </div>
+              </CardBody>
+            </Card>
+           ) : (
+            <Col style={{ paddingBottom: "20px"}}>
+            <Link to="/student/enrollin">
+            <img src={Right} alt="Image description" className="img-fluid w-100" />
+</Link>
+</Col>
+)}
+          </Col>
+        </Row>
+        <Row>
+          <Col lg="6" md="12">
+            <Card className="card-tasks">
+              <CardHeader>
+                <h6 className="title d-inline">Courses</h6>
+                <p className="card-category d-inline"> today</p>
+                <UncontrolledDropdown>
+                  <DropdownToggle
+                    caret
+                    className="btn-icon"
+                    color="link"
+                    data-toggle="dropdown"
+                    type="button"
+                  >
+                    <i className="tim-icons icon-settings-gear-63" />
+                  </DropdownToggle>
+                  <DropdownMenu aria-labelledby="dropdownMenuLink" right>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      Action
+                    </DropdownItem>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      Another action
+                    </DropdownItem>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      Something else
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </CardHeader>
+              <CardBody>
+                <div className="table-full-width table-responsive">
+                <Table>
+                  <tbody>
+                     {courseCInfo.map((course) => (
+                     <tr key={course.id}>
+                         <td>
+          <FormGroup check>
+            <Label check>
+            </Label>
+          </FormGroup>
+        </td>
+        <td>
+          <p className="title">{course.name}</p>
+          <p className="text-muted">{course.description}</p>
+        </td>
+        <td className="td-actions text-right">
+          <Button
+            color="link"
+            id={`tooltip${course.id}`}
+            title=""
+            type="button"
+          >
+            <i className="tim-icons icon-minimal-right" />
+          </Button>
+          <UncontrolledTooltip
+            delay={0}
+            target={`tooltip${course.id}`}
+            placement="right"
+          >
+            <a href={course.link}>Go to Course</a>
+          </UncontrolledTooltip>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</Table>
+                  
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
+          <Col lg="6" md="12">
+            <Card>
+              <CardHeader>
+                <CardTitle tag="h4">Courses Description</CardTitle>
+              </CardHeader>
+              <CardBody>
+                <Table className="tablesorter" responsive>
+                  <thead className="text-primary">
+                    <tr>
+                      <th>Language</th>
+                      <th>Topic</th>
+                      <th>Teacher</th>
+                      <th className="text-center">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {courseInfo.map((course, index) => (
+                  <tr key={index}>
+                  <td>{course.language}</td>
+                  <td>{course.topic}</td>
+                  <td>{course.teacher}</td>
+                  <td className="text-center">{course.price}</td>
+                  </tr>
+                  ))}
+                  </tbody>
+                </Table>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    </>
+  );
+}
+
 export function TeachersDashboard(props) {
   const [bigChartData, setbigChartData] = React.useState("data1");
   const [chartData1, setChartData1] = useState({

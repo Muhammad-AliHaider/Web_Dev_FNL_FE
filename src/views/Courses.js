@@ -99,11 +99,27 @@ export function Courses () {
   }
 
   function Add_Vid(){
+    let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    if(role == "2"){
     window.location.href = "/teacher/video_upload";
+    }else{
+      window.location.href = "/admin/video_upload";
+    }
   }
 
   function Add_Mat(){
-    window.location.href = "/teacher/material_upload";
+    let token = window.localStorage.getItem("authtoken");
+
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    if(role == "2"){
+      window.location.href = "/teacher/material_upload";
+      }else{
+        window.location.href = "/admin/material_upload";
+      }
   }
 
 

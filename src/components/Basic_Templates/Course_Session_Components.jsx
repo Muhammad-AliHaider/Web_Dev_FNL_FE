@@ -53,7 +53,7 @@ export function VideoCard(props){
     window.location.href = '/teacher/video_editor'
     }
     else if(role == "1"){
-      // window.location.href = '/admin/edit_video'
+       window.location.href = '/admin/video_editor'
       }
   }
 
@@ -73,7 +73,7 @@ export function VideoCard(props){
         </MDBRow>
       </MDBCol>
       <MDBCol>
-        {role == "2"?
+        {(role == "1" || role == "2" ) ?
         <IoPencil color='#c44b99'  size=  {25} onClick = {handleEdit}/>:<></>}
       </MDBCol>
     </MDBRow>

@@ -348,8 +348,7 @@ export async function updateProfile(profileData){
     })
     })
     .then( async (res) =>{
-      //console.log( await res.json() )
-      // console.log("HUha YEHA TAK")
+      console.log( await res )
     return await res.json()})
     .then((res) => {
       // console.log((res));

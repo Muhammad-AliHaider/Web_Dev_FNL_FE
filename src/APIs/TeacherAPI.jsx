@@ -15,7 +15,7 @@ export async function  Upload_video (VideoName,VideoURL,VideoThumbnail) {
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/create_Video"
+      url = x.toString() + "/teacher/create_Video"
     }
 
     let response = await fetch(url, {
@@ -64,7 +64,7 @@ export async function  get_videos (){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/get_Video"
+      url = x.toString() + "/teacher/get_Video"
     }
     else{
       url = x.toString() + "/student/video/get"
@@ -115,7 +115,7 @@ export async function  add_video_to_course (props){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/add_Videos"
+      url = x.toString() + "/teacher/add_Videos"
     }
     
 
@@ -171,7 +171,7 @@ export async function remove_video_from_course(props){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/remove_Videos"
+      url = x.toString() + "/teacher/remove_Videos"
     }
     
   
@@ -222,7 +222,7 @@ export async function  delete_Video(props){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/delete_Video"
+      url = x.toString() + "/teacher/delete_Video"
     }
     
 
@@ -253,7 +253,12 @@ export async function  delete_Video(props){
         return res.data;
       }})
     }
-    window.location.href = "/teacher/course";
+    if(role=="2"){
+      window.location.href = "/teacher/course";
+      }
+      else{
+        window.location.href = "/admin/course";
+      }
 }
 
 export async function  create_quiz(Name){
@@ -270,7 +275,7 @@ export async function  create_quiz(Name){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/create_quiz"
+      url = x.toString() + "/teacher/create_quiz"
     }
 
     const response = await fetch(url, {
@@ -316,7 +321,7 @@ export async function  get_quiz(){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/get_quiz"
+    url = x.toString() + "/teacher/get_quiz"
   }
 
   const response = await fetch(url, {
@@ -365,7 +370,7 @@ export async function  create_Quiz_card(Question,Options,Answer){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/create_quiz_card"
+    url = x.toString() + "/teacher/create_quiz_card"
   }
   
   console.log(Question,Options,Answer);
@@ -413,7 +418,7 @@ export async function  get_quiz_card(props){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/get_quiz_card"
+    url = x.toString() + "/teacher/get_quiz_card"
   }
 
   const response = await fetch(url, {
@@ -464,7 +469,7 @@ export async function  add_quiz_card_to_Quiz(Card_id){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/add_content"
+    url = x.toString() + "/teacher/add_content"
   }
 
   const response = await fetch(url, {
@@ -518,7 +523,7 @@ export async function  add_quiz_to_Video(props){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/add_quiz"
+    url = x.toString() + "/teacher/add_quiz"
   }
 
   const response = await fetch(url, {
@@ -572,7 +577,7 @@ export async function  get_quiz_by_id(_id){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/get_quiz?_id=" + _id
+    url = x.toString() + "/teacher/get_quiz?_id=" + _id
   }
   else{
     url = x.toString() + "/student/quiz/get?_id=" + _id
@@ -624,7 +629,7 @@ export async function delete_quiz(){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/delete_Quiz"
+    url = x.toString() + "/teacher/delete_Quiz"
   }
 
   const response = await fetch(url, {
@@ -668,7 +673,7 @@ export async function remove_quiz_from_video(){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/remove_quiz"
+    url = x.toString() + "/teacher/remove_quiz"
   }
 
 
@@ -724,7 +729,7 @@ export async function Course_Offered_By_Teacher(){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/profile/get"
+    url = x.toString() + "/teacher/profile/get"
   }
 
   const response = await fetch(url, {
@@ -767,7 +772,7 @@ export async function remove_Material_from_Course(props){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/remove_Materials"
+      url = x.toString() + "/teacher/remove_Materials"
     }
     
   
@@ -821,7 +826,7 @@ export async function Delete_Material(props){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/delete_Material"
+      url = x.toString() + "/teacher/delete_Material"
     }
     
 
@@ -852,7 +857,12 @@ export async function Delete_Material(props){
         return res.data;
       }})
     }
+    if(role=="2"){
     window.location.href = "/teacher/course";
+    }
+    else{
+      window.location.href = "/admin/course";
+    }
 }
 
 export async function Upload_Material(MaterialName, MaterialURL){
@@ -868,7 +878,7 @@ export async function Upload_Material(MaterialName, MaterialURL){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/create_Material"
+      url = x.toString() + "/teacher/create_Material"
     }
 
     let response = await fetch(url, {
@@ -917,7 +927,7 @@ export async function get_Material(){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/get_Material"
+      url = x.toString() + "/teacher/get_Material"
     }
     else{
       url = x.toString() + "/student/video/get"
@@ -967,7 +977,7 @@ export async function add_Material_to_course(props){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/add_Materials"
+    url = x.toString() + "/teacher/add_Materials"
   }
   
 
@@ -1024,7 +1034,7 @@ export async function create_Course(Name, Language, Topic, Description){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/create_Course"
+    url = x.toString() + "/teacher/create_Course"
   }
 
   let response = await fetch(url, {
@@ -1076,7 +1086,7 @@ export async function get_Course_id(){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/get_Course"
+      url = x.toString() + "/teacher/get_Course"
     }
     else{
       // url = x.toString() + "/student/video/get"
@@ -1127,7 +1137,7 @@ export async function add_Course_to_teacher(props){
   }
 
   else if(role == "1"){
-    url = x.toString() + "/admin/add_courses"
+    url = x.toString() + "/teacher/add_courses"
   }
 
   const response = await fetch(url, {
@@ -1181,7 +1191,7 @@ export async function remove_Course_from_teacher(props){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/remove_courses"
+      url = x.toString() + "/teacher/remove_courses"
     }
     
   const response = await fetch(url, {
@@ -1228,7 +1238,7 @@ export async function delete_Course(props){
     }
 
     else if(role == "1"){
-      url = x.toString() + "/admin/delete_Course"
+      url = x.toString() + "/teacher/delete_Course"
     }
     
 
@@ -1259,6 +1269,9 @@ export async function delete_Course(props){
 
       if(role == "2"){
         window.location.href = "/teacher/Course_Offered";
+      }
+      else{
+        window.location.href = "/admin/Course_Offered";
       }
 
 }
