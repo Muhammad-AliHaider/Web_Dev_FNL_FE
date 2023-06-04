@@ -448,3 +448,55 @@ export async function signout(){
 
   return response;
 }
+
+export async function getUserName(Data){
+    console.log('Data',Data)
+   
+    let x = getBaseURL();
+  
+    console.log("audkd")
+    let token = window.localStorage.getItem("authtoken");
+  
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    let url;
+    url = x.toString() + "/admin/get_user"
+  
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+        'refresh-token': window.localStorage.getItem("refToken")
+        },
+  
+      body : JSON.stringify({
+        Data
+      })
+      })
+      .then( async (res) =>{
+        //console.log( await res.json() )
+        console.log("HUha YEHA TAK")
+      return await res.json()})
+      .then((res) => {
+        // console.log((res));
+        if(res.error){
+          return res.error;
+        }
+        else{
+          return res.data;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      }
+    );
+  
+  //   console.log(response[response.length-1]._id);
+    return response;
+  
+  
+  
+  
+  }

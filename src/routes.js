@@ -29,6 +29,7 @@ import Video from "views/Video_player.js";
 import Video_uploader from "views/Video_uploader.js";
 import Material_Upload from "views/Material_Upload";
 import Enrolled from "views/Enrolled_In";
+import Purchase from "views/Purchase";
 
 import CreditCardForm from "views/CreditCardForm.js";
 
@@ -122,6 +123,14 @@ export var StudentRoutes = [
     name: "BILLING INFO",
     icon: "tim-icons icon-money-coins",
     component: CreditCardForm,
+    layout: "/student"
+  },
+
+  {
+    path: "/purchase",
+    name: "PURCHASE COURSE",
+    icon: "tim-icons icon-money-coins",
+    component: Purchase,
     layout: "/student"
   },
 ];

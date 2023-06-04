@@ -38,7 +38,7 @@ export async function getCourse(courseData){
       })
       .then( async (res) =>{
         //console.log( await res.json() )
-        // console.log("HUha YEHA TAK")
+        console.log("HUha YEHA TAK")
       return await res.json()})
       .then((res) => {
         // console.log((res));

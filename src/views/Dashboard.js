@@ -47,8 +47,9 @@ import {
   UncontrolledTooltip
 } from "reactstrap";
 
-import { getProfile, updateProfile } from "APIs/userAPIs";
+import { getProfile, getAllCourses , getUserName } from "APIs/userAPIs";
 import { getCourse} from "APIs/studentAPI";
+import { get_teachers} from "APIs/adminAPI";
 
 // core components
 import {
@@ -160,6 +161,8 @@ function StudentDashboard(props) {
           const courseId = response.std.CourseEnrolled[i].id;
           const courseResponse = await getCourse({ _id: courseId });
           console.log(courseResponse)
+          const Name=await getUserName({_id: courseResponse[0].Teacher })
+          console.log('Name',Name)
   
           const progressLength = response.std.CourseEnrolled[i].progress.length;
           const videoIdLength = courseResponse[0].VideoID.length;
@@ -168,7 +171,7 @@ function StudentDashboard(props) {
           const newCourse = {
             language: courseResponse[0].Language,
             topic: courseResponse[0].Topic,
-            teacher: courseResponse[0].Teacher,
+            teacher: Name,
             progress: prog
           };
   
@@ -514,7 +517,7 @@ export function AdminDashboard(props) {
     labels: [],
     datasets: [
       {
-        label: "Quiz Scores",
+        label: "Number of Courses",
         data: [],
         backgroundColor: "rgba(75,192,192,0.4)",
         borderColor: "rgba(75,192,192,1)",
@@ -530,7 +533,7 @@ export function AdminDashboard(props) {
     labels: [],
     datasets: [
       {
-        label: "Quiz Scores",
+        label: "Number of Students",
         data: [],
         backgroundColor: "rgba(75,192,192,0.4)",
         borderColor: "rgba(75,192,192,1)",
@@ -546,7 +549,7 @@ export function AdminDashboard(props) {
     labels: [],
     datasets: [
       {
-        label: "Quiz Scores",
+        label: "Amount($)",
         data: [],
         backgroundColor: "rgba(75,192,192,0.4)",
         borderColor: "rgba(75,192,192,1)",
@@ -593,8 +596,28 @@ export function AdminDashboard(props) {
           }
         };
   
-        const response = await getProfile();
-        console.log("yeha say aya yeh ab kia karey",response.data)
+        const raw = await getAllCourses();
+        
+
+        const sortedCourses = raw.sort((a, b) => b.Students.length - a.Students.length);
+  
+        const topThreeNames = sortedCourses.slice(0, 3).map(course => course.Name);
+        const topThreePrice = sortedCourses.slice(0, 3).map(course => (course.Students.length*10));
+        const topThreeStudents = sortedCourses.slice(0, 3).map(course => course.Students.length);
+        
+
+        const teachers = await get_teachers()
+        const sortedTeachers = teachers.sort((a, b) => b[1][0].CourseOffered.length - a[1][0].CourseOffered.length);
+        const topThreeTeachers = sortedTeachers.slice(0, 3).map(course => course[0].Name);
+        const topThreeEnrolled = sortedTeachers.slice(0, 3).map(course => course[1][0].CourseOffered.length);
+        console.log('TopN',topThreeNames)
+        console.log('TopS',topThreeStudents)
+
+        var response = raw
+        if (raw.length > 5){
+          response = raw.slice(0,5)
+        }
+        console.log("yeha say aya yeh ab kia karey",response)
   
         const courseNames = []
         const courseStudents = [];
@@ -607,18 +630,21 @@ export function AdminDashboard(props) {
         const curseInfo = [];
         const curseCInfo = [];
   
-        for (let i = 0; i < response.data.teacher.CourseOffered.length; i++) {
-          const courseId = response.data.teacher.CourseOffered[i].id;
+        for (let i = 0; i <response.length; i++) {
+          const courseId = response[i]._id;
+          console.log( '$10',courseId)
           const courseResponse = await getCourse({ _id: courseId });
           console.log('askxdl',courseResponse)
           courseStudents.push(courseResponse[0].Students.length)
           courseNames.push(courseResponse[0].Name)
-  
-  
+          const Name=await getUserName({_id: courseResponse[0].Teacher })
+          console.log('Name',Name)
+          
+
           const newCourse = {
             language: courseResponse[0].Language,
             topic: courseResponse[0].Topic,
-            teacher: courseResponse[0].Teacher,
+            teacher: Name,
             price: '$10'
           };
   
@@ -651,22 +677,22 @@ export function AdminDashboard(props) {
   
         setChartData1(prevChartData1 => ({
           ...prevChartData1,
-          labels: chartData1Labels,
+          labels: topThreeTeachers,
           datasets: [
             {
               ...prevChartData1.datasets[0],
-              data: chartData1Scores
+              data: topThreeEnrolled
             }
           ]
         }));
   
         setChartData2(prevChartData2 => ({
           ...prevChartData2,
-          labels: chartData2Labels,
+          labels: topThreeNames,
           datasets: [
             {
               ...prevChartData2.datasets[0],
-              data: chartData2Scores
+              data: topThreeStudents
             }
           ]
         }));
@@ -678,11 +704,11 @@ export function AdminDashboard(props) {
   
         setChartData3(prevChartData3 => ({
           ...prevChartData3,
-          labels: chartData3Labels,
+          labels: topThreeNames,
           datasets: [
             {
               ...prevChartData3.datasets[0],
-              data: chartData3Scores
+              data: topThreePrice
             }
           ]
         }));
@@ -739,7 +765,7 @@ export function AdminDashboard(props) {
             {chartData1.labels.length>=1 ? (
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">{chart1}</h5>
+                <h5 className="card-category">Teachers Offering Most Courses</h5>
                 <CardTitle tag="h3">
                 </CardTitle>
               </CardHeader>
@@ -764,7 +790,7 @@ export function AdminDashboard(props) {
            {chartData2.labels.length>=1 ? (
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">{chart2}</h5>
+                <h5 className="card-category">Most Viewed Courses </h5>
                 <CardTitle tag="h3">
                 </CardTitle>
               </CardHeader>
@@ -789,7 +815,7 @@ export function AdminDashboard(props) {
           {chartData3.labels.length>=1 ? (
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">{chart3}</h5>
+                <h5 className="card-category">Revenue Generated From Courses</h5>
                 <CardTitle tag="h3">
                 </CardTitle>
               </CardHeader>
@@ -1026,17 +1052,19 @@ export function TeachersDashboard(props) {
         const curseCInfo = [];
   
         for (let i = 0; i < response.data.teacher.CourseOffered.length; i++) {
-          const courseId = response.data.teacher.CourseOffered[i].id;
+          const courseId = response.data.teacher.CourseOffered[i]._id;
           const courseResponse = await getCourse({ _id: courseId });
           console.log('askxdl',courseResponse)
           courseStudents.push(courseResponse[0].Students.length)
           courseNames.push(courseResponse[0].Name)
+          const Name=await getUserName({_id: courseResponse[0].Teacher })
+          console.log('Name',Name)
   
   
           const newCourse = {
             language: courseResponse[0].Language,
             topic: courseResponse[0].Topic,
-            teacher: courseResponse[0].Teacher,
+            teacher: Name,
             price: '$10'
           };
   

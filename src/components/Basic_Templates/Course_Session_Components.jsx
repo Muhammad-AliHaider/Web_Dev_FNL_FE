@@ -18,7 +18,7 @@ import "./styleSheet.css"
 export function VideoCard(props){
 
   let token = window.localStorage.getItem("authtoken");
-
+  const enrolled = props.Course_ID
   const decodedToken = jwtDecode(token);
   const role = decodedToken.role;
 
@@ -27,6 +27,7 @@ export function VideoCard(props){
     window.sessionStorage.setItem('VideoID', props._id);
     window.sessionStorage.setItem('VideoURL', props.url);
     window.sessionStorage.setItem('QuizID', props.Quiz_ID);
+    
     
 
 
@@ -39,6 +40,16 @@ export function VideoCard(props){
     else{
       window.location.href = '/student/video'
       }
+  }
+
+
+    
+    
+  function handleClick(){
+
+    
+    window.location.href = '/student/purchase'
+    
   }
 
   function handleEdit(){
@@ -68,8 +79,12 @@ export function VideoCard(props){
         </MDBCol>
       <MDBCol>
         <MDBRow>
-        <IoPlayCircle color= '#c44b99' size=  {37} onClick ={handlePlay}/>
-        {/* <Button variant="text" style = {{color : "#c44b99", justifyContent : "flex-end" }} onClick ={handleChange}>Play</Button> */}
+        {(role == "3") ? 
+        enrolled ? (
+        <IoPlayCircle color= '#c44b99' size=  {37} onClick ={handlePlay}/>):
+        (<Button variant="text" className="Button" onClick = {handleClick}  style={{justifySelf : "flex-end"}}>PURCHASE</Button>) :
+        (<IoPlayCircle color= '#c44b99' size=  {37} onClick ={handlePlay}/>)}
+       
         </MDBRow>
       </MDBCol>
       <MDBCol>
@@ -85,7 +100,7 @@ export function VideoCard(props){
 export function MaterialCard(props){
 
   let token = window.localStorage.getItem("authtoken");
-
+  const enrolled = props.Course_ID
   const decodedToken = jwtDecode(token);
   const role = decodedToken.role;
 
@@ -93,6 +108,12 @@ export function MaterialCard(props){
 
     saveAs(props.url, `${props.title}.pdf`);
     
+  }
+
+  function handleClick(){
+
+    
+    window.location.href = '/student/purchase'
   }
 
   
@@ -109,7 +130,12 @@ export function MaterialCard(props){
         </MDBCol>
       <MDBCol>
         <MDBRow>
-        <IoDownload color= '#c44b99' size= {37} onClick={handleDownload}  />
+
+
+        {(role == "3") ? enrolled ? (
+        <IoDownload color= '#c44b99' size= {37} onClick={handleDownload}  />):
+        (<Button variant="text" className="Button" onClick = {handleClick}  style={{justifySelf : "flex-end"}}>PURCHASE</Button>) :
+        (<IoDownload color= '#c44b99' size= {37} onClick={handleDownload}  />)}
         {/* <Button variant="text" style = {{color : "#c44b99", justifyContent : "flex-end" }} onClick ={handleChange}>Play</Button> */}
         </MDBRow>
       </MDBCol>
