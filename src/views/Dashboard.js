@@ -607,6 +607,7 @@ export function AdminDashboard(props) {
         
 
         const teachers = await get_teachers()
+        console.log(teachers)
         const sortedTeachers = teachers.sort((a, b) => b[1][0].CourseOffered.length - a[1][0].CourseOffered.length);
         const topThreeTeachers = sortedTeachers.slice(0, 3).map(course => course[0].Name);
         const topThreeEnrolled = sortedTeachers.slice(0, 3).map(course => course[1][0].CourseOffered.length);

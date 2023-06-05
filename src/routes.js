@@ -123,15 +123,8 @@ export var StudentRoutes = [
     icon: "tim-icons icon-money-coins",
     component: CreditCardForm,
     layout: "/student"
-  },
+  }
 
-  {
-    path: "/purchase",
-    name: "PURCHASE COURSE",
-    icon: "tim-icons icon-money-coins",
-    component: Purchase,
-    layout: "/student"
-  },
 ];
 
 export var AdminRoutes = [
