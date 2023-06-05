@@ -28,7 +28,7 @@ import "./styleSheet.css";
 
 export function VideoCard(props) {
   let token = window.localStorage.getItem("authtoken");
-
+  const enrolled = props.Course_ID
   const decodedToken = jwtDecode(token);
   const role = decodedToken.role;
 
@@ -128,7 +128,7 @@ export function VideoCard(props) {
 
 export function MaterialCard(props) {
   let token = window.localStorage.getItem("authtoken");
-
+  const enrolled = props.Course_ID
   const decodedToken = jwtDecode(token);
   const role = decodedToken.role;
 
