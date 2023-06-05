@@ -50,7 +50,7 @@ function All_Courses() {
         async function getCourses(){
             let data  = [];
             data = await enrolin();
-            console.log("tehhjv",data);
+            console.log(data);
             setCourses(data);
             console.log("hugaya")
         } 
@@ -120,10 +120,42 @@ function All_Courses() {
 
                         return (
                             <>
-                             {(() =>{
-                                    return (array_to_render);
+                             {(() => {
+                                if (role === "1"){
+                                    return<>
+                                    {isDelete ?
+                                    <Col>
+                                    <Row style={{ justifyContent: "flex-end" }}>
+                                      <Button
+                                        variant="text"
+                                        className="Button"
+                                        onClick={HandleDeleteOnClick}
+                                        style={{ justifySelf: "flex-end" }}
+                                      >
+                                        Delete -
+                                      </Button>
+                                    </Row>
+                                  </Col>
+                                     : <Col>
+                                     <Row style={{ justifyContent: "flex-end" }}>
+                                       <Button
+                                         variant="text"
+                                         className="Button"
+                                         onClick={HandleDeleteOnClick}
+                                         style={{ justifySelf: "flex-end" }}
+                                       >
+                                         cancel
+                                       </Button>
+                                     </Row>
+                                   </Col>}
+
+                                    
+                                    {array_to_render}
+                                    </>
                                 }
-                                )()}
+                                else
+                                    return (array_to_render);
+                             })()}
                             </>
                         );
                         

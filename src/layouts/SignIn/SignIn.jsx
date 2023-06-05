@@ -88,7 +88,7 @@ function S() {
               <MDBInput wrapperClass='mb-4' label='Password' id='formControlLg' type='password' size="lg" onChange={(e) => setPassword(e.target.value)} />
               <Button type='submit' color='dark' variant="contained" style={{ margin: '8px 0' }} fullWidth onClick={handleLogin}>Log In </Button>
               {error && <p style={{ color: 'red' }}>{error}</p>}
-              <a wrapperClass='mb-4' href="#!">Forgot password?</a>
+              {/* <a wrapperClass='mb-4' href="#!">Forgot password?</a> */}
               <p wrapperClass='mb-4'>Don't have an account? <Link to="/signup">Register here</Link></p>
               <div className='d-flex flex-row justify-content-start'>
                 <a href="#!" wrapperClass='mb-4'>Terms of use.</a>

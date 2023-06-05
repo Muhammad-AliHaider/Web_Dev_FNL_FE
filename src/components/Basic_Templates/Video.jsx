@@ -11,12 +11,8 @@ export const VideoJS = (props) => {
   const {options, onReady} = props;
 
   function Take_Quiz(){
-    // let Quiz_Id = window.sessionStorage.getItem("QuizID");
-    // async function getQuiz(){
-    //   let response = await get_quiz_by_id(Quiz_Id);
-    //   console.log(response);
-    // }
-    // getQuiz();
+    
+    if((window.sessionStorage.getItem("QuizID") != "undefined")){
     let token = window.localStorage.getItem("authtoken");
 
     const decodedToken = jwtDecode(token);
@@ -30,6 +26,7 @@ export const VideoJS = (props) => {
       window.location.href = "/teacher/quiz";
     else
       window.location.href = "/student/quiz";
+    }
   }
 
   React.useEffect(() => {
