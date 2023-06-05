@@ -29,7 +29,7 @@ import Video from "views/Video_player.js";
 import Video_uploader from "views/Video_uploader.js";
 import Material_Upload from "views/Material_Upload";
 import Enrolled from "views/Enrolled_In";
-
+import AddNDelete from "views/AddNDelete.js";
 import CreditCardForm from "views/CreditCardForm.js";
 
 import Video_Editor from "views/Video_Editor.js";
@@ -228,6 +228,13 @@ export var AdminRoutes = [
     component: Video_Editor,
     layout: "/admin"
   },
+  {
+    path: "/addNdeleteusers",
+    name: "Remove Users",
+    icon: "tim-icons icon-single-02",
+    component: AddNDelete,
+    layout: "/admin"
+  },
 ];
 
 export var TeacherRoutes = [
@@ -329,7 +336,7 @@ export var TeacherRoutes = [
     path: "/billinginfo",
     name: "BILLING INFO",
     icon: "tim-icons icon-money-coins",
-    component: TableList,
+    component: CreditCardForm,
     layout: "/teacher"
   },
 ];

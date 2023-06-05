@@ -5,7 +5,7 @@ import "./styleSheet.css";
 import jwtDecode from 'jwt-decode';
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { remove_Course_from_teacher,delete_Course } from "APIs/TeacherAPI";
-//import {Link} from "react-router-dom" ;
+
 
 
 
@@ -16,7 +16,7 @@ export const CourseOfferedCardTemplate = (props) => {
     
 
     function handleButtonClick(){
-        // console.log(id);
+        
         window.sessionStorage.setItem("CourseID", id);
         let token = window.localStorage.getItem("authtoken");
 

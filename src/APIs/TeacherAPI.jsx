@@ -79,10 +79,8 @@ export async function  get_videos (){
           
         })
         .then( async (res) =>{
-          //console.log( await res.json() )
         return await res.json()})
         .then((res) => {
-          // console.log((res));
           if(res.error){
             return res.error;
           }
@@ -95,8 +93,6 @@ export async function  get_videos (){
           return err;
         }
       );
-  
-    //   console.log(response[response.length-1]._id);
       return response[response.length-1]._id;
 }
 
@@ -119,7 +115,7 @@ export async function  add_video_to_course (props){
     }
     
 
-    // url = x.toString() + "/teacher/add_Videos"
+    
 
     const response = await fetch(url, {
         method: "PUT",
@@ -135,10 +131,8 @@ export async function  add_video_to_course (props){
         })
         })
         .then( async (res) =>{
-          //console.log( await res.json() )
         return await res.json()})
         .then((res) => {
-          // console.log((res));
           if(res.error){
             return res.error;
           }
@@ -151,8 +145,6 @@ export async function  add_video_to_course (props){
           return err;
         }
       );
-  
-    //   console.log(response[response.length-1]._id);
       return response;
 
 }
@@ -191,10 +183,8 @@ export async function remove_video_from_course(props){
       })
     })
     .then( async (res) =>{
-      //console.log( await res.json() )
     return await res.json()})
     .then((res) => {
-      // console.log((res));
       if(res.error){
         return res.error;
       }
@@ -241,10 +231,8 @@ export async function  delete_Video(props){
       })
 
     }).then( async (res) =>{
-      //console.log( await res.json() )
     return await res.json()})
     .then((res) => {
-      // console.log((res));
       if(res.error){
         console.log("hello this is an ",res.error);
         return res.error;
@@ -290,10 +278,8 @@ export async function  create_quiz(Name){
         })
       })
       .then( async (res) =>{
-        //console.log( await res.json() )
       return await res.json()})
       .then((res) => {
-        // console.log((res));
         if(res.error){
           return res.error;
         }
@@ -302,7 +288,6 @@ export async function  create_quiz(Name){
         }
       }
     );
-    // console.log(response);
     return response;
     
 }
@@ -334,10 +319,8 @@ export async function  get_quiz(){
         
       })
       .then( async (res) =>{
-        //console.log( await res.json() )
       return await res.json()})
       .then((res) => {
-        // console.log((res));
         if(res.error){
           return res.error;
         }
@@ -350,13 +333,11 @@ export async function  get_quiz(){
         return err;
       }
     );
-
-  //   console.log(response[response.length-1]._id);
     return response[response.length-1]._id;
 }
 
 export async function  create_Quiz_card(Question,Options,Answer){
-  // /create_quiz_card
+  
 
   let x = getBaseURL();
 
@@ -388,10 +369,8 @@ export async function  create_Quiz_card(Question,Options,Answer){
           Answer : Answer,
         })
       }).then( async (res) =>{
-        //console.log( await res.json() )
       return await res.json()})
       .then((res) => {
-        // console.log((res));
         if(res.error){
           return res.error;
         }
@@ -400,7 +379,7 @@ export async function  create_Quiz_card(Question,Options,Answer){
         }
       }
     );
-    // console.log(response);
+    
     return response;
 }
 
@@ -431,10 +410,10 @@ export async function  get_quiz_card(props){
         
       })
       .then( async (res) =>{
-        //console.log( await res.json() )
+        
       return await res.json()})
       .then((res) => {
-        // console.log((res));
+        
         if(res.error){
           return res.error;
         }
@@ -448,14 +427,14 @@ export async function  get_quiz_card(props){
       }
     );
 
-  //   console.log(response[response.length-1]._id);
+  
     return response[response.length-1]._id;
 
 }
 
 export async function  add_quiz_card_to_Quiz(Card_id){
 
-  // /add_content
+  
 
   let x = getBaseURL();
 
@@ -486,10 +465,10 @@ export async function  add_quiz_card_to_Quiz(Card_id){
     })
     })
     .then( async (res) =>{
-      //console.log( await res.json() )
+      
     return await res.json()})
     .then((res) => {
-      // console.log((res));
+      
       if(res.error){
         return res.error;
       }
@@ -503,13 +482,13 @@ export async function  add_quiz_card_to_Quiz(Card_id){
     }
   );
 
-//   console.log(response[response.length-1]._id);
+
   return response;
 
 }
 
 export async function  add_quiz_to_Video(props){
-  // /add_quiz
+  
 
   let x = getBaseURL();
 
@@ -540,10 +519,10 @@ export async function  add_quiz_to_Video(props){
     })
     })
     .then( async (res) =>{
-      //console.log( await res.json() )
+      
     return await res.json()})
     .then((res) => {
-      // console.log((res));
+      
       if(res.error){
         return res.error;
       }
@@ -557,7 +536,7 @@ export async function  add_quiz_to_Video(props){
     }
   );
 
-//   console.log(response[response.length-1]._id);
+
   return response;
 
 }
@@ -593,10 +572,10 @@ export async function  get_quiz_by_id(_id){
         
       })
       .then( async (res) =>{
-        //console.log( await res.json() )
+        
       return await res.json()})
       .then((res) => {
-        // console.log((res));
+        
         if(res.error){
           return res.error;
         }
@@ -610,7 +589,7 @@ export async function  get_quiz_by_id(_id){
       }
     );
 
-  //   console.log(response[response.length-1]._id);
+  
     return response;
 }
 
@@ -645,10 +624,10 @@ export async function delete_quiz(){
     })
 
   }).then( async (res) =>{
-    //console.log( await res.json() )
+    
   return await res.json()})
   .then((res) => {
-    // console.log((res));
+    
     if(res.error){
       console.log("hello this is an ",res.error);
       return res.error;
@@ -691,11 +670,11 @@ export async function remove_quiz_from_video(){
     })
     })
     .then( async (res) =>{
-      //console.log( await res.json() )
-      // console.log("HUha YEHA TAK")
+      
+      
     return await res.json()})
     .then((res) => {
-      // console.log((res));
+      
       if(res.error){
         return res.error;
       }
@@ -709,7 +688,7 @@ export async function remove_quiz_from_video(){
     }
   );
 
-//   console.log(response[response.length-1]._id);
+
   return response;
 
 
@@ -741,7 +720,7 @@ export async function Course_Offered_By_Teacher(){
       },
     }
     ).then( async (res) =>{
-      //console.log( await res.json() )
+      
     return await res.json()})
     .then((res) => {
       if(res.error){
@@ -793,10 +772,10 @@ export async function remove_Material_from_Course(props){
       })
     })
     .then( async (res) =>{
-      //console.log( await res.json() )
+      
     return await res.json()})
     .then((res) => {
-      // console.log((res));
+      
       if(res.error){
         return res.error;
       }
@@ -845,10 +824,10 @@ export async function Delete_Material(props){
       })
 
     }).then( async (res) =>{
-      //console.log( await res.json() )
+      
     return await res.json()})
     .then((res) => {
-      // console.log((res));
+      
       if(res.error){
         console.log("hello this is an ",res.error);
         return res.error;
@@ -892,7 +871,7 @@ export async function Upload_Material(MaterialName, MaterialURL){
         body : JSON.stringify({
             Name: MaterialName,
             URL : MaterialURL,
-            // Thumbnail:VideoThumbnail,
+            
         })
           
         })
@@ -942,10 +921,10 @@ export async function get_Material(){
           
         })
         .then( async (res) =>{
-          //console.log( await res.json() )
+          
         return await res.json()})
         .then((res) => {
-          // console.log((res));
+          
           if(res.error){
             return res.error;
           }
@@ -959,7 +938,7 @@ export async function get_Material(){
         }
       );
   
-    //   console.log(response[response.length-1]._id);
+    
       return response[response.length-1]._id;
 }
 
@@ -981,7 +960,7 @@ export async function add_Material_to_course(props){
   }
   
 
-  // url = x.toString() + "/teacher/add_Videos"
+  
 
   const response = await fetch(url, {
       method: "PUT",
@@ -997,10 +976,10 @@ export async function add_Material_to_course(props){
       })
       })
       .then( async (res) =>{
-        //console.log( await res.json() )
+        
       return await res.json()})
       .then((res) => {
-        // console.log((res));
+        
         if(res.error){
           return res.error;
         }
@@ -1014,7 +993,7 @@ export async function add_Material_to_course(props){
       }
     );
 
-  //   console.log(response[response.length-1]._id);
+  
     return response;
 }
 
@@ -1051,7 +1030,7 @@ export async function create_Course(Name, Language, Topic, Description){
           Language : Language,
           Topic : Topic,
           Description : Description,
-          // Thumbnail:VideoThumbnail,
+          
       })
         
       })
@@ -1089,7 +1068,7 @@ export async function get_Course_id(){
       url = x.toString() + "/teacher/get_Course"
     }
     else{
-      // url = x.toString() + "/student/video/get"
+      
     }
     const response = await fetch(url, {
         method: "GET",
@@ -1101,10 +1080,10 @@ export async function get_Course_id(){
           
         })
         .then( async (res) =>{
-          //console.log( await res.json() )
+          
         return await res.json()})
         .then((res) => {
-          // console.log((res));
+          
           if(res.error){
             return res.error;
           }
@@ -1118,7 +1097,7 @@ export async function get_Course_id(){
         }
       );
   
-    //   console.log(response[response.length-1]._id);
+    
       return response[response.length-1]._id;
 }
 
@@ -1154,10 +1133,10 @@ export async function add_Course_to_teacher(props){
       })
       })
       .then( async (res) =>{
-        //console.log( await res.json() )
+        
       return await res.json()})
       .then((res) => {
-        // console.log((res));
+        
         if(res.error){
           return res.error;
         }
@@ -1171,7 +1150,7 @@ export async function add_Course_to_teacher(props){
       }
     );
 
-  //   console.log(response[response.length-1]._id);
+  
     return response;
 }
 
@@ -1208,10 +1187,10 @@ export async function remove_Course_from_teacher(props){
       })
     })
     .then( async (res) =>{
-      //console.log( await res.json() )
+      
     return await res.json()})
     .then((res) => {
-      // console.log((res));
+      
       if(res.error){
         return res.error;
       }
@@ -1255,10 +1234,10 @@ export async function delete_Course(props){
       })
 
     }).then( async (res) =>{
-      //console.log( await res.json() )
+      
     return await res.json()})
     .then((res) => {
-      // console.log((res));
+      
       if(res.error){
         console.log("hello this is an ",res.error);
         return res.error;

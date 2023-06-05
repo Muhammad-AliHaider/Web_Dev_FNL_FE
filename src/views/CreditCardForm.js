@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, message } from "antd";
+import jwtDecode from "jwt-decode";
 import axios from "axios";
-
+import "./styleSheet.css"
+import {getProfile,updateProfile} from "APIs/userAPIs";
 const CreditCardForm = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+  const [profileData, setProfileData] = useState([]);
 
   const fetchCreditCardInfo = async () => {
+    // console.log("responseeeeeeeeee")// Replace with your API endpoint
     setLoading(true);
+    let token = window.localStorage.getItem("authtoken");
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
     try {
-      const response = await axios.get("/api/credit-card-info"); // Replace with your API endpoint
-      form.setFieldsValue(response.data);
+      const response = await getProfile(); 
+      setProfileData(response);
+      console.log("response")// Replace with your API endpoint
+      console.log(response)// Replace with your API endpoint
+      if(role == "2"){
+        form.setFieldsValue(response.data.user.CreditCard);
+      }
+      form.setFieldsValue(response.data.CreditCard);
     } catch (error) {
       message.error("Error fetching credit card information");
     } finally {
@@ -24,8 +37,33 @@ const CreditCardForm = () => {
 
   const handleSubmit = async (values) => {
     setLoading(true);
+    let token = window.localStorage.getItem("authtoken");
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    console.log("values")
+    console.log(values)
+    let updatedProfileData = { ...profileData.data }; // Create a copy
+
+    if(role == "2"){
+      updatedProfileData.user.CreditCard.cardholderName = values.cardholderName 
+      updatedProfileData.user.CreditCard.cardNumber = values.cardNumber
+      updatedProfileData.user.CreditCard.expirationDate = values.expirationDate
+      updatedProfileData.user.CreditCard.securityCode = values.securityCode
+      updatedProfileData.data = updatedProfileData.user;
+      delete updatedProfileData.user;
+
+    }else{
+      updatedProfileData.data.CreditCard.cardholderName = values.cardholderName 
+      updatedProfileData.data.CreditCard.cardNumber = values.cardNumber
+      updatedProfileData.data.CreditCard.expirationDate = values.expirationDate
+      updatedProfileData.data.CreditCard.securityCode = values.securityCode
+    }
+
+    console.log("updatedProfileData"); // Update the state
+    console.log(updatedProfileData); // Update the state
+
     try {
-      await axios.put("/api/update-credit-card-info", values); // Replace with your API endpoint
+      await updateProfile(updatedProfileData)
       message.success("Credit card information updated successfully");
     } catch (error) {
       message.error("Error updating credit card information");
@@ -38,6 +76,7 @@ const CreditCardForm = () => {
     <>
       <div className="content">
         <Form
+        className="CreditCardForm"
           form={form}
           onFinish={handleSubmit}
           layout="vertical"
@@ -51,7 +90,7 @@ const CreditCardForm = () => {
             ]}
           >
             <Input />
-          </Form.Item>
+          </Form.Item> 
 
           <Form.Item
             label="Card Number"
@@ -75,7 +114,7 @@ const CreditCardForm = () => {
 
           <Form.Item
             label="CVV"
-            name="cvv"
+            name="securityCode"
             rules={[{ required: true, message: "Please enter the CVV" }]}
           >
             <Input.Password />

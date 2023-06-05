@@ -48,6 +48,12 @@ export const TeacherDetails = (props) => {
         <div className="Description">
             Email : {props.email}
         </div>
+        <CardText tag = "h4">
+            Price
+        </CardText>
+        <div className="Description">
+            Price : {Math.floor(Math.random() * 1000)}$
+        </div>
 
     </Card>
     </>

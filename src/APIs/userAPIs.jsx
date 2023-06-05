@@ -65,6 +65,105 @@ export async function getAllCourses(){
     return response;
 }
 
+export async function getStudentTeacherData() {
+  let x = getBaseURL();
+
+  let urlStudent = x.toString() + "/admin/profile/getAllStudents";
+  let urlTeacher = x.toString() + "/admin/profile/getAllTeachers";
+
+  let token = window.localStorage.getItem("authtoken");
+
+  const decodedToken = jwtDecode(token);
+  const role = decodedToken.role;
+
+  let responseStudent = null;
+  let responseTeacher = null;
+
+  if(role == "1" || role == "3"){
+    responseStudent = await fetch(urlStudent, {
+      method: 'GET',
+      headers: {
+          "Content-Type": "application/json",
+          'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+          'refresh-token': window.localStorage.getItem("refToken")
+      }
+    }).then(async (res) => await res.json())
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
+  }
+
+  if(role == "1" || role == "2"){
+    responseTeacher = await fetch(urlTeacher, {
+      method: 'GET',
+      headers: {
+          "Content-Type": "application/json",
+          'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+          'refresh-token': window.localStorage.getItem("refToken")
+      }
+    }).then(async (res) => await res.json())
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
+  }
+
+  return {studentData: responseStudent, teacherData: responseTeacher};
+}
+
+export async function deleteStudentTeacherData(props) {
+  let x = getBaseURL();
+
+  let urlStudent = x.toString() + "/admin/delete_user";
+  let urlTeacher = x.toString() + "/admin/delete_user";
+
+  let token = window.localStorage.getItem("authtoken");
+
+  const decodedToken = jwtDecode(token);
+  const role = decodedToken.role;
+
+  let responseStudent = null;
+  let responseTeacher = null;
+
+  if(role == "1" || role == "3"){
+    responseStudent = await fetch(urlStudent, {
+      method: 'DELETE',
+      headers: {
+          "Content-Type": "application/json",
+          'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+          'refresh-token': window.localStorage.getItem("refToken")
+      },
+      body : JSON.stringify({
+        UserName : props
+      })
+    }).then(async (res) => await res.json())
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
+  }
+
+  if(role == "1" || role == "2"){
+    responseTeacher = await fetch(urlTeacher, {
+      method: 'DELETE',
+      headers: {
+          "Content-Type": "application/json",
+          'authorization':"Bearer "+ window.localStorage.getItem("authtoken"),
+          'refresh-token': window.localStorage.getItem("refToken")
+      },
+      body : JSON.stringify({
+        UserName : props
+      })
+    }).then(async (res) => await res.json())
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
+  }
+
+  return {studentData: responseStudent, teacherData: responseTeacher};
+}
 
 
 export async function getCourseData(){
@@ -448,3 +547,6 @@ export async function signout(){
 
   return response;
 }
+
+
+

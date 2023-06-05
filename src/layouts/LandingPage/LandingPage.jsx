@@ -3,7 +3,6 @@ import { Button, notification, Space } from 'antd';
 import { Link } from "react-router-dom";
 import './LandingPage.css';
 import LandingNavbar from "../../components/Navbars/LandingNavbar.js"
-import Music from '../../assets/music/storm-clouds-purpple-cat.wav';
 import { useEffect,useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -37,17 +36,14 @@ function getRandomCircleStyle() {
   };
 }
 
-// function play(){
-//   console.log("is playing")
-//   new Audio(Music).play()
-// }
 
-function LandingPage() {
+
+function LandingPage(props) {
   const [api, contextHolder] = notification.useNotification();
   const location = useLocation();
 
   useEffect(()=>{
-    // openNotification()
+    openNotification()
   },[])
   useEffect(() => {
     console.log('Location changed', location);
@@ -57,15 +53,13 @@ function LandingPage() {
     const key = `open${Date.now()}`;
     const btn = (
       <Space>
-        <Button type="primary" size="small" onClick={() => api.destroy(key)}>
+        <Button type="primary" size="small" onClick={() => {api.destroy(key); props?.play()}}>
           Confirm
         </Button>
       </Space>
     );
     api.open({
-      message: 'Notification Title',
-      description:
-        'A function will be be called after the notification is closed (automatically after the "duration" time of manually).',
+      message: 'Play Music',
       btn,
       key,
     });}
@@ -77,19 +71,6 @@ function LandingPage() {
        {contextHolder}
       <div className="background">
         <LandingNavbar link1="#contact" link1Name="Demo" link2="/about" link2Name="About" />
-        {/* <div class="mycontainer">
-
-          <div class="topnav">
-          <Link to={"/signin"}>Login</Link>
-          <Link to={"/signup"}>SignUp</Link>
-          </div>
-        </div>
-        <div class="mycontainer2">
-          <div class="topnav">
-            <a href="#contact">Demo</a>
-          <Link to={"/about"}>About</Link>
-          </div>
-        </div> */}
       </div>
       <div className="circle-container">
         {circles.map((style, index) => (
