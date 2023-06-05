@@ -31,7 +31,6 @@ import Material_Upload from "views/Material_Upload";
 import Enrolled from "views/Enrolled_In";
 import AddNDelete from "views/AddNDelete.js";
 import CreditCardForm from "views/CreditCardForm.js";
-import Purchase from "views/Purchase.js";
 
 import Video_Editor from "views/Video_Editor.js";
 
