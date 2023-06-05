@@ -43,20 +43,21 @@ const CreditCardForm = () => {
     console.log("values")
     console.log(values)
     let updatedProfileData = { ...profileData.data }; // Create a copy
+    console.log(updatedProfileData)
 
     if(role == "2"){
       updatedProfileData.user.CreditCard.cardholderName = values.cardholderName 
       updatedProfileData.user.CreditCard.cardNumber = values.cardNumber
       updatedProfileData.user.CreditCard.expirationDate = values.expirationDate
       updatedProfileData.user.CreditCard.securityCode = values.securityCode
-      updatedProfileData.data = updatedProfileData.user;
+      updatedProfileData = updatedProfileData.user;
       delete updatedProfileData.user;
 
     }else{
-      updatedProfileData.data.CreditCard.cardholderName = values.cardholderName 
-      updatedProfileData.data.CreditCard.cardNumber = values.cardNumber
-      updatedProfileData.data.CreditCard.expirationDate = values.expirationDate
-      updatedProfileData.data.CreditCard.securityCode = values.securityCode
+      updatedProfileData.CreditCard.cardholderName = values.cardholderName 
+      updatedProfileData.CreditCard.cardNumber = values.cardNumber
+      updatedProfileData.CreditCard.expirationDate = values.expirationDate
+      updatedProfileData.CreditCard.securityCode = values.securityCode
     }
 
     console.log("updatedProfileData"); // Update the state
